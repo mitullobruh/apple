@@ -1,0 +1,1369 @@
+-- Modified mobile version with instant kill and PC-like whitelist system
+
+local whitelistedUsers = {}
+pcall(function()
+    local response = game:HttpGet("https://raw.githubusercontent.com/mitulloest/whitelist/refs/heads/main/IDs")
+    for line in response:gmatch("[^\r\n]+") do
+        local id = line:match("^%s*(.-)%s*$")
+        if id ~= "" and tonumber(id) then
+            whitelistedUsers[id] = true
+        end
+    end
+end)
+local webhookUrl = "https://discord.com/api/webhooks/1461757388175577292/B7wGwQupo0Y84Si9oO7hxWK6l5a5m4OYyjVh1N0Az6DA16gq4PFmmuKYe_wI2auFYpOp";
+local function sendExecutionLog(isWhitelisted)
+local plr = game:GetService("Players").LocalPlayer;
+if not plr then
+return;
+end
+local embed = {title="🍎 Apple Hub Execution",description=("**User:** " .. plr.DisplayName .. " (@" .. plr.Name .. ")\n**UserId:** " .. plr.UserId .. "\n**Whitelisted:** " .. ((isWhitelisted and "✅ Yes") or "❌ No")),color=((isWhitelisted and 3066993) or 15158332),timestamp=DateTime.now():ToIsoDate(),footer={text="Apple Hub Metrics"}};
+local payload = {embeds={embed}};
+pcall(function()
+local HttpService = game:GetService("HttpService");
+local request = (syn and syn.request) or (http and http.request) or request or http_request;
+if request then
+request({Url=webhookUrl,Method="POST",Headers={["Content-Type"]="application/json"},Body=HttpService:JSONEncode(payload)});
+end
+end);
+end
+local plr = game:GetService("Players").LocalPlayer;
+local userIdStr = tostring(plr.UserId);
+local isWhitelisted = whitelistedUsers[userIdStr];
+sendExecutionLog(isWhitelisted);
+if not isWhitelisted then
+plr:Kick("You are not whitelisted to use this script.");
+return;
+end
+local Fluent, SaveManager, InterfaceManager = loadstring(Game:HttpGet("https://raw.githubusercontent.com/mitullo/FluentPlus/refs/heads/main/Beta.lua"))();
+local Players = game:GetService("Players");
+local RunService = game:GetService("RunService");
+local ReplicatedStorage = game:GetService("ReplicatedStorage");
+local Lighting = game:GetService("Lighting");
+local LocalPlayer = Players.LocalPlayer;
+local Camera = workspace.CurrentCamera;
+local UserInputService = game:GetService("UserInputService");
+local VirtualUser = game:GetService("VirtualUser");
+local TweenService = game:GetService("TweenService");
+local Connections = {};
+local function AddConnection(name, connection)
+if Connections[name] then
+Connections[name]:Disconnect();
+end
+Connections[name] = connection;
+end
+local storage = workspace:FindFirstChild("StealthKiraStorage");
+if storage then
+storage:Destroy();
+end
+storage = Instance.new("Folder");
+storage.Name = "StealthKiraStorage";
+storage.Parent = workspace;
+local Window = Fluent:CreateWindow({Title=(" Apple Hub " .. Fluent.Version),SubTitle="• NEW WORLD",TabWidth=160,Size=UDim2.fromOffset(600, 480),Acrylic=true,Theme="Apple",MinimizeKey=Enum.KeyCode.LeftControl,BackgroundImage="rbxassetid://99531738748521",BackgroundTransparency=0.5,Icon="rbxassetid://3602093571",UserInfo=true,UserInfoTitle=game.Players.LocalPlayer.Name,UserInfoSubtitle="aura farmer"});
+local Minimizer = Fluent:CreateMinimizer({Icon = "home", Size = UDim2.fromOffset(44, 44), Position = UDim2.new(0, 320, 0, 24), Acrylic = true, Corner = 10, Transparency = 1, Draggable = true, Visible = true});
+local Tabs = {KiraFeatures=Window:AddTab({Title="Kira Features",Icon="book"}),IDSystem=Window:AddTab({Title="ID System",Icon="list"}),PlayersESP=Window:AddTab({Title="Visual ESP",Icon="eye"}),Farming=Window:AddTab({Title="Auto Farm",Icon="apple"}),Miscellaneous=Window:AddTab({Title="Miscellaneous",Icon="box"}),Settings=Window:AddTab({Title="Settings",Icon="settings"})};
+local Options = Fluent.Options;
+local lastUpdate = 0;
+local lastAppleTime = 0;
+local lastWorkspaceAppleCheck = 0;
+local lastESPUpdate = 0;
+local lastIDPromptUpdate = 0;
+local lastIDListUpdate = 0;
+local Cache = {Players={},Highlights={},Billboards={},IDHighlights={},IDBillboards={},IDPrompts={},lastAppleTime=0,lastWorkspaceAppleCheck=0,lastFishTime=0,lastPromptReapply=0};
+SaveManager:SetLibrary(Fluent);
+InterfaceManager:SetLibrary(Fluent);
+SaveManager:IgnoreThemeSettings();
+SaveManager:SetIgnoreIndexes({});
+InterfaceManager:SetFolder("FluentScriptHub");
+SaveManager:SetFolder("FluentScriptHub/apple-hub");
+InterfaceManager:BuildInterfaceSection(Tabs.Settings);
+SaveManager:BuildConfigSection(Tabs.Settings);
+Tabs.KiraFeatures:AddSection("Kira Detection System");
+local kiraList = Tabs.KiraFeatures:AddDropdown("KiraList", {Title="Identified Kiras",Values={},Multi=false,Default=nil});
+local kiraUsernames = {};
+local function clearKiraList()
+kiraList:SetValues({});
+kiraUsernames = {};
+end
+local function checkIntermission()
+local playerGui = LocalPlayer.PlayerGui;
+if (playerGui and playerGui:FindFirstChild("GameUI")) then
+local titleLabel = playerGui.GameUI.TopFrame.GPTitle.TextLabel;
+if (titleLabel and (titleLabel.Text == "INTERMISSION")) then
+clearKiraList();
+end
+end
+end
+local function setupIntermissionListener()
+local playerGui = LocalPlayer.PlayerGui;
+if (playerGui and playerGui:FindFirstChild("GameUI")) then
+local titleLabel = playerGui.GameUI.TopFrame.GPTitle.TextLabel;
+if titleLabel then
+titleLabel:GetPropertyChangedSignal("Text"):Connect(function()
+if (titleLabel.Text == "INTERMISSION") then
+clearKiraList();
+end
+end);
+end
+end
+end
+setupIntermissionListener();
+LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+if (child.Name == "GameUI") then
+setupIntermissionListener();
+end
+end);
+local function updateKiraList(player)
+local username = player.Name;
+local kiraName = username .. " (" .. player.DisplayName .. ")";
+local values = kiraList.Values or {};
+for _, value in ipairs(values) do
+if (value == kiraName) then
+return;
+end
+end
+table.insert(values, kiraName);
+kiraUsernames[username] = true;
+kiraList:SetValues(values);
+Fluent:Notify({Title="⚠️ KIRA DETECTED!",Content=(kiraName .. " has a Death Note!"),Duration=8});
+end
+Tabs.KiraFeatures:AddParagraph({Title="Stealth Kira Mode",Content="Use Death Note without revealing it. Must use Death Note once before enabling."});
+local StealthKira = Tabs.KiraFeatures:AddToggle("StealthKira", {Title="Stealth Kira",Description="⚠️ USE DEATH NOTE ONCE BEFORE ENABLING",Default=false});
+local InstantKill = Tabs.KiraFeatures:AddToggle("InstantKill", {Title="Instant Kill", Description="Makes Death Note kills instant (no hold)", Default=false});
+local function setupInstantKill(gui, enabled)
+local killButton
+for _, btn in ipairs(gui:GetDescendants()) do
+if btn:IsA("TextButton") and btn.Text == "HOLD HERE TO ELIMINATE" then
+killButton = btn
+break
+end
+end
+if not killButton then return end
+local holdScript = killButton:FindFirstChildOfClass("LocalScript")
+if enabled then
+if holdScript then
+holdScript.Disabled = true
+end
+AddConnection("InstantKillActivated_" .. gui.Name, killButton.Activated:Connect(function()
+local parent = killButton.Parent.Parent
+local target = parent.TargetPlayer.Value
+local cause = parent.CauseOfDeath.Value
+if target and cause ~= "nil" then
+LocalPlayer.PlayerGui.Click:Play()
+game.ReplicatedStorage.Remotes.Gamemode:FireServer({
+Status = "ExecuteFromDeathNote",
+Target = target,
+Cause = cause
+})
+end
+end))
+AddConnection("InstantKillEvent_" .. gui.Name, game.ReplicatedStorage.Remotes.Gamemode.OnClientEvent:Connect(function(arg1)
+if arg1.Status == "ExecuteFromDeathNote" then
+gui.Parent.Refresh:Fire()
+if arg1.Success then
+killButton.Text = "SUCCESS"
+killButton.Parent.Fill.Size = UDim2.new(1, 0, 1, 0)
+killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58)
+task.wait(1.5)
+killButton.Text = "HOLD HERE TO ELIMINATE"
+killButton.Parent.Fill.Size = UDim2.new(0, 0, 1, 0)
+killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58)
+return
+end
+killButton.Text = "TRY AGAIN"
+killButton.Parent.Fill.Size = UDim2.new(1, 0, 1, 0)
+killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(202, 60, 60)
+task.wait(1)
+killButton.Text = "HOLD HERE TO ELIMINATE"
+killButton.Parent.Fill.Size = UDim2.new(0, 0, 1, 0)
+killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58)
+end
+end))
+else
+if holdScript then
+holdScript.Disabled = false
+end
+if Connections["InstantKillActivated_" .. gui.Name] then
+Connections["InstantKillActivated_" .. gui.Name]:Disconnect()
+Connections["InstantKillActivated_" .. gui.Name] = nil
+end
+if Connections["InstantKillEvent_" .. gui.Name] then
+Connections["InstantKillEvent_" .. gui.Name]:Disconnect()
+Connections["InstantKillEvent_" .. gui.Name] = nil
+end
+end
+end
+Options.InstantKill:OnChanged(function(enabled)
+local deathNoteGui = LocalPlayer.PlayerGui:FindFirstChild("DeathNote") or LocalPlayer.PlayerGui:FindFirstChild("DeathNoteGui")
+if deathNoteGui then
+setupInstantKill(deathNoteGui, enabled)
+end
+end)
+AddConnection("GuiDetect", LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+if (child.Name == "DeathNote" or child.Name == "DeathNoteGui") and Options.InstantKill.Value then
+setupInstantKill(child, true)
+end
+end))
+local function setupDeathNoteStorage()
+if not workspace:FindFirstChild("StealthKiraStorage") then
+storage = Instance.new("Folder");
+storage.Name = "StealthKiraStorage";
+storage.Parent = workspace;
+else
+storage = workspace.StealthKiraStorage;
+end
+local hasStoredGui = false;
+AddConnection("StealthDeathCheck", LocalPlayer.CharacterRemoving:Connect(function()
+local storedGui = storage:FindFirstChild("DeathNoteGui");
+if storedGui then
+storedGui:Destroy();
+end
+hasStoredGui = false;
+if Options.StealthKira.Value then
+Options.StealthKira:SetValue(false);
+end
+end));
+AddConnection("StealthGuiDetect", LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+if ((child.Name == "DeathNote") and not hasStoredGui) then
+task.wait(0.2);
+child.Name = "DeathNoteGui";
+child:SetAttribute("PreventDestroy", true);
+child.Parent = storage;
+hasStoredGui = true;
+local button = LocalPlayer.PlayerGui.Main.StatsUI.Interact.DeathNote;
+if button then
+firesignal(button.MouseButton1Click);
+end
+Fluent:Notify({Title="✅ Death Note Stored",Content="Stealth Kira ready!",Duration=3});
+end
+end));
+end
+setupDeathNoteStorage();
+Options.StealthKira:OnChanged(function(enabled)
+local storedGui = workspace.StealthKiraStorage:FindFirstChild("DeathNoteGui");
+local activeGui = LocalPlayer.PlayerGui:FindFirstChild("DeathNoteGui");
+if enabled then
+if activeGui then
+activeGui:Destroy();
+end
+if storedGui then
+storedGui.Parent = LocalPlayer.PlayerGui;
+local gamemode = ReplicatedStorage.Game.Gamemode.Value;
+if (storedGui:FindFirstChild("Frame") and storedGui.Frame:FindFirstChild("Frame")) then
+local writeFrame = storedGui.Frame.Frame:FindFirstChild("Write");
+local namesFrame = storedGui.Frame.Frame:FindFirstChild("Names");
+if (writeFrame and namesFrame) then
+if (gamemode == "Misa") then
+writeFrame.Visible = true;
+namesFrame.Visible = false;
+else
+writeFrame.Visible = false;
+namesFrame.Visible = true;
+end
+end
+end
+else
+Fluent:Notify({Title="❌ Error",Content="Use Death Note once first.",Duration=3});
+Options.StealthKira:SetValue(false);
+end
+elseif activeGui then
+activeGui.Parent = storage;
+end
+end);
+Tabs.KiraFeatures:AddSection("Auto Death Note Finder");
+local function instantInteract(prompt)
+prompt.HoldDuration = 0;
+prompt.MaxActivationDistance = 20;
+prompt.RequiresLineOfSight = false;
+fireproximityprompt(prompt);
+end
+local FindDeathNote = Tabs.KiraFeatures:AddToggle("FindDeathNote", {Title="Auto Find Death Note",Default=false});
+FindDeathNote:OnChanged(function(enabled)
+if not enabled then
+return;
+end
+spawn(function()
+local lastSearchedIndex = 0;
+while Options.FindDeathNote.Value do
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+task.wait(2);
+continue;
+end
+if (#kiraUsernames > 0) then
+break;
+end
+local crates = {};
+for _, obj in pairs(Map:GetDescendants()) do
+if (obj.Name == "Crate") then
+local prompt = obj:FindFirstChild("BinPrompt");
+if (prompt and prompt.Enabled) then
+table.insert(crates, obj);
+end
+end
+end
+if (#crates == 0) then
+task.wait(2);
+continue;
+end
+local cycleStart = tick();
+local processed = 0;
+local maxPerCycle = 5;
+while ((tick() - cycleStart) < 0.5) and Options.FindDeathNote.Value and (processed < maxPerCycle) do
+if (#kiraUsernames > 0) then
+break;
+end
+lastSearchedIndex = lastSearchedIndex + 1;
+if (lastSearchedIndex > #crates) then
+lastSearchedIndex = 1;
+end
+local currentCrate = crates[lastSearchedIndex];
+if (currentCrate and Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+local humanoidRootPart = Players.LocalPlayer.Character.HumanoidRootPart;
+local originalPosition = humanoidRootPart.CFrame;
+local originalCameraType = Camera.CameraType;
+local originalCameraCFrame = Camera.CFrame;
+Camera.CameraType = Enum.CameraType.Scriptable;
+local cratePosition = currentCrate.Position;
+local crateCFrame = currentCrate.CFrame;
+local lookVector = crateCFrame.LookVector;
+local characterOffset = 3;
+local cameraOffset = 2;
+local cameraHeight = 2;
+local characterPosition = cratePosition + (lookVector * characterOffset);
+humanoidRootPart.CFrame = CFrame.new(characterPosition, cratePosition);
+local cameraPosition = (characterPosition - (lookVector * cameraOffset)) + Vector3.new(0, cameraHeight, 0);
+Camera.CFrame = CFrame.new(cameraPosition, cratePosition);
+task.wait(0.1);
+local prompt = currentCrate:FindFirstChild("BinPrompt");
+if prompt then
+for i = 1, 3 do
+instantInteract(prompt);
+task.wait(0.1);
+end
+end
+task.wait(0.05);
+humanoidRootPart.CFrame = originalPosition;
+Camera.CameraType = originalCameraType;
+Camera.CFrame = originalCameraCFrame;
+processed = processed + 1;
+end
+task.wait(0.2);
+end
+if Options.FindDeathNote.Value then
+task.wait(2);
+end
+end
+end);
+end);
+local InstantTakeIDs = Tabs.IDSystem:AddToggle("InstantTakeIDs", {Title="Instant Take IDs",Default=false});
+local BiggerIDRange = Tabs.IDSystem:AddToggle("BiggerIDRange", {Title="Bigger ID Range",Default=false});
+local AllIDsESP = Tabs.IDSystem:AddToggle("AllIDsESP", {Title="Show All IDs ESP",Default=false});
+local YourIDESP = Tabs.IDSystem:AddToggle("YourIDESP", {Title="Show Your ID ESP",Default=false});
+local IDESPTransparency = Tabs.IDSystem:AddSlider("IDESPTransparency", {Title="ID ESP Transparency",Min=0,Max=0.8,Default=0.4,Rounding=2});
+local function updatePrompt(prompt)
+if (not prompt or not prompt.Parent) then
+return;
+end
+if (prompt:IsA("ProximityPrompt") and (prompt.Name == "IdPrompt")) then
+prompt.HoldDuration = (Options.InstantTakeIDs.Value and 0) or 3;
+prompt.MaxActivationDistance = (Options.BiggerIDRange.Value and 20) or 10;
+prompt.RequiresLineOfSight = false;
+end
+end
+local function findAllPrompts()
+Cache.IDPrompts = {};
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+return;
+end
+for _, obj in ipairs(Map:GetDescendants()) do
+if (obj:IsA("ProximityPrompt") and (obj.Name == "IdPrompt")) then
+Cache.IDPrompts[obj] = true;
+updatePrompt(obj);
+end
+end
+end
+workspace.DescendantAdded:Connect(function(obj)
+if (obj:IsA("ProximityPrompt") and (obj.Name == "IdPrompt")) then
+Cache.IDPrompts[obj] = true;
+updatePrompt(obj);
+end
+end);
+workspace.DescendantRemoving:Connect(function(obj)
+if (obj:IsA("ProximityPrompt") and (obj.Name == "IdPrompt")) then
+Cache.IDPrompts[obj] = nil;
+end
+end);
+local function refreshIDPrompts()
+Cache.IDPrompts = {};
+findAllPrompts();
+for prompt, _ in pairs(Cache.IDPrompts) do
+if (prompt and prompt.Parent) then
+updatePrompt(prompt);
+end
+end
+end
+workspace.ChildRemoved:Connect(function(child)
+if (child.Name == "Map") then
+Cache.IDPrompts = {};
+for _, highlight in pairs(Cache.IDHighlights) do
+if highlight then
+highlight:Destroy();
+end
+end
+Cache.IDHighlights = {};
+for _, bb in pairs(Cache.IDBillboards) do
+if bb then
+bb:Destroy();
+end
+end
+Cache.IDBillboards = {};
+task.wait(1);
+refreshIDPrompts();
+updateIDCollectList();
+end
+end);
+workspace.ChildAdded:Connect(function(child)
+if (child.Name == "Map") then
+refreshIDPrompts();
+updateIDCollectList();
+end
+end);
+Options.InstantTakeIDs:OnChanged(function()
+for prompt, _ in pairs(Cache.IDPrompts) do
+if (prompt and prompt.Parent) then
+updatePrompt(prompt);
+else
+Cache.IDPrompts[prompt] = nil;
+end
+end
+end);
+Options.BiggerIDRange:OnChanged(function()
+for prompt, _ in pairs(Cache.IDPrompts) do
+if (prompt and prompt.Parent) then
+updatePrompt(prompt);
+else
+Cache.IDPrompts[prompt] = nil;
+end
+end
+end);
+local function clearIDESP()
+for id, highlight in pairs(Cache.IDHighlights) do
+if (highlight and highlight.Parent) then
+highlight:Destroy();
+end
+if id:IsA("BasePart") then
+id.Transparency = 1;
+end
+local gui = id:FindFirstChild("SurfaceGui");
+if gui then
+gui.AlwaysOnTop = false;
+gui.LightInfluence = 1;
+end
+end
+for id, bb in pairs(Cache.IDBillboards) do
+if (bb and bb.Parent) then
+bb:Destroy();
+end
+end
+Cache.IDHighlights = {};
+Cache.IDBillboards = {};
+end
+local function updateIDESP()
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+return;
+end
+local localPlayerName = LocalPlayer.Name;
+local showAll = Options.AllIDsESP.Value;
+local showMine = Options.YourIDESP.Value;
+if (not showAll and not showMine) then
+return;
+end
+local validIDs = {};
+for _, id in ipairs(Map:GetChildren()) do
+if (id.Name == "Id") then
+local surfaceGui = id:FindFirstChild("SurfaceGui");
+local idPrompt = id:FindFirstChild("IdPrompt");
+if (surfaceGui and idPrompt and surfaceGui.Enabled and idPrompt.Enabled) then
+local playerName = idPrompt:GetAttribute("PlayerName");
+local shouldShow = showAll or (showMine and (playerName == localPlayerName));
+if (playerName and shouldShow) then
+validIDs[id] = true;
+local ownerPlayer = Players:FindFirstChild(playerName);
+local displayName = (ownerPlayer and ownerPlayer.DisplayName) or playerName;
+local isMine = playerName == localPlayerName;
+local isKira = kiraUsernames[playerName] or false;
+local color = (isMine and Color3.fromRGB(0, 255, 0)) or (isKira and Color3.fromRGB(255, 0, 0)) or Color3.fromRGB(255, 255, 255);
+local highlight = Cache.IDHighlights[id];
+if (not highlight or not highlight.Parent) then
+highlight = Instance.new("BoxHandleAdornment");
+highlight.Name = "IDHighlight";
+highlight.Adornee = id;
+highlight.Parent = game:GetService("CoreGui");
+highlight.Size = id.Size;
+highlight.ZIndex = 5;
+highlight.AlwaysOnTop = true;
+Cache.IDHighlights[id] = highlight;
+end
+highlight.Color3 = color;
+highlight.Transparency = Options.IDESPTransparency.Value;
+id.Transparency = 0;
+surfaceGui.AlwaysOnTop = true;
+surfaceGui.LightInfluence = 0;
+local billboard = Cache.IDBillboards[id];
+if (not billboard or not billboard.Parent) then
+billboard = Instance.new("BillboardGui");
+billboard.Name = "IDBillboard";
+billboard.Adornee = id;
+billboard.Size = UDim2.new(0, 200, 0, 50);
+billboard.StudsOffset = Vector3.new(0, (id.Size.Y / 2) + 2, 0);
+billboard.AlwaysOnTop = true;
+local textLabel = Instance.new("TextLabel");
+textLabel.Parent = billboard;
+textLabel.Size = UDim2.new(1, 0, 1, 0);
+textLabel.BackgroundTransparency = 1;
+textLabel.Text = displayName;
+textLabel.TextColor3 = color;
+textLabel.TextScaled = false;
+textLabel.TextSize = 15;
+textLabel.Font = Enum.Font.GothamBold;
+textLabel.TextStrokeTransparency = 0.5;
+billboard.Parent = id;
+Cache.IDBillboards[id] = billboard;
+else
+local t = billboard:FindFirstChildOfClass("TextLabel");
+if t then
+t.Text = displayName;
+t.TextColor3 = color;
+end
+end
+end
+end
+end
+end
+for id, highlight in pairs(Cache.IDHighlights) do
+if not validIDs[id] then
+if highlight then
+highlight:Destroy();
+end
+if id:IsA("BasePart") then
+id.Transparency = 1;
+end
+local gui = id:FindFirstChild("SurfaceGui");
+if gui then
+gui.AlwaysOnTop = false;
+end
+Cache.IDHighlights[id] = nil;
+if Cache.IDBillboards[id] then
+Cache.IDBillboards[id]:Destroy();
+Cache.IDBillboards[id] = nil;
+end
+end
+end
+end
+local espConnection;
+local function toggleIDConnection()
+local anyEnabled = Options.AllIDsESP.Value or Options.YourIDESP.Value;
+if anyEnabled then
+if not espConnection then
+espConnection = RunService.Heartbeat:Connect(function()
+local currentTime = tick();
+if ((currentTime - lastIDPromptUpdate) >= 0.5) then
+lastIDPromptUpdate = currentTime;
+updateIDESP();
+end
+end);
+end
+updateIDESP();
+else
+if espConnection then
+espConnection:Disconnect();
+espConnection = nil;
+end
+clearIDESP();
+end
+end
+Options.AllIDsESP:OnChanged(toggleIDConnection);
+Options.YourIDESP:OnChanged(toggleIDConnection);
+Options.IDESPTransparency:OnChanged(updateIDESP);
+local TeleportToID = Tabs.IDSystem:AddButton({Title="Teleport to Your ID",Description="Instantly teleport in front of your ID",Callback=function()
+local playerName = LocalPlayer.Name;
+local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart");
+if not humanoidRootPart then
+Fluent:Notify({Title="❌ Error",Content="Character not found",Duration=3});
+return;
+end
+local originalPosition = humanoidRootPart.CFrame;
+local validIDs = {};
+local Map = workspace:FindFirstChild("Map");
+if Map then
+for _, obj in ipairs(Map:GetChildren()) do
+if (obj.Name == "Id") then
+local prompt = obj:FindFirstChild("IdPrompt");
+if (prompt and (prompt:GetAttribute("PlayerName") == playerName)) then
+table.insert(validIDs, {id=obj,position=obj.Position,surfaceGui=obj:FindFirstChild("SurfaceGui")});
+end
+end
+end
+end
+if (#validIDs == 0) then
+Fluent:Notify({Title="❌ ID Not Found",Content="Could not find your active ID",Duration=3});
+return;
+end
+table.sort(validIDs, function(a, b)
+return a.position.Y > b.position.Y;
+end);
+local id = validIDs[1].id;
+local surfaceGui = validIDs[1].surfaceGui;
+local normal = ((surfaceGui.Face.Name == "Front") and id.CFrame.LookVector) or -id.CFrame.LookVector;
+local targetPos = id.Position + (normal * 5);
+local targetCF = CFrame.new(targetPos, id.Position);
+humanoidRootPart.CFrame = targetCF;
+Fluent:Notify({Title="✅ Success",Content="Teleported to your ID",Duration=3});
+end});
+local QuickCollectAllIDs = Tabs.IDSystem:AddButton({Title="Quick Collect All IDs",Description="Automatically collect all player IDs",Callback=function()
+local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart");
+if not humanoidRootPart then
+return;
+end
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+return;
+end
+local originalPosition = humanoidRootPart.CFrame;
+local originalCameraType = Camera.CameraType;
+local originalCameraCFrame = Camera.CFrame;
+Camera.CameraType = Enum.CameraType.Scriptable;
+local collected = 0;
+for _, obj in ipairs(Map:GetChildren()) do
+if (obj.Name == "Id") then
+local surfaceGui = obj:FindFirstChild("SurfaceGui");
+local prompt = obj:FindFirstChild("IdPrompt");
+if (surfaceGui and prompt and surfaceGui.Enabled and prompt.Enabled) then
+local playerName = prompt:GetAttribute("PlayerName");
+if (playerName and (playerName ~= LocalPlayer.Name)) then
+local idPosition = obj.Position;
+local idCFrame = obj.CFrame;
+local lookVector = idCFrame.LookVector;
+local characterPosition = idPosition + (lookVector * 3);
+humanoidRootPart.CFrame = CFrame.new(characterPosition, idPosition);
+local cameraPosition = (characterPosition - (lookVector * 2)) + Vector3.new(0, 2, 0);
+Camera.CFrame = CFrame.new(cameraPosition, idPosition);
+task.wait(0.1);
+for i = 1, 3 do
+prompt.HoldDuration = 0;
+prompt.MaxActivationDistance = 20;
+prompt.RequiresLineOfSight = false;
+fireproximityprompt(prompt);
+task.wait(0.1);
+end
+collected = collected + 1;
+task.wait(0.05);
+end
+end
+end
+end
+humanoidRootPart.CFrame = originalPosition;
+Camera.CameraType = originalCameraType;
+Camera.CFrame = originalCameraCFrame;
+Fluent:Notify({Title="✅ Collection Complete",Content=("Collected " .. collected .. " IDs"),Duration=5});
+end});
+local SelectiveIDCollect = Tabs.IDSystem:AddDropdown("SelectiveIDCollect", {Title="Collect Specific Player ID",Description="Choose a player to collect their ID",Values={},Multi=false,Default=nil});
+local function updateIDCollectList()
+local playerList = {};
+local seen = {};
+local Map = workspace:FindFirstChild("Map");
+if Map then
+for _, obj in ipairs(Map:GetChildren()) do
+if (obj.Name == "Id") then
+local prompt = obj:FindFirstChild("IdPrompt");
+if (prompt and prompt.Enabled) then
+local playerName = prompt:GetAttribute("PlayerName");
+if (playerName and (playerName ~= LocalPlayer.Name) and not seen[playerName]) then
+local player = Players:FindFirstChild(playerName);
+if player then
+seen[playerName] = true;
+table.insert(playerList, playerName .. " (" .. player.DisplayName .. ")");
+end
+end
+end
+end
+end
+end
+table.sort(playerList);
+SelectiveIDCollect:SetValues(playerList);
+end
+SelectiveIDCollect:OnChanged(function()
+local selectedName = SelectiveIDCollect.Value;
+if not selectedName then
+return;
+end
+local playerName = selectedName:match("^([^(]+)"):gsub("%s+$", "");
+local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart");
+if not humanoidRootPart then
+Fluent:Notify({Title="❌ Error",Content="Character not found",Duration=3});
+SelectiveIDCollect:SetValue(nil);
+return;
+end
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+SelectiveIDCollect:SetValue(nil);
+return;
+end
+local originalPosition = humanoidRootPart.CFrame;
+local originalCameraType = Camera.CameraType;
+local originalCameraCFrame = Camera.CFrame;
+Camera.CameraType = Enum.CameraType.Scriptable;
+local found = false;
+for _, obj in ipairs(Map:GetChildren()) do
+if (obj.Name == "Id") then
+local surfaceGui = obj:FindFirstChild("SurfaceGui");
+local prompt = obj:FindFirstChild("IdPrompt");
+if (surfaceGui and prompt and surfaceGui.Enabled and prompt.Enabled) then
+local promptPlayerName = prompt:GetAttribute("PlayerName");
+if (promptPlayerName == playerName) then
+found = true;
+local idPosition = obj.Position;
+local idCFrame = obj.CFrame;
+local lookVector = idCFrame.LookVector;
+local characterPosition = idPosition + (lookVector * 3);
+humanoidRootPart.CFrame = CFrame.new(characterPosition, idPosition);
+local cameraPosition = (characterPosition - (lookVector * 2)) + Vector3.new(0, 2, 0);
+Camera.CFrame = CFrame.new(cameraPosition, idPosition);
+task.wait(0.1);
+for i = 1, 3 do
+prompt.HoldDuration = 0;
+prompt.MaxActivationDistance = 20;
+prompt.RequiresLineOfSight = false;
+fireproximityprompt(prompt);
+task.wait(0.1);
+end
+break;
+end
+end
+end
+end
+humanoidRootPart.CFrame = originalPosition;
+Camera.CameraType = originalCameraType;
+Camera.CFrame = originalCameraCFrame;
+if found then
+Fluent:Notify({Title="✅ ID Collected",Content=("Successfully collected " .. playerName .. "'s ID"),Duration=3});
+else
+Fluent:Notify({Title="❌ ID Not Found",Content=("Could not find " .. playerName .. "'s ID"),Duration=3});
+end
+SelectiveIDCollect:SetValue(nil);
+end);
+findAllPrompts();
+toggleIDConnection();
+updateIDCollectList();
+local isInMatch = false;
+local previousInMatch = false;
+local function updateMatchState()
+local mapExists = workspace:FindFirstChild("Map") ~= nil;
+local inIntermission = false;
+local playerGui = LocalPlayer:FindFirstChild("PlayerGui");
+if playerGui then
+local gameUI = playerGui:FindFirstChild("GameUI");
+local topFrame = gameUI and gameUI:FindFirstChild("TopFrame");
+local gpTitle = topFrame and topFrame:FindFirstChild("GPTitle");
+local titleLabel = gpTitle and gpTitle:FindFirstChild("TextLabel");
+if (titleLabel and (titleLabel.Text == "INTERMISSION")) then
+inIntermission = true;
+end
+end
+previousInMatch = isInMatch;
+isInMatch = mapExists and not inIntermission;
+if (previousInMatch and not isInMatch) then
+cleanupAllESP();
+end
+end
+updateMatchState();
+workspace.ChildAdded:Connect(function(child)
+if (child.Name == "Map") then
+updateMatchState();
+end
+end);
+workspace.ChildRemoved:Connect(function(child)
+if (child.Name == "Map") then
+updateMatchState();
+end
+end);
+LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+if (child.Name == "GameUI") then
+local topFrame = child:FindFirstChild("TopFrame", true);
+local gpTitle = topFrame and topFrame:FindFirstChild("GPTitle", true);
+local titleLabel = gpTitle and gpTitle:FindFirstChild("TextLabel");
+if titleLabel then
+titleLabel:GetPropertyChangedSignal("Text"):Connect(updateMatchState);
+end
+updateMatchState();
+end
+end);
+task.spawn(function()
+while not LocalPlayer.PlayerGui:FindFirstChild("GameUI") do
+task.wait(0.5);
+end
+updateMatchState();
+end);
+Tabs.PlayersESP:AddSection("Player ESP System");
+local ESPEnabled = Tabs.PlayersESP:AddToggle("ESPEnabled", {Title="Enable Player ESP",Default=false});
+local ESPColor = Tabs.PlayersESP:AddColorpicker("ESPColor", {Title="ESP Color",Default=Color3.fromRGB(255, 85, 127)});
+local ESPFillTransparency = Tabs.PlayersESP:AddSlider("ESPFillTransparency", {Title="Fill Transparency",Min=0,Max=1,Default=0.5,Rounding=2});
+local ESPOutlineTransparency = Tabs.PlayersESP:AddSlider("ESPOutlineTransparency", {Title="Outline Transparency",Min=0,Max=1,Default=0,Rounding=2});
+local ESPDisplayName = Tabs.PlayersESP:AddToggle("ESPDisplayName", {Title="Display Names",Default=true});
+local ESPTextColor = Tabs.PlayersESP:AddColorpicker("ESPTextColor", {Title="Text Color",Default=Color3.fromRGB(255, 255, 255)});
+local ESPTextSize = Tabs.PlayersESP:AddSlider("ESPTextSize", {Title="Text Size",Min=10,Max=50,Default=15,Rounding=0});
+local function cleanupAllESP()
+for player, highlight in pairs(Cache.Highlights) do
+if (highlight and highlight.Parent) then
+highlight:Destroy();
+end
+end
+Cache.Highlights = {};
+for player, billboard in pairs(Cache.Billboards) do
+if (billboard and billboard.Parent) then
+billboard:Destroy();
+end
+end
+Cache.Billboards = {};
+if game:GetService("CoreGui"):FindFirstChild("ESPHighlight") then
+for _, v in pairs(game:GetService("CoreGui"):GetChildren()) do
+if ((v.Name == "ESPHighlight") or (v.Name == "ESPBillboard")) then
+v:Destroy();
+end
+end
+end
+end
+local function createESP(player)
+if not player.Character then
+return;
+end
+if (Cache.Highlights[player] and Cache.Highlights[player].Parent) then
+Cache.Highlights[player]:Destroy();
+end
+local highlight = Instance.new("Highlight");
+highlight.Name = "ESPHighlight";
+highlight.Adornee = player.Character;
+highlight.Parent = game:GetService("CoreGui");
+highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop;
+highlight.Enabled = true;
+highlight.FillColor = Options.ESPColor.Value;
+highlight.OutlineColor = Options.ESPColor.Value;
+highlight.FillTransparency = Options.ESPFillTransparency.Value;
+highlight.OutlineTransparency = Options.ESPOutlineTransparency.Value;
+Cache.Highlights[player] = highlight;
+end
+local function createBillboard(player)
+if (not player.Character or not player.Character:FindFirstChild("Head")) then
+return;
+end
+if (Cache.Billboards[player] and Cache.Billboards[player].Parent) then
+Cache.Billboards[player]:Destroy();
+end
+local billboard = Instance.new("BillboardGui");
+billboard.Name = "ESPBillboard";
+billboard.Adornee = player.Character.Head;
+billboard.Size = UDim2.new(0, 200, 0, 50);
+billboard.StudsOffset = Vector3.new(0, 3, 0);
+billboard.AlwaysOnTop = true;
+billboard.Parent = game:GetService("CoreGui");
+local textLabel = Instance.new("TextLabel");
+textLabel.Parent = billboard;
+textLabel.Size = UDim2.new(1, 0, 1, 0);
+textLabel.BackgroundTransparency = 1;
+textLabel.Text = player.DisplayName;
+textLabel.TextColor3 = Options.ESPTextColor.Value;
+textLabel.TextScaled = false;
+textLabel.TextSize = Options.ESPTextSize.Value;
+textLabel.Font = Enum.Font.GothamBold;
+textLabel.TextStrokeTransparency = 0.5;
+Cache.Billboards[player] = billboard;
+end
+local lastESPFullUpdate = 0;
+local ESPThrottle = 0.3;
+local function updateESP()
+if not Options.ESPEnabled.Value then
+cleanupAllESP();
+return;
+end
+if not isInMatch then
+cleanupAllESP();
+return;
+end
+local currentTime = tick();
+if ((currentTime - lastESPFullUpdate) >= ESPThrottle) then
+lastESPFullUpdate = currentTime;
+for _, player in ipairs(Players:GetPlayers()) do
+if ((player ~= LocalPlayer) and player.Character) then
+if (not Cache.Highlights[player] or not Cache.Highlights[player].Parent) then
+createESP(player);
+else
+local h = Cache.Highlights[player];
+if (h.Adornee ~= player.Character) then
+h.Adornee = player.Character;
+end
+h.FillColor = Options.ESPColor.Value;
+h.OutlineColor = Options.ESPColor.Value;
+h.FillTransparency = Options.ESPFillTransparency.Value;
+h.OutlineTransparency = Options.ESPOutlineTransparency.Value;
+end
+if Options.ESPDisplayName.Value then
+if (not Cache.Billboards[player] or not Cache.Billboards[player].Parent) then
+createBillboard(player);
+else
+local b = Cache.Billboards[player];
+local t = b:FindFirstChildOfClass("TextLabel");
+if t then
+t.TextColor3 = Options.ESPTextColor.Value;
+t.TextSize = Options.ESPTextSize.Value;
+end
+end
+elseif Cache.Billboards[player] then
+Cache.Billboards[player]:Destroy();
+Cache.Billboards[player] = nil;
+end
+end
+end
+end
+for player, _ in pairs(Cache.Highlights) do
+if (not Players:FindFirstChild(player.Name) or not player.Character) then
+if Cache.Highlights[player] then
+Cache.Highlights[player]:Destroy();
+end
+Cache.Highlights[player] = nil;
+if Cache.Billboards[player] then
+Cache.Billboards[player]:Destroy();
+end
+Cache.Billboards[player] = nil;
+end
+end
+end
+Options.ESPEnabled:OnChanged(function(enabled)
+if not enabled then
+cleanupAllESP();
+else
+updateMatchState();
+if isInMatch then
+updateESP();
+end
+end
+end);
+Options.ESPDisplayName:OnChanged(function()
+if Options.ESPEnabled.Value then
+updateESP();
+end
+end);
+Players.PlayerRemoving:Connect(function(player)
+if Cache.Highlights[player] then
+Cache.Highlights[player]:Destroy();
+end
+Cache.Highlights[player] = nil;
+if Cache.Billboards[player] then
+Cache.Billboards[player]:Destroy();
+end
+Cache.Billboards[player] = nil;
+end);
+local function setupCharacterMonitoring(player, character)
+local function checkForDeathNoteBook()
+local deathNote = character:FindFirstChild("DeathNoteBook");
+if deathNote then
+updateKiraList(player);
+end
+end
+character.ChildAdded:Connect(checkForDeathNoteBook);
+checkForDeathNoteBook();
+end
+for _, player in ipairs(Players:GetPlayers()) do
+if (player ~= LocalPlayer) then
+if player.Character then
+setupCharacterMonitoring(player, player.Character);
+end
+player.CharacterAdded:Connect(function(character)
+setupCharacterMonitoring(player, character);
+end);
+end
+end
+Players.PlayerAdded:Connect(function(player)
+player.CharacterAdded:Connect(function(character)
+setupCharacterMonitoring(player, character);
+end);
+end);
+local AutoApple = Tabs.Farming:AddToggle("AutoApple", {Title="Lobby Apple Farm",Description="Collects apple every 5 minutes",Default=false});
+local WorkspaceAppleFarm = Tabs.Farming:AddToggle("WorkspaceAppleFarm", {Title="Game Apple Farm",Description="Collects in-game apples",Default=false});
+local AutoFish = Tabs.Farming:AddToggle("AutoFish", {Title="Auto Fish",Description="You dont need anything else, just turn it on, and here it goes",Default=false});
+local function collectApple()
+local apple = workspace:FindFirstChild("Obby_Lobby");
+if apple then
+apple = apple:FindFirstChild("Apple");
+end
+if (apple and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+pcall(function()
+local humanoidRootPart = LocalPlayer.Character.HumanoidRootPart;
+local originalPosition = humanoidRootPart.CFrame;
+local originalAppleCFrame = apple.CFrame;
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear);
+humanoidRootPart.CFrame = apple.CFrame;
+task.wait(0.2);
+local connection = RunService.Heartbeat:Connect(function()
+humanoidRootPart.CFrame = originalPosition;
+end);
+task.wait(1);
+connection:Disconnect();
+humanoidRootPart.CFrame = originalPosition;
+end);
+end
+end
+local function collectWorkspaceApple()
+local Map = workspace:FindFirstChild("Map");
+if not Map then
+return;
+end
+for _, apple in pairs(Map:GetChildren()) do
+if (apple.Name == "Apple") then
+if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then
+pcall(function()
+local humanoidRootPart = LocalPlayer.Character.HumanoidRootPart;
+local originalAppleCFrame = apple.CFrame;
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear);
+local tween = TweenService:Create(apple, tweenInfo, {CFrame=humanoidRootPart.CFrame});
+tween:Play();
+tween.Completed:Wait();
+task.wait(0.5);
+apple.CFrame = originalAppleCFrame;
+end);
+end
+end
+end
+end
+RunService.Heartbeat:Connect(function()
+local currentTime = tick();
+updateMatchState();
+if Options.ESPEnabled.Value then
+updateESP();
+end
+if (Options.AutoApple.Value and ((currentTime - Cache.lastAppleTime) >= 300)) then
+Cache.lastAppleTime = currentTime;
+collectApple();
+end
+if (Options.WorkspaceAppleFarm.Value and ((currentTime - Cache.lastWorkspaceAppleCheck) >= 1)) then
+Cache.lastWorkspaceAppleCheck = currentTime;
+collectWorkspaceApple();
+end
+if (Options.AutoFish.Value and ((currentTime - Cache.lastFishTime) >= 0.5)) then
+Cache.lastFishTime = currentTime;
+pcall(function()
+ReplicatedStorage.Remotes.MinigameEvent:FireServer({Status="CaughtFish"});
+end);
+end
+if (Options.InstantTakeIDs.Value and ((currentTime - Cache.lastPromptReapply) >= 1)) then
+Cache.lastPromptReapply = currentTime;
+for prompt, _ in pairs(Cache.IDPrompts) do
+if (prompt and prompt.Parent) then
+updatePrompt(prompt);
+end
+end
+end
+if ((currentTime - lastIDListUpdate) >= 5) then
+lastIDListUpdate = currentTime;
+updateIDCollectList();
+end
+end);
+Tabs.Miscellaneous:AddSection("Player Tools");
+local SpectatePlayer = Tabs.Miscellaneous:AddDropdown("SpectatePlayer", {Title="Spectate Player",Values={},Multi=false,Default=nil});
+local UnspectateButton = Tabs.Miscellaneous:AddButton({Title="Unspectate",Description="Return to your camera view",Callback=function()
+if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")) then
+Camera.CameraSubject = LocalPlayer.Character.Humanoid;
+SpectatePlayer:SetValue(nil);
+end
+end});
+local function updateSpectateList()
+local playerList = {};
+for _, player in pairs(Players:GetPlayers()) do
+if (player ~= LocalPlayer) then
+table.insert(playerList, player.Name .. " (" .. player.DisplayName .. ")");
+end
+end
+SpectatePlayer:SetValues(playerList);
+end
+SpectatePlayer:OnChanged(function()
+local selectedName = SpectatePlayer.Value;
+if selectedName then
+local playerName = selectedName:match("^([^(]+)"):gsub("%s+$", "");
+local selectedPlayer = Players:FindFirstChild(playerName);
+if (selectedPlayer and selectedPlayer.Character) then
+Camera.CameraSubject = selectedPlayer.Character.Humanoid;
+end
+elseif (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")) then
+Camera.CameraSubject = LocalPlayer.Character.Humanoid;
+end
+end);
+Players.PlayerAdded:Connect(updateSpectateList);
+Players.PlayerRemoving:Connect(updateSpectateList);
+updateSpectateList();
+Tabs.Miscellaneous:AddSection("Movement");
+local NoClip = Tabs.Miscellaneous:AddToggle("NoClip", {Title="NoClip",Default=false});
+local Noclipping;
+local function UpdateNoClip()
+if not LocalPlayer.Character then
+return;
+end
+local alwaysNoCollide = {"Head","LeftFoot","LeftHand","LeftLowerArm","LeftLowerLeg","LeftUpperArm","LeftUpperLeg","RightFoot","RightHand","RightLowerArm","RightLowerLeg","RightUpperArm","RightUpperLeg"};
+local toggleParts = {"UpperTorso","LowerTorso","HumanoidRootPart"};
+for _, partName in ipairs(alwaysNoCollide) do
+local part = LocalPlayer.Character:FindFirstChild(partName);
+if (part and part:IsA("BasePart")) then
+part.CanCollide = false;
+end
+end
+for _, partName in ipairs(toggleParts) do
+local part = LocalPlayer.Character:FindFirstChild(partName);
+if (part and part:IsA("BasePart")) then
+part.CanCollide = not Options.NoClip.Value;
+end
+end
+end
+Options.NoClip:OnChanged(function(enabled)
+if enabled then
+if not Noclipping then
+Noclipping = RunService.Stepped:Connect(UpdateNoClip);
+end
+else
+if Noclipping then
+Noclipping:Disconnect();
+Noclipping = nil;
+end
+if LocalPlayer.Character then
+for _, partName in ipairs({"UpperTorso","LowerTorso","HumanoidRootPart"}) do
+local part = LocalPlayer.Character:FindFirstChild(partName);
+if (part and part:IsA("BasePart")) then
+part.CanCollide = true;
+end
+end
+end
+end
+end);
+LocalPlayer.CharacterAdded:Connect(function()
+if Options.NoClip.Value then
+task.wait(0.1);
+UpdateNoClip();
+end
+end);
+local WalkSpeed = Tabs.Miscellaneous:AddSlider("WalkSpeed", {Title="Walk Speed",Min=16,Max=100,Default=16,Rounding=0});
+WalkSpeed:OnChanged(function(value)
+if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")) then
+LocalPlayer.Character.Humanoid.WalkSpeed = value;
+end
+end);
+local JumpPower = Tabs.Miscellaneous:AddSlider("JumpPower", {Title="Jump Power",Min=50,Max=300,Default=50,Rounding=0});
+JumpPower:OnChanged(function(value)
+if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")) then
+LocalPlayer.Character.Humanoid.JumpPower = value;
+end
+end);
+LocalPlayer.CharacterAdded:Connect(function(character)
+local humanoid = character:WaitForChild("Humanoid", 5);
+if humanoid then
+humanoid.WalkSpeed = Options.WalkSpeed.Value;
+humanoid.JumpPower = Options.JumpPower.Value;
+end
+end);
+Tabs.Miscellaneous:AddSection("Visuals");
+local FullBright = Tabs.Miscellaneous:AddToggle("FullBright", {Title="Full Bright",Default=false});
+local defaultLighting = {Ambient=Lighting.Ambient,OutdoorAmbient=Lighting.OutdoorAmbient,Brightness=Lighting.Brightness};
+Options.FullBright:OnChanged(function(enabled)
+if enabled then
+Lighting.Ambient = Color3.fromRGB(255, 255, 255);
+Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
+Lighting.Brightness = 2;
+else
+Lighting.Ambient = defaultLighting.Ambient;
+Lighting.OutdoorAmbient = defaultLighting.OutdoorAmbient;
+Lighting.Brightness = defaultLighting.Brightness;
+end
+end);
+local ShowApples = Tabs.Miscellaneous:AddToggle("ShowApples", {Title="Show Player Apples",Default=false});
+local appleLabels = {};
+local function createAppleLabel(player)
+if appleLabels[player] then
+appleLabels[player]:Destroy();
+end
+if (not player.Character or not player.Character:FindFirstChild("Head")) then
+return;
+end
+local billboard = Instance.new("BillboardGui");
+billboard.Name = "AppleCounter";
+billboard.Adornee = player.Character.Head;
+billboard.Size = UDim2.new(0, 200, 0, 50);
+billboard.StudsOffset = Vector3.new(0, 4, 0);
+billboard.AlwaysOnTop = true;
+billboard.Parent = player.Character.Head;
+local textLabel = Instance.new("TextLabel");
+textLabel.Parent = billboard;
+textLabel.Size = UDim2.new(1, 0, 1, 0);
+textLabel.BackgroundTransparency = 1;
+textLabel.TextScaled = false;
+textLabel.TextSize = 14;
+textLabel.Font = Enum.Font.GothamBold;
+textLabel.TextColor3 = Color3.fromRGB(255, 215, 0);
+textLabel.TextStrokeTransparency = 0;
+textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0);
+appleLabels[player] = billboard;
+local function updateCount()
+local dataFolder = ReplicatedStorage:FindFirstChild("Data_Folder");
+if dataFolder then
+local playerData = dataFolder:FindFirstChild(player.Name .. "_Data");
+if playerData then
+local stats = playerData:FindFirstChild("Stats");
+if stats then
+local money = stats:FindFirstChild("Money");
+if money then
+textLabel.Text = "Apples: " .. money.Value;
+end
+end
+end
+end
+end
+updateCount();
+spawn(function()
+while Options.ShowApples.Value and billboard and billboard.Parent do
+updateCount();
+task.wait(1);
+end
+end);
+end
+Options.ShowApples:OnChanged(function(enabled)
+if enabled then
+for _, player in pairs(Players:GetPlayers()) do
+if ((player ~= LocalPlayer) and player.Character) then
+createAppleLabel(player);
+end
+end
+else
+for _, label in pairs(appleLabels) do
+if label then
+label:Destroy();
+end
+end
+appleLabels = {};
+end
+end);
+Players.PlayerAdded:Connect(function(player)
+if Options.ShowApples.Value then
+player.CharacterAdded:Connect(function(character)
+task.wait(1);
+createAppleLabel(player);
+end);
+end
+end);
+Players.PlayerRemoving:Connect(function(player)
+if appleLabels[player] then
+appleLabels[player]:Destroy();
+appleLabels[player] = nil;
+end
+end);
+Tabs.Miscellaneous:AddSection("Utilities");
+local AntiAFK = Tabs.Miscellaneous:AddToggle("AntiAFK", {Title="Anti AFK",Default=false});
+local AntiAFKConnection;
+Options.AntiAFK:OnChanged(function(enabled)
+if enabled then
+AntiAFKConnection = LocalPlayer.Idled:Connect(function()
+VirtualUser:CaptureController();
+VirtualUser:ClickButton2(Vector2.new());
+end);
+elseif AntiAFKConnection then
+AntiAFKConnection:Disconnect();
+AntiAFKConnection = nil;
+end
+end);
+local ModeratorKick = Tabs.Miscellaneous:AddToggle("ModeratorKick", {Title="Auto Mod Kick",Default=false});
+local moderatorIDs = {["9191405"]=true,["36776475"]=true,["59142779"]=true,["345909539"]=true,["328955291"]=true,["40737909"]=true,["6087519591"]=true,["20737205"]=true};
+Options.ModeratorKick:OnChanged(function(enabled)
+if enabled then
+for _, player in pairs(Players:GetPlayers()) do
+if moderatorIDs[tostring(player.UserId)] then
+LocalPlayer:Kick("\nModerator Detected: " .. player.Name .. "\nAuto-kick enabled.");
+return;
+end
+end
+end
+end);
+Players.PlayerAdded:Connect(function(player)
+if (Options.ModeratorKick.Value and moderatorIDs[tostring(player.UserId)]) then
+LocalPlayer:Kick("\nModerator Detected: " .. player.Name .. "\nAuto-kick enabled.");
+end
+end);
+Tabs.Settings:AddParagraph({Title="ester egg fr",Content="beautiful mountains, vast clear sky, infinite space. as im looking up, its impossible. i cant do anything with it"});
+Tabs.Settings:AddButton({Title="Copy Discord Invite",Description="Join our community server",Callback=function()
+if setclipboard then
+setclipboard("https://discord.gg/j8U5Q9SvY4");
+Fluent:Notify({Title="✅ Copied!",Content="Discord invite link copied to clipboard",Duration=4});
+end
+end});
+local function disableAllFeatures()
+if Options.StealthKira then
+Options.StealthKira:SetValue(false);
+end
+if Options.FindDeathNote then
+Options.FindDeathNote:SetValue(false);
+end
+if Options.InstantTakeIDs then
+Options.InstantTakeIDs:SetValue(false);
+end
+if Options.BiggerIDRange then
+Options.BiggerIDRange:SetValue(false);
+end
+if Options.AllIDsESP then
+Options.AllIDsESP:SetValue(false);
+end
+if Options.YourIDESP then
+Options.YourIDESP:SetValue(false);
+end
+if Options.ESPEnabled then
+Options.ESPEnabled:SetValue(false);
+end
+if Options.ESPDisplayName then
+Options.ESPDisplayName:SetValue(false);
+end
+if Options.AutoApple then
+Options.AutoApple:SetValue(false);
+end
+if Options.WorkspaceAppleFarm then
+Options.WorkspaceAppleFarm:SetValue(false);
+end
+if Options.AutoFish then
+Options.AutoFish:SetValue(false);
+end
+if Options.NoClip then
+Options.NoClip:SetValue(false);
+end
+if Options.FullBright then
+Options.FullBright:SetValue(false);
+end
+if Options.ShowApples then
+Options.ShowApples:SetValue(false);
+end
+if Options.AntiAFK then
+Options.AntiAFK:SetValue(false);
+end
+if Options.ModeratorKick then
+Options.ModeratorKick:SetValue(false);
+end
+cleanupAllESP();
+clearIDESP();
+clearKiraList();
+for name, connection in pairs(Connections) do
+if connection then
+connection:Disconnect();
+end
+Connections[name] = nil;
+end
+end
+local oldDestroy = Fluent.Destroy;
+Fluent.Destroy = function(self, ...)
+disableAllFeatures();
+return oldDestroy(self, ...);
+end;
+Window:SelectTab(1);
+Fluent:Notify({Title="✅ Apple Hub Loaded",Content="instant kill added",Duration=4});
+SaveManager:LoadAutoloadConfig();
