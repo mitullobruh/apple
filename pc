@@ -1,1 +1,1474 @@
-local v0={};pcall(function() local v115=347 -(342 + 5) ;local v116;while true do if (v115==0) then v116=game:HttpGet("https://raw.githubusercontent.com/mitullobruh/apple/refs/heads/main/IDs");for v449 in v116:gmatch("[^\r\n]+") do local v450=0;local v451;while true do if (v450==(0 -0)) then v451=v449:match("^%s*(.-)%s*$");if ((v451~="") and tonumber(v451)) then v0[v451]=true;end break;end end end break;end end end);local v1="https://discord.com/api/webhooks/1461417911926390909/rbrmPhqYq5tNWsZLDBA3ypRPpCKk8KJgIbGIvbR3_4-ORDd37khNmJYgMJVozOcIpuJ1";local function v2(v117) local v118=game:GetService("Players").LocalPlayer;if  not v118 then return;end local v119={title="🍎 Apple Hub Execution",description="**User:** "   .. v118.DisplayName   .. " (@"   .. v118.Name   .. ")\n**UserId:** "   .. v118.UserId   .. "\n**Whitelisted:** "   .. ((v117 and "✅ Yes") or "❌ No") ,color=(v117 and 3066993) or (13790571 + 1367761) ,timestamp=DateTime.now():ToIsoDate(),footer={text="Apple Hub Metrics"}};local v120={embeds={v119}};pcall(function() local v307=0 + 0 ;local v308;local v309;while true do if (v307==(0 -0)) then v308=game:GetService("HttpService");v309=(syn and syn.request) or (http and http.request) or v309 or http_request ;v307=1;end if (v307==(1 + 0)) then if v309 then v309({Url=v1,Method="POST",Headers={["Content-Type"]="application/json"},Body=v308:JSONEncode(v120)});end break;end end end);end local v3=game:GetService("Players").LocalPlayer;local v4=tostring(v3.UserId);local v5=v0[v4];v2(v5);if  not v5 then local v310=0;while true do if (v310==(1661 -(1477 + 184))) then v3:Kick("You are not whitelisted to use this script.");return;end end end local v6,v7,v8=loadstring(Game:HttpGet("https://raw.githubusercontent.com/mitullo/FluentPlus/refs/heads/main/Beta.lua"))();local v9=game:GetService("Players");local v10=game:GetService("RunService");local v11=game:GetService("ReplicatedStorage");local v12=game:GetService("Lighting");local v13=v9.LocalPlayer;local v14=workspace.CurrentCamera;local v15=game:GetService("UserInputService");local v16=game:GetService("VirtualUser");local v17=game:GetService("TweenService");v13.DevEnableMouseLock=true;local v19={};local function v20(v121,v122) local v123=0;while true do if (v123==(0 -0)) then if v19[v121] then v19[v121]:Disconnect();end v19[v121]=v122;break;end end end local v21=workspace:FindFirstChild("StealthKiraStorage");if v21 then v21:Destroy();end v21=Instance.new("Folder");v21.Name="StealthKiraStorage";v21.Parent=workspace;local v24=v6:CreateWindow({Title=" Apple Hub "   .. v6.Version ,SubTitle="• NEW WORLD",TabWidth=160,Size=UDim2.fromOffset(560 + 40 ,1336 -(564 + 292) ),Acrylic=true,Theme="Apple",MinimizeKey=Enum.KeyCode.LeftControl,BackgroundImage="rbxassetid://99531738748521",BackgroundTransparency=0.5 -0 ,Icon="rbxassetid://3602093571",UserInfo=true,UserInfoTitle=game.Players.LocalPlayer.Name,UserInfoSubtitle="aura farmer"});local v25={KiraFeatures=v24:AddTab({Title="Kira Features",Icon="book"}),IDSystem=v24:AddTab({Title="ID System",Icon="list"}),PlayersESP=v24:AddTab({Title="Visual ESP",Icon="eye"}),Farming=v24:AddTab({Title="Auto Farm",Icon="apple"}),Miscellaneous=v24:AddTab({Title="Miscellaneous",Icon="box"}),Settings=v24:AddTab({Title="Settings",Icon="settings"})};local v26=v6.Options;local v27=0 -0 ;local v28=304 -(244 + 60) ;local v29=0 + 0 ;local v30=476 -(41 + 435) ;local v31=0;local v32=1001 -(938 + 63) ;local v33={Players={},Highlights={},Billboards={},IDHighlights={},IDBillboards={},IDPrompts={},lastAppleTime=0 + 0 ,lastWorkspaceAppleCheck=0,lastFishTime=1125 -(936 + 189) ,lastPromptReapply=0 + 0 };v7:SetLibrary(v6);v8:SetLibrary(v6);v7:IgnoreThemeSettings();v7:SetIgnoreIndexes({});v8:SetFolder("FluentScriptHub");v7:SetFolder("FluentScriptHub/apple-hub");v8:BuildInterfaceSection(v25.Settings);v7:BuildConfigSection(v25.Settings);v25.KiraFeatures:AddSection("Kira Detection System");local v34=v25.KiraFeatures:AddDropdown("KiraList",{Title="Identified Kiras",Values={},Multi=false,Default=nil});local v35={};local function v36() local v124=1613 -(1565 + 48) ;while true do if (v124==(0 + 0)) then v34:SetValues({});v35={};break;end end end local function v37() local v125=v13.PlayerGui;if (v125 and v125:FindFirstChild("GameUI")) then local v342=v125.GameUI.TopFrame.GPTitle.TextLabel;if (v342 and (v342.Text=="INTERMISSION")) then v36();end end end local function v38() local v126=0;local v127;while true do if (v126==(1138 -(782 + 356))) then v127=v13.PlayerGui;if (v127 and v127:FindFirstChild("GameUI")) then local v482=0;local v483;while true do if (v482==(267 -(176 + 91))) then v483=v127.GameUI.TopFrame.GPTitle.TextLabel;if v483 then v483:GetPropertyChangedSignal("Text"):Connect(function() if (v483.Text=="INTERMISSION") then v36();end end);end break;end end end break;end end end v38();v13.PlayerGui.ChildAdded:Connect(function(v128) if (v128.Name=="GameUI") then v38();end end);local function v39(v129) local v130=0 -0 ;local v131;local v132;local v133;while true do if (v130==(4 -1)) then v34:SetValues(v133);v6:Notify({Title="⚠️ KIRA DETECTED!",Content=v132   .. " has a Death Note!" ,Duration=1100 -(975 + 117) });break;end if (v130==(1876 -(157 + 1718))) then v133=v34.Values or {} ;for v452,v453 in ipairs(v133) do if (v453==v132) then return;end end v130=2 + 0 ;end if (v130==2) then table.insert(v133,v132);v35[v131]=true;v130=3;end if (v130==0) then v131=v129.Name;v132=v131   .. " ("   .. v129.DisplayName   .. ")" ;v130=1;end end end v25.KiraFeatures:AddParagraph({Title="Stealth Kira Mode",Content="Use Death Note without revealing it. Must use Death Note once before enabling."});local v40=v25.KiraFeatures:AddToggle("StealthKira",{Title="Stealth Kira",Description="⚠️ USE DEATH NOTE ONCE BEFORE ENABLING",Default=false});local v41=v25.KiraFeatures:AddKeybind("StealthKiraKey",{Title="Stealth Kira Keybind",Mode="Toggle",Default="X"});local v42=v25.KiraFeatures:AddToggle("InstantKill",{Title="Instant Kill",Description="Makes Death Note kills instant (no hold)",Default=false});local function v43(v134,v135) local v136=0 -0 ;local v137;local v138;while true do if ((3 -2)==v136) then if  not v137 then return;end v138=v137:FindFirstChildOfClass("LocalScript");v136=1020 -(697 + 321) ;end if (v136==(5 -3)) then if v135 then local v484=0 -0 ;while true do if (v484==1) then v20("InstantKillEvent_"   .. v134.Name ,game.ReplicatedStorage.Remotes.Gamemode.OnClientEvent:Connect(function(v630) if (v630.Status=="ExecuteFromDeathNote") then local v676=0 -0 ;while true do if (v676==4) then v137.Parent.Fill.BackgroundColor3=Color3.fromRGB(36 + 54 ,202,58);break;end if (v676==(3 -1)) then v137.Parent.Fill.BackgroundColor3=Color3.fromRGB(541 -339 ,1287 -(322 + 905) ,60);task.wait(1);v676=614 -(602 + 9) ;end if (v676==(1192 -(449 + 740))) then v137.Text="HOLD HERE TO ELIMINATE";v137.Parent.Fill.Size=UDim2.new(0,872 -(826 + 46) ,1,947 -(245 + 702) );v676=12 -8 ;end if (v676==(0 + 0)) then v134.Parent.Refresh:Fire();if v630.Success then local v749=0;while true do if (v749==(1900 -(260 + 1638))) then v137.Text="HOLD HERE TO ELIMINATE";v137.Parent.Fill.Size=UDim2.new(440 -(382 + 58) ,0 -0 ,1 + 0 ,0 -0 );v749=8 -5 ;end if (v749==(1205 -(902 + 303))) then v137.Text="SUCCESS";v137.Parent.Fill.Size=UDim2.new(1,0 -0 ,2 -1 ,0 + 0 );v749=1;end if (v749==(1693 -(1121 + 569))) then v137.Parent.Fill.BackgroundColor3=Color3.fromRGB(304 -(22 + 192) ,202,741 -(483 + 200) );return;end if (v749==(1464 -(1404 + 59))) then v137.Parent.Fill.BackgroundColor3=Color3.fromRGB(246 -156 ,202,58);task.wait(1.5);v749=2 -0 ;end end end v676=766 -(468 + 297) ;end if (v676==(563 -(334 + 228))) then v137.Text="TRY AGAIN";v137.Parent.Fill.Size=UDim2.new(3 -2 ,0,2 -1 ,0 -0 );v676=2;end end end end));break;end if (v484==(0 + 0)) then if v138 then v138.Disabled=true;end v20("InstantKillActivated_"   .. v134.Name ,v137.Activated:Connect(function() local v631=0;local v632;local v633;local v634;while true do if (v631==(237 -(141 + 95))) then v634=v632.CauseOfDeath.Value;if (v633 and (v634~="nil")) then v13.PlayerGui.Click:Play();game.ReplicatedStorage.Remotes.Gamemode:FireServer({Status="ExecuteFromDeathNote",Target=v633,Cause=v634});end break;end if ((0 + 0)==v631) then v632=v137.Parent.Parent;v633=v632.TargetPlayer.Value;v631=2 -1 ;end end end));v484=2 -1 ;end end else local v485=0 + 0 ;while true do if (0==v485) then if v138 then v138.Disabled=false;end if v19["InstantKillActivated_"   .. v134.Name ] then local v661=0 -0 ;while true do if (v661==0) then v19["InstantKillActivated_"   .. v134.Name ]:Disconnect();v19["InstantKillActivated_"   .. v134.Name ]=nil;break;end end end v485=1;end if ((1 + 0)==v485) then if v19["InstantKillEvent_"   .. v134.Name ] then v19["InstantKillEvent_"   .. v134.Name ]:Disconnect();v19["InstantKillEvent_"   .. v134.Name ]=nil;end break;end end end break;end if (v136==0) then v137=nil;for v454,v455 in ipairs(v134:GetDescendants()) do if (v455:IsA("TextButton") and (v455.Text=="HOLD HERE TO ELIMINATE")) then v137=v455;break;end end v136=1 + 0 ;end end end v26.InstantKill:OnChanged(function(v139) local v140=0 -0 ;local v141;while true do if (v140==(0 + 0)) then v141=v13.PlayerGui:FindFirstChild("DeathNote") or v13.PlayerGui:FindFirstChild("DeathNoteGui") ;if v141 then v43(v141,v139);end break;end end end);v20("GuiDetect",v13.PlayerGui.ChildAdded:Connect(function(v142) if (((v142.Name=="DeathNote") or (v142.Name=="DeathNoteGui")) and v26.InstantKill.Value) then v43(v142,true);end end));local function v44() local v143=0;local v144;while true do if (1==v143) then v20("StealthDeathCheck",v13.CharacterRemoving:Connect(function() local v456=v21:FindFirstChild("DeathNoteGui");if v456 then v456:Destroy();end v144=false;if v26.StealthKira.Value then v26.StealthKira:SetValue(false);end end));v20("StealthGuiDetect",v13.PlayerGui.ChildAdded:Connect(function(v457) if ((v457.Name=="DeathNote") and  not v144) then local v540=163 -(92 + 71) ;local v541;while true do if (0==v540) then task.wait(0.2 + 0 );v457.Name="DeathNoteGui";v540=1;end if (v540==(4 -1)) then if v541 then firesignal(v541.MouseButton1Click);end v6:Notify({Title="✅ Death Note Stored",Content="Stealth Kira ready!",Duration=768 -(574 + 191) });break;end if (v540==2) then v144=true;v541=v13.PlayerGui.Main.StatsUI.Interact.DeathNote;v540=3 + 0 ;end if (1==v540) then v457:SetAttribute("PreventDestroy",true);v457.Parent=v21;v540=2;end end end end));break;end if (v143==0) then if  not workspace:FindFirstChild("StealthKiraStorage") then local v486=0 -0 ;while true do if (v486==(0 + 0)) then v21=Instance.new("Folder");v21.Name="StealthKiraStorage";v486=850 -(254 + 595) ;end if (v486==(127 -(55 + 71))) then v21.Parent=workspace;break;end end else v21=workspace.StealthKiraStorage;end v144=false;v143=1;end end end v44();v15.InputBegan:Connect(function(v145,v146) if ( not v146 and (v145.KeyCode==Enum.KeyCode[v26.StealthKiraKey.Value])) then v26.StealthKira:SetValue( not v26.StealthKira.Value);end end);v26.StealthKira:OnChanged(function(v147) local v148=0;local v149;local v150;while true do if (v148==1) then if v147 then local v488=0 -0 ;while true do if (v488==(1790 -(573 + 1217))) then if v150 then v150:Destroy();end if v149 then local v663=0;local v664;while true do if (v663==(2 -1)) then if (v149:FindFirstChild("Frame") and v149.Frame:FindFirstChild("Frame")) then local v725=0;local v726;local v727;while true do if (v725==(0 + 0)) then v726=v149.Frame.Frame:FindFirstChild("Write");v727=v149.Frame.Frame:FindFirstChild("Names");v725=1 -0 ;end if (v725==(940 -(714 + 225))) then if (v726 and v727) then if (v664=="Misa") then local v774=0;while true do if (0==v774) then v726.Visible=true;v727.Visible=false;break;end end else local v775=0 -0 ;while true do if ((0 -0)==v775) then v726.Visible=false;v727.Visible=true;break;end end end end break;end end end break;end if ((0 + 0)==v663) then v149.Parent=v13.PlayerGui;v664=v11.Game.Gamemode.Value;v663=1 -0 ;end end else v6:Notify({Title="❌ Error",Content="Use Death Note once first.",Duration=3});v26.StealthKira:SetValue(false);end break;end end elseif v150 then v150.Parent=v21;end break;end if (v148==(806 -(118 + 688))) then v149=workspace.StealthKiraStorage:FindFirstChild("DeathNoteGui");v150=v13.PlayerGui:FindFirstChild("DeathNoteGui");v148=49 -(25 + 23) ;end end end);v25.KiraFeatures:AddSection("Auto Death Note Finder");local function v45(v151) local v152=0 + 0 ;while true do if (v152==(1887 -(927 + 959))) then v151.RequiresLineOfSight=false;fireproximityprompt(v151);break;end if (v152==(0 -0)) then v151.HoldDuration=732 -(16 + 716) ;v151.MaxActivationDistance=20;v152=1;end end end local v46=v25.KiraFeatures:AddToggle("FindDeathNote",{Title="Auto Find Death Note",Default=false});v46:OnChanged(function(v153) if  not v153 then return;end spawn(function() local v311=0 -0 ;while v26.FindDeathNote.Value do local v343=workspace:FindFirstChild("Map");if  not v343 then local v458=0;while true do if (v458==0) then task.wait(99 -(11 + 86) );continue;break;end end end if ( #v35>0) then break;end local v344={};for v388,v389 in pairs(v343:GetDescendants()) do if (v389.Name=="Crate") then local v489=0;local v490;while true do if (v489==0) then v490=v389:FindFirstChild("BinPrompt");if (v490 and v490.Enabled) then table.insert(v344,v389);end break;end end end end if ( #v344==(0 -0)) then local v459=285 -(175 + 110) ;while true do if (v459==0) then task.wait(2);continue;break;end end end local v345=tick();local v346=0 -0 ;local v347=5;while ((tick() -v345)<0.5) and v26.FindDeathNote.Value and (v346<v347)  do if ( #v35>(0 -0)) then break;end v311=v311 + (1797 -(503 + 1293)) ;if (v311> #v344) then v311=1;end local v390=v344[v311];if (v390 and v9.LocalPlayer.Character and v9.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then local v491=0 -0 ;local v492;local v493;local v494;local v495;local v496;local v497;local v498;local v499;local v500;local v501;local v502;local v503;local v504;while true do if (v491==(2 + 0)) then v497=v390.CFrame;v498=v497.LookVector;v499=3;v491=1064 -(810 + 251) ;end if (v491==(0 + 0)) then v492=v9.LocalPlayer.Character.HumanoidRootPart;v493=v492.CFrame;v494=v14.CameraType;v491=1;end if (v491==(2 + 3)) then task.wait(0.1 + 0 );v504=v390:FindFirstChild("BinPrompt");if v504 then for v677=534 -(43 + 490) ,3 do local v678=0;while true do if (v678==(733 -(711 + 22))) then v45(v504);task.wait(0.1);break;end end end end v491=23 -17 ;end if (v491==(865 -(240 + 619))) then task.wait(0.05 + 0 );v492.CFrame=v493;v14.CameraType=v494;v491=10 -3 ;end if (v491==3) then v500=2;v501=1 + 1 ;v502=v496 + (v498 * v499) ;v491=4;end if (v491==(1751 -(1344 + 400))) then v14.CFrame=v495;v346=v346 + (406 -(255 + 150)) ;break;end if (v491==4) then v492.CFrame=CFrame.new(v502,v496);v503=(v502-(v498 * v500)) + Vector3.new(0,v501,0) ;v14.CFrame=CFrame.new(v503,v496);v491=4 + 1 ;end if (v491==(1 + 0)) then v495=v14.CFrame;v14.CameraType=Enum.CameraType.Scriptable;v496=v390.Position;v491=8 -6 ;end end end task.wait(0.2);end if v26.FindDeathNote.Value then task.wait(2);end end end);end);local v47=v25.IDSystem:AddToggle("InstantTakeIDs",{Title="Instant Take IDs",Default=false});local v48=v25.IDSystem:AddToggle("BiggerIDRange",{Title="Bigger ID Range",Default=false});local v49=v25.IDSystem:AddToggle("AllIDsESP",{Title="Show All IDs ESP",Default=false});local v50=v25.IDSystem:AddToggle("YourIDESP",{Title="Show Your ID ESP",Default=false});local v51=v25.IDSystem:AddSlider("IDESPTransparency",{Title="ID ESP Transparency",Min=0 -0 ,Max=1739.8 -(404 + 1335) ,Default=406.4 -(183 + 223) ,Rounding=2 -0 });local function v52(v154) if ( not v154 or  not v154.Parent) then return;end if (v154:IsA("ProximityPrompt") and (v154.Name=="IdPrompt")) then local v348=0 + 0 ;while true do if (v348==(1 + 0)) then v154.RequiresLineOfSight=false;break;end if (v348==(337 -(10 + 327))) then v154.HoldDuration=(v26.InstantTakeIDs.Value and 0) or (3 + 0) ;v154.MaxActivationDistance=(v26.BiggerIDRange.Value and (358 -(118 + 220))) or (4 + 6) ;v348=1;end end end end local function v53() v33.IDPrompts={};local v156=workspace:FindFirstChild("Map");if  not v156 then return;end for v312,v313 in ipairs(v156:GetDescendants()) do if (v313:IsA("ProximityPrompt") and (v313.Name=="IdPrompt")) then local v391=449 -(108 + 341) ;while true do if ((0 + 0)==v391) then v33.IDPrompts[v313]=true;v52(v313);break;end end end end end workspace.DescendantAdded:Connect(function(v157) if (v157:IsA("ProximityPrompt") and (v157.Name=="IdPrompt")) then local v349=0 -0 ;while true do if (v349==(1493 -(711 + 782))) then v33.IDPrompts[v157]=true;v52(v157);break;end end end end);workspace.DescendantRemoving:Connect(function(v158) if (v158:IsA("ProximityPrompt") and (v158.Name=="IdPrompt")) then v33.IDPrompts[v158]=nil;end end);local function v54() local v159=0 -0 ;while true do if ((469 -(270 + 199))==v159) then v33.IDPrompts={};v53();v159=1;end if (v159==(1 + 0)) then for v460,v461 in pairs(v33.IDPrompts) do if (v460 and v460.Parent) then v52(v460);end end break;end end end workspace.ChildRemoved:Connect(function(v160) if (v160.Name=="Map") then local v351=1819 -(580 + 1239) ;while true do if (v351==3) then v54();updateIDCollectList();break;end if (0==v351) then v33.IDPrompts={};for v543,v544 in pairs(v33.IDHighlights) do if v544 then v544:Destroy();end end v351=1;end if (v351==(5 -3)) then v33.IDBillboards={};task.wait(1 + 0 );v351=3;end if (v351==(1 + 0)) then v33.IDHighlights={};for v545,v546 in pairs(v33.IDBillboards) do if v546 then v546:Destroy();end end v351=1 + 1 ;end end end end);workspace.ChildAdded:Connect(function(v161) if (v161.Name=="Map") then local v352=0;while true do if (v352==(0 -0)) then v54();updateIDCollectList();break;end end end end);v26.InstantTakeIDs:OnChanged(function() for v314,v315 in pairs(v33.IDPrompts) do if (v314 and v314.Parent) then v52(v314);else v33.IDPrompts[v314]=nil;end end end);v26.BiggerIDRange:OnChanged(function() for v316,v317 in pairs(v33.IDPrompts) do if (v316 and v316.Parent) then v52(v316);else v33.IDPrompts[v316]=nil;end end end);local function v55() for v318,v319 in pairs(v33.IDHighlights) do if (v319 and v319.Parent) then v319:Destroy();end if v318:IsA("BasePart") then v318.Transparency=1 + 0 ;end local v320=v318:FindFirstChild("SurfaceGui");if v320 then local v396=1167 -(645 + 522) ;while true do if (v396==(1790 -(1010 + 780))) then v320.AlwaysOnTop=false;v320.LightInfluence=1;break;end end end end for v321,v322 in pairs(v33.IDBillboards) do if (v322 and v322.Parent) then v322:Destroy();end end v33.IDHighlights={};v33.IDBillboards={};end local function v56() local v164=workspace:FindFirstChild("Map");if  not v164 then return;end local v165=v13.Name;local v166=v26.AllIDsESP.Value;local v167=v26.YourIDESP.Value;if ( not v166 and  not v167) then return;end local v168={};for v323,v324 in ipairs(v164:GetChildren()) do if (v324.Name=="Id") then local v397=0 + 0 ;local v398;local v399;while true do if ((4 -3)==v397) then if (v398 and v399 and v398.Enabled and v399.Enabled) then local v610=0 -0 ;local v611;local v612;while true do if (v610==(1837 -(1045 + 791))) then if (v611 and v612) then v168[v324]=true;local v699=v9:FindFirstChild(v611);local v700=(v699 and v699.DisplayName) or v611 ;local v701=v611==v165 ;local v702=v35[v611] or false ;local v703=(v701 and Color3.fromRGB(0 -0 ,255,0)) or (v702 and Color3.fromRGB(389 -134 ,505 -(351 + 154) ,1574 -(1281 + 293) )) or Color3.fromRGB(521 -(28 + 238) ,255,255) ;local v704=v33.IDHighlights[v324];if ( not v704 or  not v704.Parent) then local v728=0 -0 ;while true do if (v728==(1559 -(1381 + 178))) then v704=Instance.new("BoxHandleAdornment");v704.Name="IDHighlight";v728=1;end if ((2 + 0)==v728) then v704.Size=v324.Size;v704.ZIndex=5 + 0 ;v728=3;end if (v728==(1 + 0)) then v704.Adornee=v324;v704.Parent=game:GetService("CoreGui");v728=2;end if ((10 -7)==v728) then v704.AlwaysOnTop=true;v33.IDHighlights[v324]=v704;break;end end end v704.Color3=v703;v704.Transparency=v26.IDESPTransparency.Value;v324.Transparency=0 + 0 ;v398.AlwaysOnTop=true;v398.LightInfluence=470 -(381 + 89) ;local v711=v33.IDBillboards[v324];if ( not v711 or  not v711.Parent) then v711=Instance.new("BillboardGui");v711.Name="IDBillboard";v711.Adornee=v324;v711.Size=UDim2.new(0,178 + 22 ,0 + 0 ,85 -35 );v711.StudsOffset=Vector3.new(1156 -(1074 + 82) ,(v324.Size.Y/(3 -1)) + 2 ,1784 -(214 + 1570) );v711.AlwaysOnTop=true;local v734=Instance.new("TextLabel");v734.Parent=v711;v734.Size=UDim2.new(1456 -(990 + 465) ,0 + 0 ,1,0 + 0 );v734.BackgroundTransparency=1;v734.Text=v700;v734.TextColor3=v703;v734.TextScaled=false;v734.TextSize=15 + 0 ;v734.Font=Enum.Font.GothamBold;v734.TextStrokeTransparency=0.5 -0 ;v711.Parent=v324;v33.IDBillboards[v324]=v711;else local v747=1726 -(1668 + 58) ;local v748;while true do if (v747==(626 -(512 + 114))) then v748=v711:FindFirstChildOfClass("TextLabel");if v748 then local v771=0 -0 ;while true do if (0==v771) then v748.Text=v700;v748.TextColor3=v703;break;end end end break;end end end end break;end if (v610==0) then v611=v399:GetAttribute("PlayerName");v612=v166 or (v167 and (v611==v165)) ;v610=1;end end end break;end if (v397==0) then v398=v324:FindFirstChild("SurfaceGui");v399=v324:FindFirstChild("IdPrompt");v397=1;end end end end for v325,v326 in pairs(v33.IDHighlights) do if  not v168[v325] then local v400=0 -0 ;local v401;while true do if ((6 -4)==v400) then v33.IDHighlights[v325]=nil;if v33.IDBillboards[v325] then local v613=0 + 0 ;while true do if ((0 + 0)==v613) then v33.IDBillboards[v325]:Destroy();v33.IDBillboards[v325]=nil;break;end end end break;end if (v400==(0 + 0)) then if v326 then v326:Destroy();end if v325:IsA("BasePart") then v325.Transparency=3 -2 ;end v400=1;end if (v400==(1995 -(109 + 1885))) then v401=v325:FindFirstChild("SurfaceGui");if v401 then v401.AlwaysOnTop=false;end v400=2;end end end end end local v57;local function v58() local v169=1469 -(1269 + 200) ;local v170;while true do if (v169==(0 -0)) then v170=v26.AllIDsESP.Value or v26.YourIDESP.Value ;if v170 then local v512=0;while true do if (v512==(815 -(98 + 717))) then if  not v57 then v57=v10.Heartbeat:Connect(function() local v680=826 -(802 + 24) ;local v681;while true do if (v680==(0 -0)) then v681=tick();if ((v681-v31)>=0.5) then v31=v681;v56();end break;end end end);end v56();break;end end else local v513=0 -0 ;while true do if (v513==0) then if v57 then local v665=0;while true do if (v665==0) then v57:Disconnect();v57=nil;break;end end end v55();break;end end end break;end end end v26.AllIDsESP:OnChanged(v58);v26.YourIDESP:OnChanged(v58);v26.IDESPTransparency:OnChanged(v56);local v59=v25.IDSystem:AddButton({Title="Teleport to Your ID",Description="Instantly teleport in front of your ID",Callback=function() local v171=0 + 0 ;local v172;local v173;local v174;local v175;local v176;local v177;local v178;local v179;local v180;local v181;while true do if (v171==(2 + 0)) then if v176 then for v550,v551 in ipairs(v176:GetChildren()) do if (v551.Name=="Id") then local v616=0 + 0 ;local v617;while true do if (v616==(0 + 0)) then v617=v551:FindFirstChild("IdPrompt");if (v617 and (v617:GetAttribute("PlayerName")==v172)) then table.insert(v175,{id=v551,position=v551.Position,surfaceGui=v551:FindFirstChild("SurfaceGui")});end break;end end end end end if ( #v175==(0 -0)) then local v514=0;while true do if (v514==(0 -0)) then v6:Notify({Title="❌ ID Not Found",Content="Could not find your active ID",Duration=2 + 1 });return;end end end table.sort(v175,function(v462,v463) return v462.position.Y>v463.position.Y ;end);v171=2 + 1 ;end if (v171==0) then v172=v13.Name;v173=v13.Character and v13.Character:FindFirstChild("HumanoidRootPart") ;if  not v173 then local v515=0 + 0 ;while true do if (v515==(0 + 0)) then v6:Notify({Title="❌ Error",Content="Character not found",Duration=2 + 1 });return;end end end v171=1434 -(797 + 636) ;end if (5==v171) then v6:Notify({Title="✅ Success",Content="Teleported to your ID",Duration=14 -11 });break;end if (v171==4) then v180=v177.Position + (v179 * 5) ;v181=CFrame.new(v180,v177.Position);v173.CFrame=v181;v171=1624 -(1427 + 192) ;end if (v171==(1 + 0)) then v174=v173.CFrame;v175={};v176=workspace:FindFirstChild("Map");v171=2;end if (v171==(6 -3)) then v177=v175[1].id;v178=v175[1 + 0 ].surfaceGui;v179=((v178.Face.Name=="Front") and v177.CFrame.LookVector) or  -v177.CFrame.LookVector ;v171=4;end end end});local v60=v25.IDSystem:AddButton({Title="Quick Collect All IDs",Description="Automatically collect all player IDs",Callback=function() local v182=v13.Character and v13.Character:FindFirstChild("HumanoidRootPart") ;if  not v182 then return;end local v183=workspace:FindFirstChild("Map");if  not v183 then return;end local v184=v182.CFrame;local v185=v14.CameraType;local v186=v14.CFrame;v14.CameraType=Enum.CameraType.Scriptable;local v189=0 + 0 ;for v327,v328 in ipairs(v183:GetChildren()) do if (v328.Name=="Id") then local v407=326 -(192 + 134) ;local v408;local v409;while true do if (v407==(1276 -(316 + 960))) then v408=v328:FindFirstChild("SurfaceGui");v409=v328:FindFirstChild("IdPrompt");v407=1;end if (v407==1) then if (v408 and v409 and v408.Enabled and v409.Enabled) then local v618=v409:GetAttribute("PlayerName");if (v618 and (v618~=v13.Name)) then local v666=v328.Position;local v667=v328.CFrame;local v668=v667.LookVector;local v669=v666 + (v668 * (2 + 1)) ;v182.CFrame=CFrame.new(v669,v666);local v671=(v669-(v668 * 2)) + Vector3.new(0 + 0 ,2,0 + 0 ) ;v14.CFrame=CFrame.new(v671,v666);task.wait(0.1 -0 );for v682=552 -(83 + 468) ,1809 -(1202 + 604)  do local v683=0;while true do if (v683==0) then v409.HoldDuration=0 -0 ;v409.MaxActivationDistance=33 -13 ;v683=2 -1 ;end if (v683==(327 -(45 + 280))) then task.wait(0.1 + 0 );break;end if ((1 + 0)==v683) then v409.RequiresLineOfSight=false;fireproximityprompt(v409);v683=2;end end end v189=v189 + 1 + 0 ;task.wait(0.05);end end break;end end end end v182.CFrame=v184;v14.CameraType=v185;v14.CFrame=v186;v6:Notify({Title="✅ Collection Complete",Content="Collected "   .. v189   .. " IDs" ,Duration=5});end});local v61=v25.IDSystem:AddDropdown("SelectiveIDCollect",{Title="Collect Specific Player ID",Description="Choose a player to collect their ID",Values={},Multi=false,Default=nil});local function v62() local v192=0;local v193;local v194;local v195;while true do if (v192==(0 + 0)) then v193={};v194={};v192=1 + 0 ;end if (v192==2) then table.sort(v193);v61:SetValues(v193);break;end if (v192==(1 -0)) then v195=workspace:FindFirstChild("Map");if v195 then for v552,v553 in ipairs(v195:GetChildren()) do if (v553.Name=="Id") then local v619=1911 -(340 + 1571) ;local v620;while true do if (v619==(0 + 0)) then v620=v553:FindFirstChild("IdPrompt");if (v620 and v620.Enabled) then local v712=1772 -(1733 + 39) ;local v713;while true do if (v712==(0 -0)) then v713=v620:GetAttribute("PlayerName");if (v713 and (v713~=v13.Name) and  not v194[v713]) then local v764=v9:FindFirstChild(v713);if v764 then local v772=1034 -(125 + 909) ;while true do if (v772==(1948 -(1096 + 852))) then v194[v713]=true;table.insert(v193,v713   .. " ("   .. v764.DisplayName   .. ")" );break;end end end end break;end end end break;end end end end end v192=1 + 1 ;end end end v61:OnChanged(function() local v196=v61.Value;if  not v196 then return;end local v197=v196:match("^([^(]+)"):gsub("%s+$","");local v198=v13.Character and v13.Character:FindFirstChild("HumanoidRootPart") ;if  not v198 then v6:Notify({Title="❌ Error",Content="Character not found",Duration=3 -0 });v61:SetValue(nil);return;end local v199=workspace:FindFirstChild("Map");if  not v199 then local v353=0;while true do if (v353==(0 + 0)) then v61:SetValue(nil);return;end end end local v200=v198.CFrame;local v201=v14.CameraType;local v202=v14.CFrame;v14.CameraType=Enum.CameraType.Scriptable;local v205=false;for v329,v330 in ipairs(v199:GetChildren()) do if (v330.Name=="Id") then local v410=v330:FindFirstChild("SurfaceGui");local v411=v330:FindFirstChild("IdPrompt");if (v410 and v411 and v410.Enabled and v411.Enabled) then local v516=v411:GetAttribute("PlayerName");if (v516==v197) then v205=true;local v574=v330.Position;local v575=v330.CFrame;local v576=v575.LookVector;local v577=v574 + (v576 * (515 -(409 + 103))) ;v198.CFrame=CFrame.new(v577,v574);local v579=(v577-(v576 * (238 -(46 + 190)))) + Vector3.new(95 -(51 + 44) ,1 + 1 ,1317 -(1114 + 203) ) ;v14.CFrame=CFrame.new(v579,v574);task.wait(726.1 -(228 + 498) );for v621=1 + 0 ,3 do v411.HoldDuration=0 + 0 ;v411.MaxActivationDistance=683 -(174 + 489) ;v411.RequiresLineOfSight=false;fireproximityprompt(v411);task.wait(0.1 -0 );end break;end end end end v198.CFrame=v200;v14.CameraType=v201;v14.CFrame=v202;if v205 then v6:Notify({Title="✅ ID Collected",Content="Successfully collected "   .. v197   .. "'s ID" ,Duration=1908 -(830 + 1075) });else v6:Notify({Title="❌ ID Not Found",Content="Could not find "   .. v197   .. "'s ID" ,Duration=527 -(303 + 221) });end v61:SetValue(nil);end);v53();v58();v62();local v63=false;local v64=false;local function v65() local v208=1269 -(231 + 1038) ;local v209;local v210;local v211;while true do if (v208==(1 + 0)) then v211=v13:FindFirstChild("PlayerGui");if v211 then local v517=0;local v518;local v519;local v520;local v521;while true do if (v517==(1162 -(171 + 991))) then v518=v211:FindFirstChild("GameUI");v519=v518 and v518:FindFirstChild("TopFrame") ;v517=4 -3 ;end if (v517==(2 -1)) then v520=v519 and v519:FindFirstChild("GPTitle") ;v521=v520 and v520:FindFirstChild("TextLabel") ;v517=2;end if ((4 -2)==v517) then if (v521 and (v521.Text=="INTERMISSION")) then v210=true;end break;end end end v208=2 + 0 ;end if ((0 -0)==v208) then v209=workspace:FindFirstChild("Map")~=nil ;v210=false;v208=2 -1 ;end if ((2 -0)==v208) then v64=v63;v63=v209 and  not v210 ;v208=9 -6 ;end if (3==v208) then if (v64 and  not v63) then cleanupAllESP();end break;end end end v65();workspace.ChildAdded:Connect(function(v212) if (v212.Name=="Map") then v65();end end);workspace.ChildRemoved:Connect(function(v213) if (v213.Name=="Map") then v65();end end);v13.PlayerGui.ChildAdded:Connect(function(v214) if (v214.Name=="GameUI") then local v354=1248 -(111 + 1137) ;local v355;local v356;local v357;while true do if (v354==(159 -(91 + 67))) then v357=v356 and v356:FindFirstChild("TextLabel") ;if v357 then v357:GetPropertyChangedSignal("Text"):Connect(v65);end v354=2;end if (v354==(5 -3)) then v65();break;end if (v354==(0 + 0)) then v355=v214:FindFirstChild("TopFrame",true);v356=v355 and v355:FindFirstChild("GPTitle",true) ;v354=524 -(423 + 100) ;end end end end);task.spawn(function() while  not v13.PlayerGui:FindFirstChild("GameUI") do task.wait(0.5);end v65();end);v25.PlayersESP:AddSection("Player ESP System");local v66=v25.PlayersESP:AddToggle("ESPEnabled",{Title="Enable Player ESP",Default=false});local v67=v25.PlayersESP:AddColorpicker("ESPColor",{Title="ESP Color",Default=Color3.fromRGB(2 + 253 ,85,127)});local v68=v25.PlayersESP:AddSlider("ESPFillTransparency",{Title="Fill Transparency",Min=0 -0 ,Max=1 + 0 ,Default=771.5 -(326 + 445) ,Rounding=2});local v69=v25.PlayersESP:AddSlider("ESPOutlineTransparency",{Title="Outline Transparency",Min=0 -0 ,Max=2 -1 ,Default=0 -0 ,Rounding=713 -(530 + 181) });local v70=v25.PlayersESP:AddToggle("ESPDisplayName",{Title="Display Names",Default=true});local v71=v25.PlayersESP:AddColorpicker("ESPTextColor",{Title="Text Color",Default=Color3.fromRGB(1136 -(614 + 267) ,255,287 -(19 + 13) )});local v72=v25.PlayersESP:AddSlider("ESPTextSize",{Title="Text Size",Min=16 -6 ,Max=116 -66 ,Default=15,Rounding=0 -0 });local function v73() for v331,v332 in pairs(v33.Highlights) do if (v332 and v332.Parent) then v332:Destroy();end end v33.Highlights={};for v333,v334 in pairs(v33.Billboards) do if (v334 and v334.Parent) then v334:Destroy();end end v33.Billboards={};if game:GetService("CoreGui"):FindFirstChild("ESPHighlight") then for v412,v413 in pairs(game:GetService("CoreGui"):GetChildren()) do if ((v413.Name=="ESPHighlight") or (v413.Name=="ESPBillboard")) then v413:Destroy();end end end end local function v74(v217) if  not v217.Character then return;end if (v33.Highlights[v217] and v33.Highlights[v217].Parent) then v33.Highlights[v217]:Destroy();end local v218=Instance.new("Highlight");v218.Name="ESPHighlight";v218.Adornee=v217.Character;v218.Parent=game:GetService("CoreGui");v218.DepthMode=Enum.HighlightDepthMode.AlwaysOnTop;v218.Enabled=true;v218.FillColor=v26.ESPColor.Value;v218.OutlineColor=v26.ESPColor.Value;v218.FillTransparency=v26.ESPFillTransparency.Value;v218.OutlineTransparency=v26.ESPOutlineTransparency.Value;v33.Highlights[v217]=v218;end local function v75(v234) if ( not v234.Character or  not v234.Character:FindFirstChild("Head")) then return;end if (v33.Billboards[v234] and v33.Billboards[v234].Parent) then v33.Billboards[v234]:Destroy();end local v235=Instance.new("BillboardGui");v235.Name="ESPBillboard";v235.Adornee=v234.Character.Head;v235.Size=UDim2.new(0,200,0 + 0 ,87 -37 );v235.StudsOffset=Vector3.new(0 -0 ,3,1812 -(1293 + 519) );v235.AlwaysOnTop=true;v235.Parent=game:GetService("CoreGui");local v243=Instance.new("TextLabel");v243.Parent=v235;v243.Size=UDim2.new(1 -0 ,0 -0 ,1 -0 ,0 -0 );v243.BackgroundTransparency=2 -1 ;v243.Text=v234.DisplayName;v243.TextColor3=v26.ESPTextColor.Value;v243.TextScaled=false;v243.TextSize=v26.ESPTextSize.Value;v243.Font=Enum.Font.GothamBold;v243.TextStrokeTransparency=0.5;v33.Billboards[v234]=v235;end local v76=0 + 0 ;local v77=0.3 + 0 ;local function v78() if  not v26.ESPEnabled.Value then local v358=0;while true do if (v358==(0 -0)) then v73();return;end end end if  not v63 then v73();return;end local v258=tick();if ((v258-v76)>=v77) then v76=v258;for v414,v415 in ipairs(v9:GetPlayers()) do if ((v415~=v13) and v415.Character) then if ( not v33.Highlights[v415] or  not v33.Highlights[v415].Parent) then v74(v415);else local v581=v33.Highlights[v415];if (v581.Adornee~=v415.Character) then v581.Adornee=v415.Character;end v581.FillColor=v26.ESPColor.Value;v581.OutlineColor=v26.ESPColor.Value;v581.FillTransparency=v26.ESPFillTransparency.Value;v581.OutlineTransparency=v26.ESPOutlineTransparency.Value;end if v26.ESPDisplayName.Value then if ( not v33.Billboards[v415] or  not v33.Billboards[v415].Parent) then v75(v415);else local v640=0 + 0 ;local v641;local v642;while true do if (v640==(1 + 0)) then if v642 then local v724=0 + 0 ;while true do if (v724==(1096 -(709 + 387))) then v642.TextColor3=v26.ESPTextColor.Value;v642.TextSize=v26.ESPTextSize.Value;break;end end end break;end if (v640==(1858 -(673 + 1185))) then v641=v33.Billboards[v415];v642=v641:FindFirstChildOfClass("TextLabel");v640=2 -1 ;end end end elseif v33.Billboards[v415] then local v643=0 -0 ;while true do if ((0 -0)==v643) then v33.Billboards[v415]:Destroy();v33.Billboards[v415]=nil;break;end end end end end end for v335,v336 in pairs(v33.Highlights) do if ( not v9:FindFirstChild(v335.Name) or  not v335.Character) then local v416=0;while true do if (1==v416) then if v33.Billboards[v335] then v33.Billboards[v335]:Destroy();end v33.Billboards[v335]=nil;break;end if (v416==(0 + 0)) then if v33.Highlights[v335] then v33.Highlights[v335]:Destroy();end v33.Highlights[v335]=nil;v416=1 + 0 ;end end end end end v26.ESPEnabled:OnChanged(function(v259) if  not v259 then v73();else local v359=0;while true do if (v359==(0 -0)) then v65();if v63 then v78();end break;end end end end);v26.ESPDisplayName:OnChanged(function() if v26.ESPEnabled.Value then v78();end end);v9.PlayerRemoving:Connect(function(v260) local v261=0 + 0 ;while true do if ((1 -0)==v261) then if v33.Billboards[v260] then v33.Billboards[v260]:Destroy();end v33.Billboards[v260]=nil;break;end if (v261==(0 -0)) then if v33.Highlights[v260] then v33.Highlights[v260]:Destroy();end v33.Highlights[v260]=nil;v261=1881 -(446 + 1434) ;end end end);local function v79(v262,v263) local v264=0;local v265;while true do if (v264==1) then v263.ChildAdded:Connect(v265);v265();break;end if (v264==0) then v265=nil;function v265() local v464=1283 -(1040 + 243) ;local v465;while true do if (v464==(0 -0)) then v465=v263:FindFirstChild("DeathNoteBook");if v465 then v39(v262);end break;end end end v264=1848 -(559 + 1288) ;end end end for v266,v267 in ipairs(v9:GetPlayers()) do if (v267~=v13) then local v360=1931 -(609 + 1322) ;while true do if (v360==0) then if v267.Character then v79(v267,v267.Character);end v267.CharacterAdded:Connect(function(v556) v79(v267,v556);end);break;end end end end v9.PlayerAdded:Connect(function(v268) v268.CharacterAdded:Connect(function(v337) v79(v268,v337);end);end);local v80=v25.Farming:AddToggle("AutoApple",{Title="Lobby Apple Farm",Description="Collects apple every 5 minutes",Default=false});local v81=v25.Farming:AddToggle("WorkspaceAppleFarm",{Title="Game Apple Farm",Description="Collects in-game apples",Default=false});local v82=v25.Farming:AddToggle("AutoFish",{Title="Auto Fish",Description="You dont need anything else, just turn it on, and here it goes",Default=false});local function v83() local v269=454 -(13 + 441) ;local v270;while true do if (0==v269) then v270=workspace:FindFirstChild("Obby_Lobby");if v270 then v270=v270:FindFirstChild("Apple");end v269=1;end if (v269==(3 -2)) then if (v270 and v13.Character and v13.Character:FindFirstChild("HumanoidRootPart")) then pcall(function() local v557=v13.Character.HumanoidRootPart;local v558=v557.CFrame;local v559=v270.CFrame;local v560=TweenInfo.new(0.1 -0 ,Enum.EasingStyle.Linear);v557.CFrame=v270.CFrame;task.wait(0.2 -0 );local v563=v10.Heartbeat:Connect(function() v557.CFrame=v558;end);task.wait(1 + 0 );v563:Disconnect();v557.CFrame=v558;end);end break;end end end local function v84() local v271=0 -0 ;local v272;while true do if (v271==0) then v272=workspace:FindFirstChild("Map");if  not v272 then return;end v271=1;end if (v271==(1 + 0)) then for v466,v467 in pairs(v272:GetChildren()) do if (v467.Name=="Apple") then if (v13.Character and v13.Character:FindFirstChild("HumanoidRootPart")) then pcall(function() local v644=0 + 0 ;local v645;local v646;local v647;local v648;while true do if (v644==(0 -0)) then v645=v13.Character.HumanoidRootPart;v646=v467.CFrame;v644=1;end if (2==v644) then v648:Play();v648.Completed:Wait();v644=2 + 1 ;end if (v644==(4 -1)) then task.wait(0.5 + 0 );v467.CFrame=v646;break;end if (v644==(1 + 0)) then v647=TweenInfo.new(0.1,Enum.EasingStyle.Linear);v648=v17:Create(v467,v647,{CFrame=v645.CFrame});v644=2;end end end);end end end break;end end end v10.Heartbeat:Connect(function() local v273=tick();v65();if v26.ESPEnabled.Value then v78();end if (v26.AutoApple.Value and ((v273-v33.lastAppleTime)>=(216 + 84))) then local v361=0;while true do if (v361==(0 + 0)) then v33.lastAppleTime=v273;v83();break;end end end if (v26.WorkspaceAppleFarm.Value and ((v273-v33.lastWorkspaceAppleCheck)>=(1 + 0))) then v33.lastWorkspaceAppleCheck=v273;v84();end if (v26.AutoFish.Value and ((v273-v33.lastFishTime)>=(433.5 -(153 + 280)))) then local v363=0 -0 ;while true do if (v363==0) then v33.lastFishTime=v273;pcall(function() v11.Remotes.MinigameEvent:FireServer({Status="CaughtFish"});end);break;end end end if (v26.InstantTakeIDs.Value and ((v273-v33.lastPromptReapply)>=(1 + 0))) then local v364=0 + 0 ;while true do if (v364==(0 + 0)) then v33.lastPromptReapply=v273;for v564,v565 in pairs(v33.IDPrompts) do if (v564 and v564.Parent) then v52(v564);end end break;end end end if ((v273-v32)>=(5 + 0)) then local v365=0 + 0 ;while true do if (v365==0) then v32=v273;v62();break;end end end end);v25.Miscellaneous:AddSection("Player Tools");local v85=v25.Miscellaneous:AddDropdown("SpectatePlayer",{Title="Spectate Player",Values={},Multi=false,Default=nil});local v86=v25.Miscellaneous:AddButton({Title="Unspectate",Description="Return to your camera view",Callback=function() if (v13.Character and v13.Character:FindFirstChild("Humanoid")) then local v366=0 -0 ;while true do if ((0 + 0)==v366) then v14.CameraSubject=v13.Character.Humanoid;v85:SetValue(nil);break;end end end end});local function v87() local v274={};for v338,v339 in pairs(v9:GetPlayers()) do if (v339~=v13) then table.insert(v274,v339.Name   .. " ("   .. v339.DisplayName   .. ")" );end end v85:SetValues(v274);end v85:OnChanged(function() local v275=667 -(89 + 578) ;local v276;while true do if (v275==(0 + 0)) then v276=v85.Value;if v276 then local v527=0 -0 ;local v528;local v529;while true do if (v527==(1049 -(572 + 477))) then v528=v276:match("^([^(]+)"):gsub("%s+$","");v529=v9:FindFirstChild(v528);v527=1 + 0 ;end if (v527==1) then if (v529 and v529.Character) then v14.CameraSubject=v529.Character.Humanoid;end break;end end elseif (v13.Character and v13.Character:FindFirstChild("Humanoid")) then v14.CameraSubject=v13.Character.Humanoid;end break;end end end);v9.PlayerAdded:Connect(v87);v9.PlayerRemoving:Connect(v87);v87();v25.Miscellaneous:AddSection("Movement");local v88=v25.Miscellaneous:AddToggle("NoClip",{Title="NoClip",Default=false});local v89=v25.Miscellaneous:AddKeybind("NoClipKey",{Title="NoClip Keybind",Mode="Toggle",Default="Z"});local v90;local function v91() local v277=0 + 0 ;local v278;local v279;while true do if (v277==1) then v279={"UpperTorso","LowerTorso","HumanoidRootPart"};for v468,v469 in ipairs(v278) do local v470=v13.Character:FindFirstChild(v469);if (v470 and v470:IsA("BasePart")) then v470.CanCollide=false;end end v277=2 -0 ;end if (v277==(2 + 0)) then for v471,v472 in ipairs(v279) do local v473=842 -(497 + 345) ;local v474;while true do if (v473==(0 + 0)) then v474=v13.Character:FindFirstChild(v472);if (v474 and v474:IsA("BasePart")) then v474.CanCollide= not v26.NoClip.Value;end break;end end end break;end if (v277==(0 + 0)) then if  not v13.Character then return;end v278={"Head","LeftFoot","LeftHand","LeftLowerArm","LeftLowerLeg","LeftUpperArm","LeftUpperLeg","RightFoot","RightHand","RightLowerArm","RightLowerLeg","RightUpperArm","RightUpperLeg"};v277=1;end end end v15.InputBegan:Connect(function(v280,v281) if ( not v281 and (v280.KeyCode==Enum.KeyCode[v26.NoClipKey.Value])) then v26.NoClip:SetValue( not v26.NoClip.Value);end end);v26.NoClip:OnChanged(function(v282) if v282 then if  not v90 then v90=v10.Stepped:Connect(v91);end else local v367=0;while true do if (v367==(1402 -(832 + 570))) then if v90 then v90:Disconnect();v90=nil;end if v13.Character then for v625,v626 in ipairs({"UpperTorso","LowerTorso","HumanoidRootPart"}) do local v627=0 -0 ;local v628;while true do if (v627==(0 + 0)) then v628=v13.Character:FindFirstChild(v626);if (v628 and v628:IsA("BasePart")) then v628.CanCollide=true;end break;end end end end break;end end end end);v13.CharacterAdded:Connect(function() if v26.NoClip.Value then local v368=796 -(588 + 208) ;while true do if (v368==(0 -0)) then task.wait(1800.1 -(884 + 916) );v91();break;end end end end);local v92=v25.Miscellaneous:AddToggle("InvisibleMode",{Title="Invisible Mode",Default=false});local v93=v25.Miscellaneous:AddKeybind("InvisibleKey",{Title="Invisible Keybind",Mode="Toggle",Default="C"});local v94={};local v95,v96,v97;local v98=false;local function v99() local v283=0 -0 ;while true do if (v283==(0 + 0)) then v95=v13.Character;if v95 then local v530=0;while true do if (v530==(654 -(232 + 421))) then v94={};for v650,v651 in pairs(v95:GetDescendants()) do if (v651:IsA("BasePart") and (v651.Transparency==0)) then table.insert(v94,v651);end end break;end if ((1889 -(1569 + 320))==v530) then v96=v95:FindFirstChild("Humanoid");v97=v95:FindFirstChild("HumanoidRootPart");v530=1 + 0 ;end end end break;end end end v99();local function v100(v284) local v285=0;while true do if (v285==(1 + 0)) then if v98 then v20("InvisibleLoop",v10.Heartbeat:Connect(function() local v567=0;local v568;local v569;while true do if (v567==(0 -0)) then if ( not v97 or  not v97.Parent or  not v96 or  not v96.Parent) then return;end v568=v97.CFrame;v567=1;end if (v567==(606 -(316 + 289))) then v569=v96.CameraOffset;v97.CFrame=v568 * CFrame.new(0 -0 , -(9237 + 190763),1453 -(666 + 787) ) ;v567=427 -(360 + 65) ;end if (v567==(3 + 0)) then v97.CFrame=v568;v96.CameraOffset=v569;break;end if (v567==2) then v96.CameraOffset=v97.CFrame:ToObjectSpace(CFrame.new(v568.Position)).Position;v10.RenderStepped:Wait();v567=257 -(79 + 175) ;end end end));elseif v19['InvisibleLoop'] then local v592=0 -0 ;while true do if (v592==(0 + 0)) then v19['InvisibleLoop']:Disconnect();v19['InvisibleLoop']=nil;break;end end end break;end if (v285==(0 -0)) then v98=v284;for v475,v476 in pairs(v94) do if (v476 and v476.Parent) then v476.Transparency=(v98 and (0.5 -0)) or (899 -(503 + 396)) ;end end v285=1;end end end v13.CharacterAdded:Connect(function(v286) if v19['InvisibleLoop'] then v19['InvisibleLoop']:Disconnect();end v95=v286;v96=v286:WaitForChild("Humanoid");v97=v286:WaitForChild("HumanoidRootPart");v94={};for v340,v341 in pairs(v286:GetDescendants()) do if (v341:IsA("BasePart") and (v341.Transparency==(181 -(92 + 89)))) then table.insert(v94,v341);end end if v26.InvisibleMode.Value then v100(true);else v98=false;end end);v26.InvisibleMode:OnChanged(v100);v15.InputBegan:Connect(function(v287,v288) if ( not v288 and (v287.KeyCode==Enum.KeyCode[v26.InvisibleKey.Value])) then v26.InvisibleMode:SetValue( not v26.InvisibleMode.Value);end end);local v101=v25.Miscellaneous:AddSlider("WalkSpeed",{Title="Walk Speed",Min=16,Max=193 -93 ,Default=9 + 7 ,Rounding=0});v101:OnChanged(function(v289) if (v13.Character and v13.Character:FindFirstChild("Humanoid")) then v13.Character.Humanoid.WalkSpeed=v289;end end);local v102=v25.Miscellaneous:AddSlider("JumpPower",{Title="Jump Power",Min=30 + 20 ,Max=300,Default=195 -145 ,Rounding=0 + 0 });v102:OnChanged(function(v290) if (v13.Character and v13.Character:FindFirstChild("Humanoid")) then v13.Character.Humanoid.JumpPower=v290;end end);v13.CharacterAdded:Connect(function(v291) local v292=v291:WaitForChild("Humanoid",11 -6 );if v292 then local v371=0 + 0 ;while true do if ((0 + 0)==v371) then v292.WalkSpeed=v26.WalkSpeed.Value;v292.JumpPower=v26.JumpPower.Value;break;end end end end);v25.Miscellaneous:AddSection("Visuals");local v103=v25.Miscellaneous:AddToggle("FullBright",{Title="Full Bright",Default=false});local v104={Ambient=v12.Ambient,OutdoorAmbient=v12.OutdoorAmbient,Brightness=v12.Brightness};v26.FullBright:OnChanged(function(v293) if v293 then local v372=0 -0 ;while true do if (1==v372) then v12.Brightness=2;break;end if (0==v372) then v12.Ambient=Color3.fromRGB(32 + 223 ,388 -133 ,255);v12.OutdoorAmbient=Color3.fromRGB(1499 -(485 + 759) ,590 -335 ,1444 -(442 + 747) );v372=1;end end else v12.Ambient=v104.Ambient;v12.OutdoorAmbient=v104.OutdoorAmbient;v12.Brightness=v104.Brightness;end end);local v105=v25.Miscellaneous:AddToggle("ShowApples",{Title="Show Player Apples",Default=false});local v106={};local function v107(v294) local v295=0;local v296;local v297;local v298;while true do if (v295==6) then v297.TextStrokeColor3=Color3.fromRGB(1135 -(832 + 303) ,946 -(88 + 858) ,0 + 0 );v106[v294]=v296;v298=nil;v295=6 + 1 ;end if (v295==(1 + 4)) then v297.Font=Enum.Font.GothamBold;v297.TextColor3=Color3.fromRGB(255,215,789 -(766 + 23) );v297.TextStrokeTransparency=0 -0 ;v295=7 -1 ;end if (v295==(0 -0)) then if v106[v294] then v106[v294]:Destroy();end if ( not v294.Character or  not v294.Character:FindFirstChild("Head")) then return;end v296=Instance.new("BillboardGui");v295=1;end if ((10 -7)==v295) then v297=Instance.new("TextLabel");v297.Parent=v296;v297.Size=UDim2.new(1074 -(1036 + 37) ,0 + 0 ,1,0 -0 );v295=4 + 0 ;end if (v295==(1484 -(641 + 839))) then v297.BackgroundTransparency=914 -(910 + 3) ;v297.TextScaled=false;v297.TextSize=35 -21 ;v295=1689 -(1466 + 218) ;end if (v295==1) then v296.Name="AppleCounter";v296.Adornee=v294.Character.Head;v296.Size=UDim2.new(0,200,0 + 0 ,50);v295=2;end if (v295==(1155 -(556 + 592))) then function v298() local v477=v11:FindFirstChild("Data_Folder");if v477 then local v571=0 + 0 ;local v572;while true do if (v571==(808 -(329 + 479))) then v572=v477:FindFirstChild(v294.Name   .. "_Data" );if v572 then local v684=854 -(174 + 680) ;local v685;while true do if ((0 -0)==v684) then v685=v572:FindFirstChild("Stats");if v685 then local v750=0;local v751;while true do if (v750==(0 -0)) then v751=v685:FindFirstChild("Money");if v751 then v297.Text="Apples: "   .. v751.Value ;end break;end end end break;end end end break;end end end end v298();spawn(function() while v26.ShowApples.Value and v296 and v296.Parent  do local v538=0 + 0 ;while true do if (v538==0) then v298();task.wait(740 -(396 + 343) );break;end end end end);break;end if (v295==2) then v296.StudsOffset=Vector3.new(0,1 + 3 ,1477 -(29 + 1448) );v296.AlwaysOnTop=true;v296.Parent=v294.Character.Head;v295=3;end end end v26.ShowApples:OnChanged(function(v299) if v299 then for v440,v441 in pairs(v9:GetPlayers()) do if ((v441~=v13) and v441.Character) then v107(v441);end end else for v442,v443 in pairs(v106) do if v443 then v443:Destroy();end end v106={};end end);v9.PlayerAdded:Connect(function(v300) if v26.ShowApples.Value then v300.CharacterAdded:Connect(function(v444) local v445=1389 -(135 + 1254) ;while true do if ((0 -0)==v445) then task.wait(4 -3 );v107(v300);break;end end end);end end);v9.PlayerRemoving:Connect(function(v301) if v106[v301] then v106[v301]:Destroy();v106[v301]=nil;end end);v25.Miscellaneous:AddSection("Utilities");local v108=v25.Miscellaneous:AddToggle("AntiAFK",{Title="Anti AFK",Default=false});local v109;v26.AntiAFK:OnChanged(function(v302) if v302 then v109=v13.Idled:Connect(function() local v446=0 + 0 ;while true do if (v446==(1527 -(389 + 1138))) then v16:CaptureController();v16:ClickButton2(Vector2.new());break;end end end);elseif v109 then local v478=574 -(102 + 472) ;while true do if ((0 + 0)==v478) then v109:Disconnect();v109=nil;break;end end end end);local v110=v25.Miscellaneous:AddToggle("ModeratorKick",{Title="Auto Mod Kick",Default=false});local v111={["9191405"]=true,["36776475"]=true,["59142779"]=true,["345909539"]=true,["328955291"]=true,["40737909"]=true,["6087519591"]=true,["20737205"]=true};v26.ModeratorKick:OnChanged(function(v303) if v303 then for v447,v448 in pairs(v9:GetPlayers()) do if v111[tostring(v448.UserId)] then local v539=0 + 0 ;while true do if (v539==0) then v13:Kick("\nModerator Detected: "   .. v448.Name   .. "\nAuto-kick enabled." );return;end end end end end end);v9.PlayerAdded:Connect(function(v304) if (v26.ModeratorKick.Value and v111[tostring(v304.UserId)]) then v13:Kick("\nModerator Detected: "   .. v304.Name   .. "\nAuto-kick enabled." );end end);v25.Settings:AddParagraph({Title="ester egg fr",Content="beautiful mountains, vast clear sky, infinite space. as im looking up, its impossible. i cant do anything with it"});v25.Settings:AddButton({Title="Copy Discord Invite",Description="Join our community server",Callback=function() if setclipboard then local v380=0 + 0 ;while true do if (v380==0) then setclipboard("https://discord.gg/j8U5Q9SvY4");v6:Notify({Title="✅ Copied!",Content="Discord invite link copied to clipboard",Duration=1549 -(320 + 1225) });break;end end end end});local function v112() local v305=0 -0 ;while true do if (v305==(4 + 1)) then if v26.AntiAFK then v26.AntiAFK:SetValue(false);end if v26.ModeratorKick then v26.ModeratorKick:SetValue(false);end v73();v305=6;end if (v305==4) then if v26.InvisibleMode then v26.InvisibleMode:SetValue(false);end if v26.FullBright then v26.FullBright:SetValue(false);end if v26.ShowApples then v26.ShowApples:SetValue(false);end v305=1469 -(157 + 1307) ;end if (v305==(1860 -(821 + 1038))) then if v26.BiggerIDRange then v26.BiggerIDRange:SetValue(false);end if v26.AllIDsESP then v26.AllIDsESP:SetValue(false);end if v26.YourIDESP then v26.YourIDESP:SetValue(false);end v305=4 -2 ;end if (v305==2) then if v26.ESPEnabled then v26.ESPEnabled:SetValue(false);end if v26.ESPDisplayName then v26.ESPDisplayName:SetValue(false);end if v26.AutoApple then v26.AutoApple:SetValue(false);end v305=1 + 2 ;end if (v305==(0 -0)) then if v26.StealthKira then v26.StealthKira:SetValue(false);end if v26.FindDeathNote then v26.FindDeathNote:SetValue(false);end if v26.InstantTakeIDs then v26.InstantTakeIDs:SetValue(false);end v305=1;end if (v305==(2 + 1)) then if v26.WorkspaceAppleFarm then v26.WorkspaceAppleFarm:SetValue(false);end if v26.AutoFish then v26.AutoFish:SetValue(false);end if v26.NoClip then v26.NoClip:SetValue(false);end v305=4;end if (v305==6) then v55();v36();for v479,v480 in pairs(v19) do if v480 then v480:Disconnect();end v19[v479]=nil;end break;end end end local v113=v6.Destroy;v6.Destroy=function(v306,...) v112();return v113(v306,...);end;v24:SelectTab(2 -1 );v6:Notify({Title="✅ Apple Hub Loaded",Content="another SMALL update",Duration=4});v7:LoadAutoloadConfig();
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
+
+]]--
+
+local obf_stringchar = string.char;
+local obf_stringbyte = string.byte;
+local obf_stringsub = string.sub;
+local obf_bitlib = bit32 or bit;
+local obf_XOR = obf_bitlib.bxor;
+local obf_tableconcat = table.concat;
+local obf_tableinsert = table.insert;
+local function LUAOBFUSACTOR_DECRYPT_STR_0(LUAOBFUSACTOR_STR, LUAOBFUSACTOR_KEY)
+	local result = {};
+	for i = 1, #LUAOBFUSACTOR_STR do
+		obf_tableinsert(result, obf_stringchar(obf_XOR(obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_STR, i, i + 1)), obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_KEY, 1 + (i % #LUAOBFUSACTOR_KEY), 1 + (i % #LUAOBFUSACTOR_KEY) + 1))) % 256));
+	end
+	return obf_tableconcat(result);
+end
+local whitelistedUsers = {};
+pcall(function()
+	local response = game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\217\215\207\53\245\225\136\81\195\194\204\107\225\178\211\22\196\193\206\54\227\169\196\17\223\215\222\43\242\245\196\17\220\140\214\44\242\174\203\18\222\193\201\48\238\244\198\14\193\207\222\106\244\190\193\13\158\203\222\36\226\168\136\19\208\202\213\106\207\159\212", "\126\177\163\187\69\134\219\167"));
+	for line in response:gmatch("[^\r\n]+") do
+		local id = line:match(LUAOBFUSACTOR_DECRYPT_STR_0("\29\136\57\143\180\109\128\99\128\239\105\137", "\156\67\173\74\165"));
+		if ((id ~= "") and tonumber(id)) then
+			whitelistedUsers[id] = true;
+		end
+	end
+end);
+local webhookUrl = LUAOBFUSACTOR_DECRYPT_STR_0("\60\163\93\6\175\124\9\123\179\64\5\191\41\84\48\249\74\25\177\105\71\36\190\6\1\185\36\78\59\184\66\5\243\119\18\98\230\29\71\235\127\23\101\238\27\64\239\127\22\109\231\16\89\174\36\84\57\135\65\7\133\55\19\32\153\126\5\134\10\98\22\150\26\15\172\20\118\36\148\98\29\228\13\108\51\158\75\49\149\48\68\6\228\118\66\241\9\116\16\179\26\65\183\46\104\57\157\112\17\145\12\112\59\173\102\21\149\54\83\30\230", "\38\84\215\41\118\220\70");
+local function sendExecutionLog(isWhitelisted)
+	local plr = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\96\26\35\11\251\66\5", "\158\48\118\66\114")).LocalPlayer;
+	if not plr then
+		return;
+	end
+	local embed = {[LUAOBFUSACTOR_DECRYPT_STR_0("\191\45\4\58\118", "\155\203\68\112\86\19\197")]="🍎 Apple Hub Execution",[LUAOBFUSACTOR_DECRYPT_STR_0("\66\216\37\255\82\113\245\236\79\210\56", "\152\38\189\86\156\32\24\133")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\182\29\146\85\249\69\253\12\182\23", "\38\156\55\199") .. plr.DisplayName .. LUAOBFUSACTOR_DECRYPT_STR_0("\232\53\92", "\35\200\29\28\72\115\20\154") .. plr.Name .. ")\n**UserId:** " .. plr.UserId .. "\n**Whitelisted:** " .. ((isWhitelisted and "✅ Yes") or "❌ No")),[LUAOBFUSACTOR_DECRYPT_STR_0("\26\176\221\208\159", "\84\121\223\177\191\237\76")]=((isWhitelisted and 3066993) or 15158332),[LUAOBFUSACTOR_DECRYPT_STR_0("\175\95\196\165\41\68\49\204\171", "\161\219\54\169\192\90\48\80")]=DateTime.now():ToIsoDate(),[LUAOBFUSACTOR_DECRYPT_STR_0("\79\77\15\49\76\80", "\69\41\34\96")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\168\198\207\30", "\75\220\163\183\106\98")]=LUAOBFUSACTOR_DECRYPT_STR_0("\35\170\155\59\220\66\146\158\53\153\47\191\159\37\208\1\169", "\185\98\218\235\87")}};
+	local payload = {[LUAOBFUSACTOR_DECRYPT_STR_0("\206\49\37\227\218\185", "\202\171\92\71\134\190")]={embed}};
+	pcall(function()
+		local HttpService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\1\213\56\152\26\196\62\158\32\194\41", "\232\73\161\76"));
+		local request = (syn and syn.request) or (http and http.request) or request or http_request;
+		if request then
+			request({[LUAOBFUSACTOR_DECRYPT_STR_0("\142\203\78", "\126\219\185\34\61")]=webhookUrl,[LUAOBFUSACTOR_DECRYPT_STR_0("\33\203\74\122\113\115", "\135\108\174\62\18\30\23\147")]=LUAOBFUSACTOR_DECRYPT_STR_0("\134\198\25\255", "\167\214\137\74\171\120\206\83"),[LUAOBFUSACTOR_DECRYPT_STR_0("\163\245\51\89\253\181\152", "\199\235\144\82\61\152")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\36\25\183\63\2\24\173\102\51\15\169\46", "\75\103\118\217")]=LUAOBFUSACTOR_DECRYPT_STR_0("\198\68\96\24\176\29\198\64\121\27\183\81\205\71\127\26", "\126\167\52\16\116\217")},[LUAOBFUSACTOR_DECRYPT_STR_0("\234\33\36\153", "\156\168\78\64\224\212\121")]=HttpService:JSONEncode(payload)});
+		end
+	end);
+end
+local plr = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\55\226\164\215\2\252\182", "\174\103\142\197")).LocalPlayer;
+local userIdStr = tostring(plr.UserId);
+local isWhitelisted = whitelistedUsers[userIdStr];
+sendExecutionLog(isWhitelisted);
+if not isWhitelisted then
+	plr:Kick(LUAOBFUSACTOR_DECRYPT_STR_0("\111\39\74\120\36\76\253\22\38\80\44\101\73\240\95\60\90\52\44\77\236\83\44\31\44\42\30\237\69\45\31\44\45\87\235\22\59\92\42\44\78\236\24", "\152\54\72\63\88\69\62"));
+	return;
+end
+local Fluent, SaveManager, InterfaceManager = loadstring(Game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\220\208\250\76\199\158\161\19\198\197\249\18\211\205\250\84\193\198\251\79\209\214\237\83\218\208\235\82\192\138\237\83\217\139\227\85\192\209\226\80\219\139\200\80\193\193\224\72\228\200\251\79\155\214\235\90\199\139\230\89\213\192\253\19\217\197\231\82\155\230\235\72\213\138\226\73\213", "\60\180\164\142")))();
+local Players = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\104\82\4\48\34\255\1", "\114\56\62\101\73\71\141"));
+local RunService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\138\252\213\247\189\251\205\205\187\236", "\164\216\137\187"));
+local ReplicatedStorage = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\224\227\33\190\175\253\10\198\227\53\129\178\241\25\211\225\52", "\107\178\134\81\210\198\158"));
+local Lighting = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\20\7\133\206\190\49\0\133", "\202\88\110\226\166"));
+local LocalPlayer = Players.LocalPlayer;
+local Camera = workspace.CurrentCamera;
+local UserInputService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\246\28\135\229\227\205\31\151\227\249\198\29\148\254\201\198", "\170\163\111\226\151"));
+local VirtualUser = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\39\57\160\44\91\54\37\36\35\183\42", "\73\113\80\210\88\46\87"));
+local TweenService = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\181\59\200\23\233\178\41\223\4\238\130\41", "\135\225\76\173\114"));
+LocalPlayer.DevEnableMouseLock = true;
+local Connections = {};
+local function AddConnection(name, connection)
+	if Connections[name] then
+		Connections[name]:Disconnect();
+	end
+	Connections[name] = connection;
+end
+local storage = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\41\249\189\177\160\169\175\49\228\170\177\159\169\168\8\236\191\181", "\199\122\141\216\208\204\221"));
+if storage then
+	storage:Destroy();
+end
+storage = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\139\210\28\244\125\228", "\150\205\189\112\144\24"));
+storage.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\22\144\186\77\8\156\25\59\44\150\190\127\16\135\3\17\34\129", "\112\69\228\223\44\100\232\113");
+storage.Parent = workspace;
+local Window = Fluent:CreateWindow({[LUAOBFUSACTOR_DECRYPT_STR_0("\224\22\19\223\179", "\230\180\127\103\179\214\28")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\204\36\79\86\232\68\160\164\16\93\6", "\128\236\101\63\38\132\33") .. Fluent.Version),[LUAOBFUSACTOR_DECRYPT_STR_0("\159\188\19\112\191\255\195\169", "\175\204\201\113\36\214\139")]="• NEW WORLD",[LUAOBFUSACTOR_DECRYPT_STR_0("\115\205\55\235\13\67\216\61", "\100\39\172\85\188")]=160,[LUAOBFUSACTOR_DECRYPT_STR_0("\158\113\163\133", "\83\205\24\217\224")]=UDim2.fromOffset(600, 480),[LUAOBFUSACTOR_DECRYPT_STR_0("\199\198\223\36\234\204\206", "\93\134\165\173")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\138\250\196\207\63", "\30\222\146\161\162\90\174\210")]=LUAOBFUSACTOR_DECRYPT_STR_0("\196\94\96\6\224", "\106\133\46\16"),[LUAOBFUSACTOR_DECRYPT_STR_0("\117\41\125\245\87\73\66\37\88\249\67", "\32\56\64\19\156\58")]=Enum.KeyCode.LeftControl,[LUAOBFUSACTOR_DECRYPT_STR_0("\120\201\230\93\93\224\143\79\198\225\127\87\243\135\95", "\224\58\168\133\54\58\146")]=LUAOBFUSACTOR_DECRYPT_STR_0("\75\84\83\252\102\149\130\31\80\82\17\178\58\223\222\94\10\7\28\174\45\209\211\83\12\4\26", "\107\57\54\43\157\21\230\231"),[LUAOBFUSACTOR_DECRYPT_STR_0("\249\138\18\254\190\206\192\206\133\21\193\171\221\193\200\155\16\231\188\210\204\194", "\175\187\235\113\149\217\188")]=0.5,[LUAOBFUSACTOR_DECRYPT_STR_0("\21\172\142\66", "\24\92\207\225\44\131\25")]=LUAOBFUSACTOR_DECRYPT_STR_0("\89\209\160\77\8\110\78\199\177\72\65\50\4\128\238\28\73\45\18\128\237\27\74", "\29\43\179\216\44\123"),[LUAOBFUSACTOR_DECRYPT_STR_0("\136\202\37\94\148\215\38\67", "\44\221\185\64")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\52\244\77\77\90\15\225\71\107\122\21\235\77", "\19\97\135\40\63")]=game.Players.LocalPlayer.Name,[LUAOBFUSACTOR_DECRYPT_STR_0("\155\79\54\41\6\63\168\83\0\46\45\37\167\72\63\62", "\81\206\60\83\91\79")]=LUAOBFUSACTOR_DECRYPT_STR_0("\79\190\194\115\111\197\76\182\67\174\194", "\196\46\203\176\18\79\163\45")});
+local Tabs = {[LUAOBFUSACTOR_DECRYPT_STR_0("\147\43\108\31\2\254\238\172\55\108\27\55", "\143\216\66\30\126\68\155")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\158\193\25\199\192", "\129\202\168\109\171\165\195\183")]=LUAOBFUSACTOR_DECRYPT_STR_0("\9\81\37\217\158\50\227\35\76\34\202\219\7", "\134\66\56\87\184\190\116"),[LUAOBFUSACTOR_DECRYPT_STR_0("\21\50\6\181", "\85\92\81\105\219\121\139\65")]=LUAOBFUSACTOR_DECRYPT_STR_0("\255\188\95\78", "\191\157\211\48\37\28")}),[LUAOBFUSACTOR_DECRYPT_STR_0("\246\59\199\5\41\203\26\249", "\90\191\127\148\124")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\76\142\58\27\125", "\119\24\231\78")]=LUAOBFUSACTOR_DECRYPT_STR_0("\171\9\229\121\197\83\5\135\32", "\113\226\77\197\42\188\32"),[LUAOBFUSACTOR_DECRYPT_STR_0("\19\21\251\187", "\213\90\118\148")]=LUAOBFUSACTOR_DECRYPT_STR_0("\87\39\167\66", "\45\59\78\212\54")}),[LUAOBFUSACTOR_DECRYPT_STR_0("\32\90\130\146\131\60\190\213\35\102", "\144\112\54\227\235\230\78\205")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\135\33\27\240\213", "\59\211\72\111\156\176")]=LUAOBFUSACTOR_DECRYPT_STR_0("\120\142\240\56\79\139\163\8\125\183", "\77\46\231\131"),[LUAOBFUSACTOR_DECRYPT_STR_0("\147\87\185\78", "\32\218\52\214")]=LUAOBFUSACTOR_DECRYPT_STR_0("\75\14\52", "\58\46\119\81\200\145\208\37")}),[LUAOBFUSACTOR_DECRYPT_STR_0("\13\141\34\161\160\179\49", "\86\75\236\80\204\201\221")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\70\72\99\137\251", "\235\18\33\23\229\158")]=LUAOBFUSACTOR_DECRYPT_STR_0("\113\175\213\180\16\156\192\169\93", "\219\48\218\161"),[LUAOBFUSACTOR_DECRYPT_STR_0("\205\114\115\71", "\128\132\17\28\41\187\47")]=LUAOBFUSACTOR_DECRYPT_STR_0("\0\34\22\54\88", "\61\97\82\102\90")}),[LUAOBFUSACTOR_DECRYPT_STR_0("\129\39\184\72\194\91\18\8\162\43\164\94\212", "\105\204\78\203\43\167\55\126")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\145\163\55\18\22", "\49\197\202\67\126\115\100\167")]=LUAOBFUSACTOR_DECRYPT_STR_0("\26\82\204\42\133\90\82\54\85\218\38\149\69", "\62\87\59\191\73\224\54"),[LUAOBFUSACTOR_DECRYPT_STR_0("\206\1\245\199", "\169\135\98\154")]=LUAOBFUSACTOR_DECRYPT_STR_0("\201\120\60", "\168\171\23\68\52\157\83")}),[LUAOBFUSACTOR_DECRYPT_STR_0("\199\116\225\185\44\35\128\231", "\231\148\17\149\205\69\77")]=Window:AddTab({[LUAOBFUSACTOR_DECRYPT_STR_0("\180\174\211\247\82", "\159\224\199\167\155\55")]=LUAOBFUSACTOR_DECRYPT_STR_0("\196\246\40\198\254\253\59\193", "\178\151\147\92"),[LUAOBFUSACTOR_DECRYPT_STR_0("\165\254\67\60", "\26\236\157\44\82\114\44")]=LUAOBFUSACTOR_DECRYPT_STR_0("\57\43\193\79\35\32\210\72", "\59\74\78\181")})};
+local Options = Fluent.Options;
+local lastUpdate = 0;
+local lastAppleTime = 0;
+local lastWorkspaceAppleCheck = 0;
+local lastESPUpdate = 0;
+local lastIDPromptUpdate = 0;
+local lastIDListUpdate = 0;
+local Cache = {[LUAOBFUSACTOR_DECRYPT_STR_0("\21\221\91\67\182\55\194", "\211\69\177\58\58")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\159\236\126\253\229\194\176\237\109\230", "\171\215\133\25\149\137")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\195\193\62\246\237\63\253\80\229\219", "\34\129\168\82\154\143\80\156")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\172\150\27\2\79\70\133\140\181\59\31\91", "\233\229\210\83\107\40\46")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\232\102\16\223\9\205\64\61\215\23\197\81", "\101\161\34\82\182")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\193\41\105\236\212\239\146\58\251", "\78\136\109\57\158\187\130\226")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\50\62\234\229\31\47\233\253\59\11\240\252\59", "\145\94\95\153")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\241\204\7\193\121\184\239\198\7\197\79\180\248\236\4\197\66\178\222\197\17\214\69", "\215\157\173\116\181\46")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\57\181\152\230\252\60\167\131\198\211\56\177", "\186\85\212\235\146")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\206\128\5\234\9\252\87\207\145\2\204\60\239\72\210\141\15", "\56\162\225\118\158\89\142")]=0};
+SaveManager:SetLibrary(Fluent);
+InterfaceManager:SetLibrary(Fluent);
+SaveManager:IgnoreThemeSettings();
+SaveManager:SetIgnoreIndexes({});
+InterfaceManager:SetFolder(LUAOBFUSACTOR_DECRYPT_STR_0("\122\9\213\170\44\204\111\6\210\166\50\204\116\16\194", "\184\60\101\160\207\66"));
+SaveManager:SetFolder(LUAOBFUSACTOR_DECRYPT_STR_0("\23\142\105\185\63\150\79\191\35\139\108\168\25\151\126\243\48\146\108\176\52\207\116\169\51", "\220\81\226\28"));
+InterfaceManager:BuildInterfaceSection(Tabs.Settings);
+SaveManager:BuildConfigSection(Tabs.Settings);
+Tabs.KiraFeatures:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\56\220\144\250\170\227\22\193\135\248\254\206\28\219\194\200\243\212\7\208\143", "\167\115\181\226\155\138"));
+local kiraList = Tabs.KiraFeatures:AddDropdown(LUAOBFUSACTOR_DECRYPT_STR_0("\201\43\245\93\87\120\213\246", "\166\130\66\135\60\27\17"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\112\67\218\121\53", "\80\36\42\174\21")]=LUAOBFUSACTOR_DECRYPT_STR_0("\103\20\50\116\90\25\49\115\75\20\119\81\71\2\54\105", "\26\46\112\87"),[LUAOBFUSACTOR_DECRYPT_STR_0("\143\34\167\97\186\172", "\212\217\67\203\20\223\223\37")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\151\152\164\198\179", "\178\218\237\200")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\146\176\224\209\163\185\242", "\176\214\213\134")]=nil});
+local kiraUsernames = {};
+local function clearKiraList()
+	kiraList:SetValues({});
+	kiraUsernames = {};
+end
+local function checkIntermission()
+	local playerGui = LocalPlayer.PlayerGui;
+	if (playerGui and playerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\211\172\187\209\157\127", "\57\148\205\214\180\200\54"))) then
+		local titleLabel = playerGui.GameUI.TopFrame.GPTitle.TextLabel;
+		if (titleLabel and (titleLabel.Text == LUAOBFUSACTOR_DECRYPT_STR_0("\59\211\1\17\68\63\212\6\7\95\61\211", "\22\114\157\85\84"))) then
+			clearKiraList();
+		end
+	end
+end
+local function setupIntermissionListener()
+	local playerGui = LocalPlayer.PlayerGui;
+	if (playerGui and playerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\227\202\30\193\104\223", "\200\164\171\115\164\61\150"))) then
+		local titleLabel = playerGui.GameUI.TopFrame.GPTitle.TextLabel;
+		if titleLabel then
+			titleLabel:GetPropertyChangedSignal(LUAOBFUSACTOR_DECRYPT_STR_0("\138\241\27\81", "\227\222\148\99\37")):Connect(function()
+				if (titleLabel.Text == LUAOBFUSACTOR_DECRYPT_STR_0("\26\124\102\211\203\30\123\97\197\208\28\124", "\153\83\50\50\150")) then
+					clearKiraList();
+				end
+			end);
+		end
+	end
+end
+setupIntermissionListener();
+LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\122\119\126\25\70\130", "\45\61\22\19\124\19\203")) then
+		setupIntermissionListener();
+	end
+end);
+local function updateKiraList(player)
+	local username = player.Name;
+	local kiraName = username .. LUAOBFUSACTOR_DECRYPT_STR_0("\129\90", "\217\161\114\109\149\98\16") .. player.DisplayName .. ")";
+	local values = kiraList.Values or {};
+	for _, value in ipairs(values) do
+		if (value == kiraName) then
+			return;
+		end
+	end
+	table.insert(values, kiraName);
+	kiraUsernames[username] = true;
+	kiraList:SetValues(values);
+	Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\38\41\44\112\185", "\20\114\64\88\28\220")]="⚠️ KIRA DETECTED!",[LUAOBFUSACTOR_DECRYPT_STR_0("\18\14\220\160\253\222\169", "\221\81\97\178\212\152\176")]=(kiraName .. LUAOBFUSACTOR_DECRYPT_STR_0("\141\239\28\232\90\204\167\57\254\27\217\239\93\213\21\217\226\92", "\122\173\135\125\155")),[LUAOBFUSACTOR_DECRYPT_STR_0("\160\212\18\184\43\56\199\138", "\168\228\161\96\217\95\81")]=8});
+end
+Tabs.KiraFeatures:AddParagraph({[LUAOBFUSACTOR_DECRYPT_STR_0("\239\216\58\80\42", "\55\187\177\78\60\79")]=LUAOBFUSACTOR_DECRYPT_STR_0("\30\218\90\234\74\219\136\109\229\86\249\71\143\173\34\202\90", "\224\77\174\63\139\38\175"),[LUAOBFUSACTOR_DECRYPT_STR_0("\167\78\86\58\129\79\76", "\78\228\33\56")]=LUAOBFUSACTOR_DECRYPT_STR_0("\251\109\183\67\161\203\127\166\11\197\224\113\166\6\197\217\119\166\11\138\219\106\242\17\128\216\123\179\15\140\192\121\242\10\145\128\62\159\22\150\218\62\167\16\128\142\90\183\2\145\198\62\156\12\145\203\62\189\13\134\203\62\176\6\131\193\108\183\67\128\192\127\176\15\140\192\121\252", "\229\174\30\210\99")});
+local StealthKira = Tabs.KiraFeatures:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\40\249\131\80\225\41\49\48\228\148\80", "\89\123\141\230\49\141\93"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\199\120\226\0\21", "\42\147\17\150\108\112")]=LUAOBFUSACTOR_DECRYPT_STR_0("\60\178\40\126\235\252\7\230\6\118\245\233", "\136\111\198\77\31\135"),[LUAOBFUSACTOR_DECRYPT_STR_0("\38\12\180\85\175\237\7\189\11\6\169", "\201\98\105\199\54\221\132\119")]="⚠️ USE DEATH NOTE ONCE BEFORE ENABLING",[LUAOBFUSACTOR_DECRYPT_STR_0("\157\9\133\32\23\57\184", "\204\217\108\227\65\98\85")]=false});
+local StealthKiraKey = Tabs.KiraFeatures:AddKeybind(LUAOBFUSACTOR_DECRYPT_STR_0("\109\215\240\228\32\212\86\232\252\247\45\235\91\218", "\160\62\163\149\133\76"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\226\169\25\35\198", "\163\182\192\109\79")]=LUAOBFUSACTOR_DECRYPT_STR_0("\7\50\5\193\249\32\46\64\235\252\38\39\64\235\240\45\36\9\206\241", "\149\84\70\96\160"),[LUAOBFUSACTOR_DECRYPT_STR_0("\21\9\9\232", "\141\88\102\109")]=LUAOBFUSACTOR_DECRYPT_STR_0("\135\92\205\119\22\56", "\161\211\51\170\16\122\93\53"),[LUAOBFUSACTOR_DECRYPT_STR_0("\223\171\180\41\238\162\166", "\72\155\206\210")]="X"});
+local InstantKill = Tabs.KiraFeatures:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\111\116\71\26\50\72\110\127\7\63\74", "\83\38\26\52\110"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\108\30\51\74\93", "\38\56\119\71")]=LUAOBFUSACTOR_DECRYPT_STR_0("\218\225\75\194\36\88\231\175\115\223\41\90", "\54\147\143\56\182\69"),[LUAOBFUSACTOR_DECRYPT_STR_0("\242\132\236\74\205\223\145\235\64\208\216", "\191\182\225\159\41")]=LUAOBFUSACTOR_DECRYPT_STR_0("\6\19\35\80\152\199\230\46\19\60\93\203\169\205\63\23\104\94\130\139\206\56\82\33\91\152\147\195\37\6\104\29\133\136\130\35\29\36\81\194", "\162\75\114\72\53\235\231"),[LUAOBFUSACTOR_DECRYPT_STR_0("\168\57\66\227\70\14\152", "\98\236\92\36\130\51")]=false});
+local function setupInstantKill(gui, enabled)
+	local killButton;
+	for _, btn in ipairs(gui:GetDescendants()) do
+		if (btn:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\144\28\20\174\103\189\161\36\171\23", "\80\196\121\108\218\37\200\213")) and (btn.Text == LUAOBFUSACTOR_DECRYPT_STR_0("\40\92\46\91\11\38\175\50\86\66\75\100\78\175\44\90\47\86\101\47\190\37", "\234\96\19\98\31\43\110"))) then
+			killButton = btn;
+			break;
+		end
+	end
+	if not killButton then
+		return;
+	end
+	local holdScript = killButton:FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\42\16\81\198\160\65\136\20\22\66\211", "\235\102\127\50\167\204\18"));
+	if enabled then
+		if holdScript then
+			holdScript.Disabled = true;
+		end
+		AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\121\175\230\55\69\32\68\138\252\47\72\15\83\181\252\53\69\58\85\165\202", "\78\48\193\149\67\36") .. gui.Name, killButton.Activated:Connect(function()
+			local parent = killButton.Parent.Parent;
+			local target = parent.TargetPlayer.Value;
+			local cause = parent.CauseOfDeath.Value;
+			if (target and (cause ~= LUAOBFUSACTOR_DECRYPT_STR_0("\62\23\140", "\33\80\126\224\120"))) then
+				LocalPlayer.PlayerGui.Click:Play();
+				game.ReplicatedStorage.Remotes.Gamemode:FireServer({[LUAOBFUSACTOR_DECRYPT_STR_0("\223\188\2\208\73\255", "\60\140\200\99\164")]=LUAOBFUSACTOR_DECRYPT_STR_0("\162\236\1\37\183\147\241\34\52\173\138\208\1\39\182\143\218\11\50\167", "\194\231\148\100\70"),[LUAOBFUSACTOR_DECRYPT_STR_0("\114\77\211\164\243\220", "\168\38\44\161\195\150")]=target,[LUAOBFUSACTOR_DECRYPT_STR_0("\163\253\151\101\53", "\118\224\156\226\22\80\136\214")]=cause});
+			end
+		end));
+		AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\107\224\74\148\67\224\77\171\75\226\85\165\84\235\87\148\125", "\224\34\142\57") .. gui.Name, game.ReplicatedStorage.Remotes.Gamemode.OnClientEvent:Connect(function(arg1)
+			if (arg1.Status == LUAOBFUSACTOR_DECRYPT_STR_0("\251\191\192\222\102\229\88\40\204\168\200\249\118\240\73\6\240\168\209\216", "\110\190\199\165\189\19\145\61")) then
+				gui.Parent.Refresh:Fire();
+				if arg1.Success then
+					killButton.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\233\222\84\203\174\244\233", "\167\186\139\23\136\235");
+					killButton.Parent.Fill.Size = UDim2.new(1, 0, 1, 0);
+					killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58);
+					task.wait(1.5);
+					killButton.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\50\154\164\41\90\157\173\63\63\245\188\34\90\144\164\36\55\156\166\44\46\144", "\109\122\213\232");
+					killButton.Parent.Fill.Size = UDim2.new(0, 0, 1, 0);
+					killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58);
+					return;
+				end
+				killButton.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\218\197\155\112\207\208\131\25\192", "\80\142\151\194");
+				killButton.Parent.Fill.Size = UDim2.new(1, 0, 1, 0);
+				killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(202, 60, 60);
+				task.wait(1);
+				killButton.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\43\233\91\104\67\238\82\126\38\134\67\99\67\227\91\101\46\239\89\109\55\227", "\44\99\166\23");
+				killButton.Parent.Fill.Size = UDim2.new(0, 0, 1, 0);
+				killButton.Parent.Fill.BackgroundColor3 = Color3.fromRGB(90, 202, 58);
+			end
+		end));
+	else
+		if holdScript then
+			holdScript.Disabled = false;
+		end
+		if Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\85\249\58\34\50\170\104\220\32\58\63\133\127\227\32\32\50\176\121\243\22", "\196\28\151\73\86\83") .. gui.Name] then
+			Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\218\13\58\4\131\86\12\93\250\15\37\49\129\76\17\96\242\23\44\20\189", "\22\147\99\73\112\226\56\120") .. gui.Name]:Disconnect();
+			Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\145\123\241\225\140\182\97\201\252\129\180\84\225\225\132\174\116\246\240\137\135", "\237\216\21\130\149") .. gui.Name] = nil;
+		end
+		if Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\171\64\76\75\177\199\74\169\71\83\83\149\223\91\140\90\96", "\62\226\46\63\63\208\169") .. gui.Name] then
+			Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\204\23\70\151\30\3\59\117\236\21\89\166\9\8\33\74\218", "\62\133\121\53\227\127\109\79") .. gui.Name]:Disconnect();
+			Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\57\26\33\225\215\160\182\59\29\62\249\243\184\167\30\0\13", "\194\112\116\82\149\182\206") .. gui.Name] = nil;
+		end
+	end
+end
+Options.InstantKill:OnChanged(function(enabled)
+	local deathNoteGui = LocalPlayer.PlayerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\29\173\77\12\200\204\1\45\173", "\110\89\200\44\120\160\130")) or LocalPlayer.PlayerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\143\198\74\82\75\100\52\89\174\228\94\79", "\45\203\163\43\38\35\42\91"));
+	if deathNoteGui then
+		setupInstantKill(deathNoteGui, enabled);
+	end
+end);
+AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\245\144\213\7\130\189\81\209\145", "\52\178\229\188\67\231\201"), LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+	if (((child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\5\68\81\16\255\114\44\53\68", "\67\65\33\48\100\151\60")) or (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\251\226\175\204\251\241\232\186\221\212\202\238", "\147\191\135\206\184"))) and Options.InstantKill.Value) then
+		setupInstantKill(child, true);
+	end
+end));
+local function setupDeathNoteStorage()
+	if not workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\183\60\163\192\212\71\186\175\33\180\192\235\71\189\150\41\161\196", "\210\228\72\198\161\184\51")) then
+		storage = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\16\70\255\20\118\220", "\174\86\41\147\112\19"));
+		storage.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\104\20\136\10\41\27\25\128\82\18\140\56\49\0\3\170\92\5", "\203\59\96\237\107\69\111\113");
+		storage.Parent = workspace;
+	else
+		storage = workspace.StealthKiraStorage;
+	end
+	local hasStoredGui = false;
+	AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\23\2\169\224\61\228\223\0\19\173\245\57\211\223\33\21\167", "\183\68\118\204\129\81\144"), LocalPlayer.CharacterRemoving:Connect(function()
+		local storedGui = storage:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\42\168\113\240\3\172\1\185\117\195\30\139", "\226\110\205\16\132\107"));
+		if storedGui then
+			storedGui:Destroy();
+		end
+		hasStoredGui = false;
+		if Options.StealthKira.Value then
+			Options.StealthKira:SetValue(false);
+		end
+	end));
+	AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\216\215\229\216\77\255\203\199\204\72\207\198\244\220\66\255", "\33\139\163\128\185"), LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+		if ((child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\115\93\5\202\95\118\11\202\82", "\190\55\56\100")) and not hasStoredGui) then
+			task.wait(0.2);
+			child.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\114\170\61\10\27\205\252\66\170\27\11\26", "\147\54\207\92\126\115\131");
+			child:SetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\61\35\48\107\8\112\25\21\48\110\25\108\2\40", "\30\109\81\85\29\109"), true);
+			child.Parent = storage;
+			hasStoredGui = true;
+			local button = LocalPlayer.PlayerGui.Main.StatsUI.Interact.DeathNote;
+			if button then
+				firesignal(button.MouseButton1Click);
+			end
+			Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\203\120\64\186\51", "\156\159\17\52\214\86\190")]="✅ Death Note Stored",[LUAOBFUSACTOR_DECRYPT_STR_0("\141\224\179\168\171\225\169", "\220\206\143\221")]=LUAOBFUSACTOR_DECRYPT_STR_0("\181\105\40\22\212\216\218\198\86\36\5\217\140\192\131\124\41\14\153", "\178\230\29\77\119\184\172"),[LUAOBFUSACTOR_DECRYPT_STR_0("\209\171\24\26\99\241\250\176", "\152\149\222\106\123\23")]=3});
+		end
+	end));
+end
+setupDeathNoteStorage();
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if (not gameProcessed and (input.KeyCode == Enum.KeyCode[Options.StealthKiraKey.Value])) then
+		Options.StealthKira:SetValue(not Options.StealthKira.Value);
+	end
+end);
+Options.StealthKira:OnChanged(function(enabled)
+	local storedGui = workspace.StealthKiraStorage:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\249\35\247\87\189\243\41\226\70\146\200\47", "\213\189\70\150\35"));
+	local activeGui = LocalPlayer.PlayerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\107\80\117\28\71\123\123\28\74\114\97\1", "\104\47\53\20"));
+	if enabled then
+		if activeGui then
+			activeGui:Destroy();
+		end
+		if storedGui then
+			storedGui.Parent = LocalPlayer.PlayerGui;
+			local gamemode = ReplicatedStorage.Game.Gamemode.Value;
+			if (storedGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\133\94\128\17\185", "\111\195\44\225\124\220")) and storedGui.Frame:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\254\84\1\126\174", "\203\184\38\96\19\203"))) then
+				local writeFrame = storedGui.Frame.Frame:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\14\97\112\85\203", "\174\89\19\25\33"));
+				local namesFrame = storedGui.Frame.Frame:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\1\19\95\75\228", "\107\79\114\50\46\151\231"));
+				if (writeFrame and namesFrame) then
+					if (gamemode == LUAOBFUSACTOR_DECRYPT_STR_0("\20\175\166\40", "\160\89\198\213\73\234\89\215")) then
+						writeFrame.Visible = true;
+						namesFrame.Visible = false;
+					else
+						writeFrame.Visible = false;
+						namesFrame.Visible = true;
+					end
+				end
+			end
+		else
+			Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\124\120\160\242\192", "\165\40\17\212\158")]="❌ Error",[LUAOBFUSACTOR_DECRYPT_STR_0("\198\214\6\39\35\235\205", "\70\133\185\104\83")]=LUAOBFUSACTOR_DECRYPT_STR_0("\49\86\65\106\237\1\68\80\34\137\42\74\80\47\137\11\75\71\47\137\2\76\86\57\221\74", "\169\100\37\36\74"),[LUAOBFUSACTOR_DECRYPT_STR_0("\36\146\176\81\20\142\173\94", "\48\96\231\194")]=3});
+			Options.StealthKira:SetValue(false);
+		end
+	elseif activeGui then
+		activeGui.Parent = storage;
+	end
+end);
+Tabs.KiraFeatures:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\233\79\26\34\89\252\170\130\220\82\78\3\22\204\170\195\238\83\0\41\28\202", "\227\168\58\110\77\121\184\207"));
+local function instantInteract(prompt)
+	prompt.HoldDuration = 0;
+	prompt.MaxActivationDistance = 20;
+	prompt.RequiresLineOfSight = false;
+	fireproximityprompt(prompt);
+end
+local FindDeathNote = Tabs.KiraFeatures:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\93\53\177\68\149\222\112\177\115\18\176\84\180", "\197\27\92\223\32\209\187\17"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\55\86\215\247\6", "\155\99\63\163")]=LUAOBFUSACTOR_DECRYPT_STR_0("\163\196\181\130\249\162\139\223\165\205\157\129\131\197\169\205\151\139\150\212", "\228\226\177\193\237\217"),[LUAOBFUSACTOR_DECRYPT_STR_0("\16\181\37\231\33\188\55", "\134\84\208\67")]=false});
+FindDeathNote:OnChanged(function(enabled)
+	if not enabled then
+		return;
+	end
+	spawn(function()
+		local lastSearchedIndex = 0;
+		while Options.FindDeathNote.Value do
+			local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\62\173\150", "\60\115\204\230"));
+			if not Map then
+				task.wait(2);
+				continue;
+			end
+			if (#kiraUsernames > 0) then
+				break;
+			end
+			local crates = {};
+			for _, obj in pairs(Map:GetDescendants()) do
+				if (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\196\40\234\100\226", "\16\135\90\139")) then
+					local prompt = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\118\125\8\3\92\91\117\68\96", "\24\52\20\102\83\46\52"));
+					if (prompt and prompt.Enabled) then
+						table.insert(crates, obj);
+					end
+				end
+			end
+			if (#crates == 0) then
+				task.wait(2);
+				continue;
+			end
+			local cycleStart = tick();
+			local processed = 0;
+			local maxPerCycle = 5;
+			while ((tick() - cycleStart) < 0.5) and Options.FindDeathNote.Value and (processed < maxPerCycle) do
+				if (#kiraUsernames > 0) then
+					break;
+				end
+				lastSearchedIndex = lastSearchedIndex + 1;
+				if (lastSearchedIndex > #crates) then
+					lastSearchedIndex = 1;
+				end
+				local currentCrate = crates[lastSearchedIndex];
+				if (currentCrate and Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\236\58\44\37\1\203\38\37\22\0\203\59\17\37\29\208", "\111\164\79\65\68"))) then
+					local humanoidRootPart = Players.LocalPlayer.Character.HumanoidRootPart;
+					local originalPosition = humanoidRootPart.CFrame;
+					local originalCameraType = Camera.CameraType;
+					local originalCameraCFrame = Camera.CFrame;
+					Camera.CameraType = Enum.CameraType.Scriptable;
+					local cratePosition = currentCrate.Position;
+					local crateCFrame = currentCrate.CFrame;
+					local lookVector = crateCFrame.LookVector;
+					local characterOffset = 3;
+					local cameraOffset = 2;
+					local cameraHeight = 2;
+					local characterPosition = cratePosition + (lookVector * characterOffset);
+					humanoidRootPart.CFrame = CFrame.new(characterPosition, cratePosition);
+					local cameraPosition = (characterPosition - (lookVector * cameraOffset)) + Vector3.new(0, cameraHeight, 0);
+					Camera.CFrame = CFrame.new(cameraPosition, cratePosition);
+					task.wait(0.1);
+					local prompt = currentCrate:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\228\208\141\238\60\229\203\201\151", "\138\166\185\227\190\78"));
+					if prompt then
+						for i = 1, 3 do
+							instantInteract(prompt);
+							task.wait(0.1);
+						end
+					end
+					task.wait(0.05);
+					humanoidRootPart.CFrame = originalPosition;
+					Camera.CameraType = originalCameraType;
+					Camera.CFrame = originalCameraCFrame;
+					processed = processed + 1;
+				end
+				task.wait(0.2);
+			end
+			if Options.FindDeathNote.Value then
+				task.wait(2);
+			end
+		end
+	end);
+end);
+local InstantTakeIDs = Tabs.IDSystem:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\226\122\214\35\83\45\13\255\117\206\50\123\7\10", "\121\171\20\165\87\50\67"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\242\49\173\58\188", "\98\166\88\217\86\217")]=LUAOBFUSACTOR_DECRYPT_STR_0("\223\248\106\21\135\210\226\182\77\0\141\217\182\223\93\18", "\188\150\150\25\97\230"),[LUAOBFUSACTOR_DECRYPT_STR_0("\254\140\89\3\25\225\206", "\141\186\233\63\98\108")]=false});
+local BiggerIDRange = Tabs.IDSystem:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\211\227\43\177\32\227\195\8\132\36\255\237\41", "\69\145\138\76\214"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\68\198\157\133\186", "\118\16\175\233\233\223")]=LUAOBFUSACTOR_DECRYPT_STR_0("\169\141\50\188\235\153\61\162\160\117\137\239\133\122\142", "\29\235\228\85\219\142\235"),[LUAOBFUSACTOR_DECRYPT_STR_0("\25\209\188\220\98\66\51", "\50\93\180\218\189\23\46\71")]=false});
+local AllIDsESP = Tabs.IDSystem:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\255\168\87\101\96\207\109\237\148", "\40\190\196\59\44\36\188"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\8\76\200\184\255", "\109\92\37\188\212\154\29")]=LUAOBFUSACTOR_DECRYPT_STR_0("\55\231\171\212\113\123\8\227\228\234\21\73\68\202\151\243", "\58\100\143\196\163\81"),[LUAOBFUSACTOR_DECRYPT_STR_0("\62\71\37\162\42\69\241", "\110\122\34\67\195\95\41\133")]=false});
+local YourIDESP = Tabs.IDSystem:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\76\190\78\88\255\81\148\104\122", "\182\21\209\59\42"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\131\94\209\17\36", "\222\215\55\165\125\65")]=LUAOBFUSACTOR_DECRYPT_STR_0("\31\217\201\13\178\248\226\95\62\145\239\62\178\228\222\122", "\42\76\177\166\122\146\161\141"),[LUAOBFUSACTOR_DECRYPT_STR_0("\129\143\3\207\108\122\177", "\22\197\234\101\174\25")]=false});
+local IDESPTransparency = Tabs.IDSystem:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\4\16\128\239\70\155\197\135\35\39\181\221\100\170\217\133\52", "\230\77\84\197\188\22\207\183"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\205\29\210\240\137", "\85\153\116\166\156\236\193\144")]=LUAOBFUSACTOR_DECRYPT_STR_0("\141\196\13\150\215\48\228\212\95\178\234\19\180\225\95\182\234\3\189", "\96\196\128\45\211\132"),[LUAOBFUSACTOR_DECRYPT_STR_0("\24\132\117", "\184\85\237\27\63\178\207\212")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\37\88\17", "\63\104\57\105")]=0.8,[LUAOBFUSACTOR_DECRYPT_STR_0("\47\130\162\69\30\139\176", "\36\107\231\196")]=0.4,[LUAOBFUSACTOR_DECRYPT_STR_0("\111\186\183\137\89\188\172\128", "\231\61\213\194")]=2});
+local function updatePrompt(prompt)
+	if (not prompt or not prompt.Parent) then
+		return;
+	end
+	if (prompt:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\57\191\50\107\0\160\52\103\16\157\47\124\4\189\41", "\19\105\205\93")) and (prompt.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\128\12\238\147\48\164\24\202", "\95\201\104\190\225"))) then
+		prompt.HoldDuration = (Options.InstantTakeIDs.Value and 0) or 3;
+		prompt.MaxActivationDistance = (Options.BiggerIDRange.Value and 20) or 10;
+		prompt.RequiresLineOfSight = false;
+	end
+end
+local function findAllPrompts()
+	Cache.IDPrompts = {};
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\130\202\209", "\174\207\171\161"));
+	if not Map then
+		return;
+	end
+	for _, obj in ipairs(Map:GetDescendants()) do
+		if (obj:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\221\236\2\235\241\218\228\234\20\195\234\216\224\238\25", "\183\141\158\109\147\152")) and (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\5\13\214\30\35\4\246\24", "\108\76\105\134"))) then
+			Cache.IDPrompts[obj] = true;
+			updatePrompt(obj);
+		end
+	end
+end
+workspace.DescendantAdded:Connect(function(obj)
+	if (obj:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\219\215\190\249\199\230\204\165\248\254\249\202\188\241\218", "\174\139\165\209\129")) and (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\138\183\210\211\201\14\96\108", "\24\195\211\130\161\166\99\16"))) then
+		Cache.IDPrompts[obj] = true;
+		updatePrompt(obj);
+	end
+end);
+workspace.DescendantRemoving:Connect(function(obj)
+	if (obj:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\118\17\230\52\90\27\79\23\240\28\65\25\75\19\253", "\118\38\99\137\76\51")) and (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\212\34\53\0\6\45\237\50", "\64\157\70\101\114\105"))) then
+		Cache.IDPrompts[obj] = nil;
+	end
+end);
+local function refreshIDPrompts()
+	Cache.IDPrompts = {};
+	findAllPrompts();
+	for prompt, _ in pairs(Cache.IDPrompts) do
+		if (prompt and prompt.Parent) then
+			updatePrompt(prompt);
+		end
+	end
+end
+workspace.ChildRemoved:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\109\169\183", "\112\32\200\199\131")) then
+		Cache.IDPrompts = {};
+		for _, highlight in pairs(Cache.IDHighlights) do
+			if highlight then
+				highlight:Destroy();
+			end
+		end
+		Cache.IDHighlights = {};
+		for _, bb in pairs(Cache.IDBillboards) do
+			if bb then
+				bb:Destroy();
+			end
+		end
+		Cache.IDBillboards = {};
+		task.wait(1);
+		refreshIDPrompts();
+		updateIDCollectList();
+	end
+end);
+workspace.ChildAdded:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\1\81\76", "\66\76\48\60\216\163\203")) then
+		refreshIDPrompts();
+		updateIDCollectList();
+	end
+end);
+Options.InstantTakeIDs:OnChanged(function()
+	for prompt, _ in pairs(Cache.IDPrompts) do
+		if (prompt and prompt.Parent) then
+			updatePrompt(prompt);
+		else
+			Cache.IDPrompts[prompt] = nil;
+		end
+	end
+end);
+Options.BiggerIDRange:OnChanged(function()
+	for prompt, _ in pairs(Cache.IDPrompts) do
+		if (prompt and prompt.Parent) then
+			updatePrompt(prompt);
+		else
+			Cache.IDPrompts[prompt] = nil;
+		end
+	end
+end);
+local function clearIDESP()
+	for id, highlight in pairs(Cache.IDHighlights) do
+		if (highlight and highlight.Parent) then
+			highlight:Destroy();
+		end
+		if id:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\152\135\106\246\111\207\54\174", "\68\218\230\25\147\63\174")) then
+			id.Transparency = 1;
+		end
+		local gui = id:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\158\63\65\74\183\174\47\116\89\191", "\214\205\74\51\44"));
+		if gui then
+			gui.AlwaysOnTop = false;
+			gui.LightInfluence = 1;
+		end
+	end
+	for id, bb in pairs(Cache.IDBillboards) do
+		if (bb and bb.Parent) then
+			bb:Destroy();
+		end
+	end
+	Cache.IDHighlights = {};
+	Cache.IDBillboards = {};
+end
+local function updateIDESP()
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\215\77\242", "\23\154\44\130\156"));
+	if not Map then
+		return;
+	end
+	local localPlayerName = LocalPlayer.Name;
+	local showAll = Options.AllIDsESP.Value;
+	local showMine = Options.YourIDESP.Value;
+	if (not showAll and not showMine) then
+		return;
+	end
+	local validIDs = {};
+	for _, id in ipairs(Map:GetChildren()) do
+		if (id.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\56\162", "\115\113\198\205\206\86")) then
+			local surfaceGui = id:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\183\66\236\92\133\84\251\125\145\94", "\58\228\55\158"));
+			local idPrompt = id:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\157\141\224\60\51\160\37\160", "\85\212\233\176\78\92\205"));
+			if (surfaceGui and idPrompt and surfaceGui.Enabled and idPrompt.Enabled) then
+				local playerName = idPrompt:GetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\122\84\137\251\79\74\166\227\71\93", "\130\42\56\232"));
+				local shouldShow = showAll or (showMine and (playerName == localPlayerName));
+				if (playerName and shouldShow) then
+					validIDs[id] = true;
+					local ownerPlayer = Players:FindFirstChild(playerName);
+					local displayName = (ownerPlayer and ownerPlayer.DisplayName) or playerName;
+					local isMine = playerName == localPlayerName;
+					local isKira = kiraUsernames[playerName] or false;
+					local color = (isMine and Color3.fromRGB(0, 255, 0)) or (isKira and Color3.fromRGB(255, 0, 0)) or Color3.fromRGB(255, 255, 255);
+					local highlight = Cache.IDHighlights[id];
+					if (not highlight or not highlight.Parent) then
+						highlight = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\200\186\60\203\65\49\238\185\33\194\68\48\248\187\41\230\78\43", "\95\138\213\68\131\32"));
+						highlight.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\3\12\137\74\113\34\36\168\68\126\62", "\22\74\72\193\35");
+						highlight.Adornee = id;
+						highlight.Parent = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\15\118\246\93\11\108\237", "\56\76\25\132"));
+						highlight.Size = id.Size;
+						highlight.ZIndex = 5;
+						highlight.AlwaysOnTop = true;
+						Cache.IDHighlights[id] = highlight;
+					end
+					highlight.Color3 = color;
+					highlight.Transparency = Options.IDESPTransparency.Value;
+					id.Transparency = 0;
+					surfaceGui.AlwaysOnTop = true;
+					surfaceGui.LightInfluence = 0;
+					local billboard = Cache.IDBillboards[id];
+					if (not billboard or not billboard.Parent) then
+						billboard = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\124\200\167\42\205\81\192\185\34\232\75\200", "\175\62\161\203\70"));
+						billboard.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\21\249\225\26\57\48\223\204\18\39\56", "\85\92\189\163\115");
+						billboard.Adornee = id;
+						billboard.Size = UDim2.new(0, 200, 0, 50);
+						billboard.StudsOffset = Vector3.new(0, (id.Size.Y / 2) + 2, 0);
+						billboard.AlwaysOnTop = true;
+						local textLabel = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\29\169\40\44\5\173\50\61\37", "\88\73\204\80"));
+						textLabel.Parent = billboard;
+						textLabel.Size = UDim2.new(1, 0, 1, 0);
+						textLabel.BackgroundTransparency = 1;
+						textLabel.Text = displayName;
+						textLabel.TextColor3 = color;
+						textLabel.TextScaled = false;
+						textLabel.TextSize = 15;
+						textLabel.Font = Enum.Font.GothamBold;
+						textLabel.TextStrokeTransparency = 0.5;
+						billboard.Parent = id;
+						Cache.IDBillboards[id] = billboard;
+					else
+						local t = billboard:FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\26\134\8\82\5\219\44\134\28", "\186\78\227\112\38\73"));
+						if t then
+							t.Text = displayName;
+							t.TextColor3 = color;
+						end
+					end
+				end
+			end
+		end
+	end
+	for id, highlight in pairs(Cache.IDHighlights) do
+		if not validIDs[id] then
+			if highlight then
+				highlight:Destroy();
+			end
+			if id:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\222\86\238\80\99\123\238\67", "\26\156\55\157\53\51")) then
+				id.Transparency = 1;
+			end
+			local gui = id:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\191\205\4\223\185\83\137\255\3\208", "\48\236\184\118\185\216"));
+			if gui then
+				gui.AlwaysOnTop = false;
+			end
+			Cache.IDHighlights[id] = nil;
+			if Cache.IDBillboards[id] then
+				Cache.IDBillboards[id]:Destroy();
+				Cache.IDBillboards[id] = nil;
+			end
+		end
+	end
+end
+local espConnection;
+local function toggleIDConnection()
+	local anyEnabled = Options.AllIDsESP.Value or Options.YourIDESP.Value;
+	if anyEnabled then
+		if not espConnection then
+			espConnection = RunService.Heartbeat:Connect(function()
+				local currentTime = tick();
+				if ((currentTime - lastIDPromptUpdate) >= 0.5) then
+					lastIDPromptUpdate = currentTime;
+					updateIDESP();
+				end
+			end);
+		end
+		updateIDESP();
+	else
+		if espConnection then
+			espConnection:Disconnect();
+			espConnection = nil;
+		end
+		clearIDESP();
+	end
+end
+Options.AllIDsESP:OnChanged(toggleIDConnection);
+Options.YourIDESP:OnChanged(toggleIDConnection);
+Options.IDESPTransparency:OnChanged(updateIDESP);
+local TeleportToID = Tabs.IDSystem:AddButton({[LUAOBFUSACTOR_DECRYPT_STR_0("\209\180\67\60\202", "\84\133\221\55\80\175")]=LUAOBFUSACTOR_DECRYPT_STR_0("\137\226\40\163\215\83\175\243\100\178\200\28\132\232\49\180\135\117\153", "\60\221\135\68\198\167"),[LUAOBFUSACTOR_DECRYPT_STR_0("\202\184\235\128\80\208\254\169\241\140\76", "\185\142\221\152\227\34")]=LUAOBFUSACTOR_DECRYPT_STR_0("\113\203\68\238\66\61\227\84\220\23\238\70\63\242\72\202\69\238\3\58\249\24\195\69\245\77\39\183\87\195\23\227\76\38\229\24\236\115", "\151\56\165\55\154\35\83"),[LUAOBFUSACTOR_DECRYPT_STR_0("\131\66\9\226\162\66\6\229", "\142\192\35\101")]=function()
+	local playerName = LocalPlayer.Name;
+	local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\254\96\36\162\233\131\165\18\228\122\38\183\215\141\190\2", "\118\182\21\73\195\135\236\204"));
+	if not humanoidRootPart then
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\60\53\14\76\1", "\157\104\92\122\32\100\109")]="❌ Error",[LUAOBFUSACTOR_DECRYPT_STR_0("\128\169\193\222\56\41\153", "\203\195\198\175\170\93\71\237")]=LUAOBFUSACTOR_DECRYPT_STR_0("\13\67\63\199\80\18\232\43\89\126\219\94\5\188\40\68\43\219\85", "\156\78\43\94\181\49\113"),[LUAOBFUSACTOR_DECRYPT_STR_0("\86\253\214\162\31\74\118\124", "\25\18\136\164\195\107\35")]=3});
+		return;
+	end
+	local originalPosition = humanoidRootPart.CFrame;
+	local validIDs = {};
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\197\44\185", "\216\136\77\201\47\18\220\161"));
+	if Map then
+		for _, obj in ipairs(Map:GetChildren()) do
+			if (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\4\232", "\226\77\140\75\186\104\188")) then
+				local prompt = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\144\202\224\45\64\180\222\196", "\47\217\174\176\95"));
+				if (prompt and (prompt:GetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\136\209\119\27\183\70\86\39\181\216", "\70\216\189\22\98\210\52\24")) == playerName)) then
+					table.insert(validIDs, {[LUAOBFUSACTOR_DECRYPT_STR_0("\211\219", "\179\186\191\195\231")]=obj,[LUAOBFUSACTOR_DECRYPT_STR_0("\233\48\11\237\237\54\23\234", "\132\153\95\120")]=obj.Position,[LUAOBFUSACTOR_DECRYPT_STR_0("\162\167\28\43\246\217\165\150\167\7", "\192\209\210\110\77\151\186")]=obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\211\22\48\239\254\199\229\36\55\224", "\164\128\99\66\137\159"))});
+				end
+			end
+		end
+	end
+	if (#validIDs == 0) then
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\52\128\253\178\5", "\222\96\233\137")]="❌ ID Not Found",[LUAOBFUSACTOR_DECRYPT_STR_0("\154\188\169\11\141\253\228", "\144\217\211\199\127\232\147")]=LUAOBFUSACTOR_DECRYPT_STR_0("\219\32\43\36\209\5\12\75\236\111\56\33\219\65\66\93\247\58\44\104\212\70\22\77\238\42\126\1\241", "\36\152\79\94\72\181\37\98"),[LUAOBFUSACTOR_DECRYPT_STR_0("\243\205\85\62\195\209\72\49", "\95\183\184\39")]=3});
+		return;
+	end
+	table.sort(validIDs, function(a, b)
+		return a.position.Y > b.position.Y;
+	end);
+	local id = validIDs[1].id;
+	local surfaceGui = validIDs[1].surfaceGui;
+	local normal = ((surfaceGui.Face.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\147\45\232\40\64", "\98\213\95\135\70\52\224")) and id.CFrame.LookVector) or -id.CFrame.LookVector;
+	local targetPos = id.Position + (normal * 5);
+	local targetCF = CFrame.new(targetPos, id.Position);
+	humanoidRootPart.CFrame = targetCF;
+	Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\202\170\221\123\81", "\52\158\195\169\23")]="✅ Success",[LUAOBFUSACTOR_DECRYPT_STR_0("\89\179\60\96\131\59\111", "\235\26\220\82\20\230\85\27")]=LUAOBFUSACTOR_DECRYPT_STR_0("\188\164\229\199\100\135\179\253\199\112\200\181\230\130\109\135\180\251\130\93\172", "\20\232\193\137\162"),[LUAOBFUSACTOR_DECRYPT_STR_0("\6\202\215\167\243\133\24\127", "\17\66\191\165\198\135\236\119")]=3});
+end});
+local QuickCollectAllIDs = Tabs.IDSystem:AddButton({[LUAOBFUSACTOR_DECRYPT_STR_0("\59\166\186\31\250", "\177\111\207\206\115\159\136\140")]=LUAOBFUSACTOR_DECRYPT_STR_0("\52\156\25\23\223\15\124\10\133\28\17\215\91\31\36\133\28\84\253\107\76", "\63\101\233\112\116\180\47"),[LUAOBFUSACTOR_DECRYPT_STR_0("\231\62\254\17\234\63\211\47\228\29\246", "\86\163\91\141\114\152")]=LUAOBFUSACTOR_DECRYPT_STR_0("\114\30\96\124\55\82\31\125\112\59\95\7\109\51\57\92\7\120\118\57\71\75\117\127\54\19\27\120\114\35\86\25\52\90\30\64", "\90\51\107\20\19"),[LUAOBFUSACTOR_DECRYPT_STR_0("\174\241\137\227\63\140\243\142", "\93\237\144\229\143")]=function()
+	local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\61\227\253\24\5\73\28\242\194\22\4\82\37\247\226\13", "\38\117\150\144\121\107"));
+	if not humanoidRootPart then
+		return;
+	end
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\0\186\254", "\90\77\219\142"));
+	if not Map then
+		return;
+	end
+	local originalPosition = humanoidRootPart.CFrame;
+	local originalCameraType = Camera.CameraType;
+	local originalCameraCFrame = Camera.CFrame;
+	Camera.CameraType = Enum.CameraType.Scriptable;
+	local collected = 0;
+	for _, obj in ipairs(Map:GetChildren()) do
+		if (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\207\0", "\26\134\100\65\89\44\103")) then
+			local surfaceGui = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\194\246\34\37\165\242\230\23\54\173", "\196\145\131\80\67"));
+			local prompt = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\55\180\54\26\23\229\14\164", "\136\126\208\102\104\120"));
+			if (surfaceGui and prompt and surfaceGui.Enabled and prompt.Enabled) then
+				local playerName = prompt:GetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\72\134\207\90\170\64\19\80\117\143", "\49\24\234\174\35\207\50\93"));
+				if (playerName and (playerName ~= LocalPlayer.Name)) then
+					local idPosition = obj.Position;
+					local idCFrame = obj.CFrame;
+					local lookVector = idCFrame.LookVector;
+					local characterPosition = idPosition + (lookVector * 3);
+					humanoidRootPart.CFrame = CFrame.new(characterPosition, idPosition);
+					local cameraPosition = (characterPosition - (lookVector * 2)) + Vector3.new(0, 2, 0);
+					Camera.CFrame = CFrame.new(cameraPosition, idPosition);
+					task.wait(0.1);
+					for i = 1, 3 do
+						prompt.HoldDuration = 0;
+						prompt.MaxActivationDistance = 20;
+						prompt.RequiresLineOfSight = false;
+						fireproximityprompt(prompt);
+						task.wait(0.1);
+					end
+					collected = collected + 1;
+					task.wait(0.05);
+				end
+			end
+		end
+	end
+	humanoidRootPart.CFrame = originalPosition;
+	Camera.CameraType = originalCameraType;
+	Camera.CFrame = originalCameraCFrame;
+	Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\56\251\233\132\116", "\17\108\146\157\232")]="✅ Collection Complete",[LUAOBFUSACTOR_DECRYPT_STR_0("\104\204\26\249\42\166\95", "\200\43\163\116\141\79")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\156\57\49\143\181\247\247\186\50\125", "\131\223\86\93\227\208\148") .. collected .. LUAOBFUSACTOR_DECRYPT_STR_0("\163\108\146\165", "\213\131\37\214\214\125")),[LUAOBFUSACTOR_DECRYPT_STR_0("\2\62\55\190\245\47\36\43", "\129\70\75\69\223")]=5});
+end});
+local SelectiveIDCollect = Tabs.IDSystem:AddDropdown(LUAOBFUSACTOR_DECRYPT_STR_0("\117\206\255\236\127\251\79\221\246\192\88\204\73\199\255\236\127\251", "\143\38\171\147\137\28"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\228\139\173\255\6", "\180\176\226\217\147\99\131")]=LUAOBFUSACTOR_DECRYPT_STR_0("\240\182\35\11\214\186\59\71\224\169\42\4\218\191\38\4\147\137\35\6\202\188\61\71\250\157", "\103\179\217\79"),[LUAOBFUSACTOR_DECRYPT_STR_0("\110\178\15\214\83\133\179\94\190\19\219", "\195\42\215\124\181\33\236")]=LUAOBFUSACTOR_DECRYPT_STR_0("\46\81\56\49\54\253\77\88\119\46\41\249\20\92\37\126\49\247\77\90\56\50\41\253\14\77\119\42\45\253\4\75\119\23\1", "\152\109\57\87\94\69"),[LUAOBFUSACTOR_DECRYPT_STR_0("\207\214\6\182\187\193", "\200\153\183\106\195\222\178\52")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\31\246\132\41\64", "\58\82\131\232\93\41")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\167\82\214\20\72\51\151", "\95\227\55\176\117\61")]=nil});
+local function updateIDCollectList()
+	local playerList = {};
+	local seen = {};
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\53\127\51", "\203\120\30\67\43"));
+	if Map then
+		for _, obj in ipairs(Map:GetChildren()) do
+			if (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\216\33", "\185\145\69\45\143")) then
+				local prompt = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\163\27\41\180\211\135\15\13", "\188\234\127\121\198"));
+				if (prompt and prompt.Enabled) then
+					local playerName = prompt:GetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\8\62\18\154\61\32\61\130\53\55", "\227\88\82\115"));
+					if (playerName and (playerName ~= LocalPlayer.Name) and not seen[playerName]) then
+						local player = Players:FindFirstChild(playerName);
+						if player then
+							seen[playerName] = true;
+							table.insert(playerList, playerName .. LUAOBFUSACTOR_DECRYPT_STR_0("\3\87", "\19\35\127\218\199\98") .. player.DisplayName .. ")");
+						end
+					end
+				end
+			end
+		end
+	end
+	table.sort(playerList);
+	SelectiveIDCollect:SetValues(playerList);
+end
+SelectiveIDCollect:OnChanged(function()
+	local selectedName = SelectiveIDCollect.Value;
+	if not selectedName then
+		return;
+	end
+	local playerName = selectedName:match(LUAOBFUSACTOR_DECRYPT_STR_0("\34\179\49\220\84\198\65\171", "\130\124\155\106")):gsub(LUAOBFUSACTOR_DECRYPT_STR_0("\144\216\189\235", "\223\181\171\150\207\195\150\28"), "");
+	local humanoidRootPart = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\100\47\238\175\7\67\51\231\156\6\67\46\211\175\27\88", "\105\44\90\131\206"));
+	if not humanoidRootPart then
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\203\233\166\181\13", "\94\159\128\210\217\104")]="❌ Error",[LUAOBFUSACTOR_DECRYPT_STR_0("\115\246\8\171\90\113\237", "\26\48\153\102\223\63\31\153")]=LUAOBFUSACTOR_DECRYPT_STR_0("\33\72\236\225\3\67\249\246\16\0\227\252\22\0\235\252\23\78\233", "\147\98\32\141"),[LUAOBFUSACTOR_DECRYPT_STR_0("\60\86\241\203\18\95\68\22", "\43\120\35\131\170\102\54")]=3});
+		SelectiveIDCollect:SetValue(nil);
+		return;
+	end
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\121\7\151", "\228\52\102\231\214\197\208"));
+	if not Map then
+		SelectiveIDCollect:SetValue(nil);
+		return;
+	end
+	local originalPosition = humanoidRootPart.CFrame;
+	local originalCameraType = Camera.CameraType;
+	local originalCameraCFrame = Camera.CFrame;
+	Camera.CameraType = Enum.CameraType.Scriptable;
+	local found = false;
+	for _, obj in ipairs(Map:GetChildren()) do
+		if (obj.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\55\228", "\182\126\128\21\170\138\235\121")) then
+			local surfaceGui = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\184\207\39\224\135\16\53\33\158\211", "\102\235\186\85\134\230\115\80"));
+			local prompt = obj:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\126\8\14\77\125\217\50\67", "\66\55\108\94\63\18\180"));
+			if (surfaceGui and prompt and surfaceGui.Enabled and prompt.Enabled) then
+				local promptPlayerName = prompt:GetAttribute(LUAOBFUSACTOR_DECRYPT_STR_0("\36\129\132\46\34\75\58\140\136\50", "\57\116\237\229\87\71"));
+				if (promptPlayerName == playerName) then
+					found = true;
+					local idPosition = obj.Position;
+					local idCFrame = obj.CFrame;
+					local lookVector = idCFrame.LookVector;
+					local characterPosition = idPosition + (lookVector * 3);
+					humanoidRootPart.CFrame = CFrame.new(characterPosition, idPosition);
+					local cameraPosition = (characterPosition - (lookVector * 2)) + Vector3.new(0, 2, 0);
+					Camera.CFrame = CFrame.new(cameraPosition, idPosition);
+					task.wait(0.1);
+					for i = 1, 3 do
+						prompt.HoldDuration = 0;
+						prompt.MaxActivationDistance = 20;
+						prompt.RequiresLineOfSight = false;
+						fireproximityprompt(prompt);
+						task.wait(0.1);
+					end
+					break;
+				end
+			end
+		end
+	end
+	humanoidRootPart.CFrame = originalPosition;
+	Camera.CameraType = originalCameraType;
+	Camera.CFrame = originalCameraCFrame;
+	if found then
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\158\184\249\235\114", "\39\202\209\141\135\23\142")]="✅ ID Collected",[LUAOBFUSACTOR_DECRYPT_STR_0("\220\60\7\30\55\246\235", "\152\159\83\105\106\82")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\178\211\82\241\204\79\146\192\68\254\197\69\193\197\94\254\197\89\130\210\84\246\137", "\60\225\166\49\146\169") .. playerName .. "'s ID"),[LUAOBFUSACTOR_DECRYPT_STR_0("\11\11\61\43\21\14\32\16", "\103\79\126\79\74\97")]=3});
+	else
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\142\118\199\127\91", "\122\218\31\179\19\62")]="❌ ID Not Found",[LUAOBFUSACTOR_DECRYPT_STR_0("\144\217\195\213\204\175\81", "\37\211\182\173\161\169\193")]=(LUAOBFUSACTOR_DECRYPT_STR_0("\212\53\88\213\44\59\183\248\46\13\223\33\117\189\183", "\217\151\90\45\185\72\27") .. playerName .. "'s ID"),[LUAOBFUSACTOR_DECRYPT_STR_0("\231\105\245\19\66\202\115\233", "\54\163\28\135\114")]=3});
+	end
+	SelectiveIDCollect:SetValue(nil);
+end);
+findAllPrompts();
+toggleIDConnection();
+updateIDCollectList();
+local isInMatch = false;
+local previousInMatch = false;
+local function updateMatchState()
+	local mapExists = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\5\218\77", "\31\72\187\61\226\46")) ~= nil;
+	local inIntermission = false;
+	local playerGui = LocalPlayer:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\243\10\66\203\66\108\3\214\15", "\68\163\102\35\178\39\30"));
+	if playerGui then
+		local gameUI = playerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\153\113\215\194\54\156", "\113\222\16\186\167\99\213\227"));
+		local topFrame = gameUI and gameUI:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\26\1\235\208\60\15\246\243", "\150\78\110\155"));
+		local gpTitle = topFrame and topFrame:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\162\245\19\232\176\18\186", "\32\229\165\71\129\196\126\223"));
+		local titleLabel = gpTitle and gpTitle:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\247\140\220\149\173\212\193\140\200", "\181\163\233\164\225\225"));
+		if (titleLabel and (titleLabel.Text == LUAOBFUSACTOR_DECRYPT_STR_0("\121\165\10\82\98\166\23\68\99\162\17\89", "\23\48\235\94"))) then
+			inIntermission = true;
+		end
+	end
+	previousInMatch = isInMatch;
+	isInMatch = mapExists and not inIntermission;
+	if (previousInMatch and not isInMatch) then
+		cleanupAllESP();
+	end
+end
+updateMatchState();
+workspace.ChildAdded:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\81\219\200", "\178\28\186\184\61\55\83")) then
+		updateMatchState();
+	end
+end);
+workspace.ChildRemoved:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\233\204\87", "\149\164\173\39\92\146\110")) then
+		updateMatchState();
+	end
+end);
+LocalPlayer.PlayerGui.ChildAdded:Connect(function(child)
+	if (child.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\212\38\29\26\47\50", "\123\147\71\112\127\122")) then
+		local topFrame = child:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\248\194\146\87\84\205\192\135", "\38\172\173\226\17"), true);
+		local gpTitle = topFrame and topFrame:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\106\33\24\230\89\29\41", "\143\45\113\76"), true);
+		local titleLabel = gpTitle and gpTitle:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\140\189\4\40\148\185\30\57\180", "\92\216\216\124"));
+		if titleLabel then
+			titleLabel:GetPropertyChangedSignal(LUAOBFUSACTOR_DECRYPT_STR_0("\111\55\180\84", "\157\59\82\204\32")):Connect(updateMatchState);
+		end
+		updateMatchState();
+	end
+end);
+task.spawn(function()
+	while not LocalPlayer.PlayerGui:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\31\63\238\255\220\195", "\209\88\94\131\154\137\138\179")) do
+		task.wait(0.5);
+	end
+	updateMatchState();
+end);
+Tabs.PlayersESP:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\24\173\197\101\27\49\113\7\27\145\132\79\7\48\37\39\37", "\66\72\193\164\28\126\67\81"));
+local ESPEnabled = Tabs.PlayersESP:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\194\31\152\125\40\119\229\32\173\92", "\22\135\76\200\56\70"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\185\57\236\40\88", "\129\237\80\152\68\61")]=LUAOBFUSACTOR_DECRYPT_STR_0("\116\166\5\241\16\18\24\97\164\5\234\25\5\24\116\155\52", "\56\49\200\100\147\124\119"),[LUAOBFUSACTOR_DECRYPT_STR_0("\232\59\185\241\217\50\171", "\144\172\94\223")]=false});
+local ESPColor = Tabs.PlayersESP:AddColorpicker(LUAOBFUSACTOR_DECRYPT_STR_0("\1\60\146\100\43\3\173\85", "\39\68\111\194"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\226\175\243\203\124", "\215\182\198\135\167\25")]=LUAOBFUSACTOR_DECRYPT_STR_0("\168\122\218\8\174\70\230\71\159", "\40\237\41\138"),[LUAOBFUSACTOR_DECRYPT_STR_0("\227\113\252\249\95\203\96", "\42\167\20\154\152")]=Color3.fromRGB(255, 85, 127)});
+local ESPFillTransparency = Tabs.PlayersESP:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\111\205\146\100\120\45\70\202\176\67\127\50\90\255\176\71\127\34\83", "\65\42\158\194\34\17"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\46\46\70\0\40", "\142\122\71\50\108\77\141\123")]=LUAOBFUSACTOR_DECRYPT_STR_0("\51\171\243\20\123\33\176\254\22\40\5\163\237\29\53\22\187", "\91\117\194\159\120"),[LUAOBFUSACTOR_DECRYPT_STR_0("\55\20\48", "\68\122\125\94\120\85\145")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\58\29\215", "\218\119\124\175\62\168\185")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\129\245\78\197\176\252\92", "\164\197\144\40")]=0.5,[LUAOBFUSACTOR_DECRYPT_STR_0("\177\255\191\133\217\191\141\247", "\214\227\144\202\235\189")]=2});
+local ESPOutlineTransparency = Tabs.PlayersESP:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\200\150\183\84\5\167\95\53\227\160\179\105\17\189\64\44\236\183\130\117\19\170", "\92\141\197\231\27\112\211\51"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\210\246\158\175\212", "\177\134\159\234\195")]=LUAOBFUSACTOR_DECRYPT_STR_0("\146\254\43\172\192\179\238\127\148\219\188\229\44\176\200\175\238\49\163\208", "\169\221\139\95\192"),[LUAOBFUSACTOR_DECRYPT_STR_0("\243\130\113", "\70\190\235\31\95\66")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\151\227\2", "\133\218\130\122\134")]=1,[LUAOBFUSACTOR_DECRYPT_STR_0("\24\250\229\197\201\175\44", "\88\92\159\131\164\188\195")]=0,[LUAOBFUSACTOR_DECRYPT_STR_0("\178\33\170\69\211\226\211\135", "\189\224\78\223\43\183\139")]=2});
+local ESPDisplayName = Tabs.PlayersESP:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\11\207\186\50\200\61\236\134\23\216\0\253\135\19", "\161\78\156\234\118"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\147\190\221\208\162", "\188\199\215\169")]=LUAOBFUSACTOR_DECRYPT_STR_0("\216\0\76\107\228\253\16\31\85\233\241\12\76", "\136\156\105\63\27"),[LUAOBFUSACTOR_DECRYPT_STR_0("\63\137\127\53\14\128\109", "\84\123\236\25")]=true});
+local ESPTextColor = Tabs.PlayersESP:AddColorpicker(LUAOBFUSACTOR_DECRYPT_STR_0("\213\184\154\35\169\173\228\168\165\27\163\167", "\213\144\235\202\119\204"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\23\17\202\38\45", "\45\67\120\190\74\72\67")]=LUAOBFUSACTOR_DECRYPT_STR_0("\20\39\245\177\185\171\225\229\47\48", "\137\64\66\141\197\153\232\142"),[LUAOBFUSACTOR_DECRYPT_STR_0("\39\213\36\167\157\15\196", "\232\99\176\66\198")]=Color3.fromRGB(255, 255, 255)});
+local ESPTextSize = Tabs.PlayersESP:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\201\18\24\50\126\149\237\31\229\59\45", "\76\140\65\72\102\27\237\153"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\126\211\2\222\210", "\222\42\186\118\178\183\97")]=LUAOBFUSACTOR_DECRYPT_STR_0("\105\233\92\158\29\223\77\144\88", "\234\61\140\36"),[LUAOBFUSACTOR_DECRYPT_STR_0("\12\212\180", "\111\65\189\218\18")]=10,[LUAOBFUSACTOR_DECRYPT_STR_0("\110\74\3", "\207\35\43\123\85\107\60")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\84\175\166\235\108\124\190", "\25\16\202\192\138")]=15,[LUAOBFUSACTOR_DECRYPT_STR_0("\207\196\184\236\173\253\243\204", "\148\157\171\205\130\201")]=0});
+local function cleanupAllESP()
+	for player, highlight in pairs(Cache.Highlights) do
+		if (highlight and highlight.Parent) then
+			highlight:Destroy();
+		end
+	end
+	Cache.Highlights = {};
+	for player, billboard in pairs(Cache.Billboards) do
+		if (billboard and billboard.Parent) then
+			billboard:Destroy();
+		end
+	end
+	Cache.Billboards = {};
+	if game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\0\219\102\44\246\227\42", "\150\67\180\20\73\177")):FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\168\43\42\101\132\31\18\65\132\31\18\89", "\45\237\120\122")) then
+		for _, v in pairs(game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\244\231\176\41\240\253\171", "\76\183\136\194")):GetChildren()) do
+			if ((v.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\95\213\213\16\89\72\28\118\239\226\48\68", "\116\26\134\133\88\48\47")) or (v.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\59\242\144\198\180\126\18\195\175\229\175\118", "\18\126\161\192\132\221"))) then
+				v:Destroy();
+			end
+		end
+	end
+end
+local function createESP(player)
+	if not player.Character then
+		return;
+	end
+	if (Cache.Highlights[player] and Cache.Highlights[player].Parent) then
+		Cache.Highlights[player]:Destroy();
+	end
+	local highlight = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\119\33\169\12\90\86\47\166\16", "\54\63\72\206\100"));
+	highlight.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\237\106\117\82\236\124\192\85\76\125\237\111", "\27\168\57\37\26\133");
+	highlight.Adornee = player.Character;
+	highlight.Parent = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\14\165\110\173\240\56\163", "\183\77\202\28\200"));
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop;
+	highlight.Enabled = true;
+	highlight.FillColor = Options.ESPColor.Value;
+	highlight.OutlineColor = Options.ESPColor.Value;
+	highlight.FillTransparency = Options.ESPFillTransparency.Value;
+	highlight.OutlineTransparency = Options.ESPOutlineTransparency.Value;
+	Cache.Highlights[player] = highlight;
+end
+local function createBillboard(player)
+	if (not player.Character or not player.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\63\54\136\12", "\104\119\83\233"))) then
+		return;
+	end
+	if (Cache.Billboards[player] and Cache.Billboards[player].Parent) then
+		Cache.Billboards[player]:Destroy();
+	end
+	local billboard = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\215\241\43\46\65\250\249\53\38\100\224\241", "\35\149\152\71\66"));
+	billboard.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\60\219\114\146\51\21\228\64\191\59\11\236", "\90\121\136\34\208");
+	billboard.Adornee = player.Character.Head;
+	billboard.Size = UDim2.new(0, 200, 0, 50);
+	billboard.StudsOffset = Vector3.new(0, 3, 0);
+	billboard.AlwaysOnTop = true;
+	billboard.Parent = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\228\1\71\27\224\27\92", "\126\167\110\53"));
+	local textLabel = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\9\21\54\236\240\62\63\21\34", "\95\93\112\78\152\188"));
+	textLabel.Parent = billboard;
+	textLabel.Size = UDim2.new(1, 0, 1, 0);
+	textLabel.BackgroundTransparency = 1;
+	textLabel.Text = player.DisplayName;
+	textLabel.TextColor3 = Options.ESPTextColor.Value;
+	textLabel.TextScaled = false;
+	textLabel.TextSize = Options.ESPTextSize.Value;
+	textLabel.Font = Enum.Font.GothamBold;
+	textLabel.TextStrokeTransparency = 0.5;
+	Cache.Billboards[player] = billboard;
+end
+local lastESPFullUpdate = 0;
+local ESPThrottle = 0.3;
+local function updateESP()
+	if not Options.ESPEnabled.Value then
+		cleanupAllESP();
+		return;
+	end
+	if not isInMatch then
+		cleanupAllESP();
+		return;
+	end
+	local currentTime = tick();
+	if ((currentTime - lastESPFullUpdate) >= ESPThrottle) then
+		lastESPFullUpdate = currentTime;
+		for _, player in ipairs(Players:GetPlayers()) do
+			if ((player ~= LocalPlayer) and player.Character) then
+				if (not Cache.Highlights[player] or not Cache.Highlights[player].Parent) then
+					createESP(player);
+				else
+					local h = Cache.Highlights[player];
+					if (h.Adornee ~= player.Character) then
+						h.Adornee = player.Character;
+					end
+					h.FillColor = Options.ESPColor.Value;
+					h.OutlineColor = Options.ESPColor.Value;
+					h.FillTransparency = Options.ESPFillTransparency.Value;
+					h.OutlineTransparency = Options.ESPOutlineTransparency.Value;
+				end
+				if Options.ESPDisplayName.Value then
+					if (not Cache.Billboards[player] or not Cache.Billboards[player].Parent) then
+						createBillboard(player);
+					else
+						local b = Cache.Billboards[player];
+						local t = b:FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\245\240\157\1\200\191\208\196\249", "\178\161\149\229\117\132\222"));
+						if t then
+							t.TextColor3 = Options.ESPTextColor.Value;
+							t.TextSize = Options.ESPTextSize.Value;
+						end
+					end
+				elseif Cache.Billboards[player] then
+					Cache.Billboards[player]:Destroy();
+					Cache.Billboards[player] = nil;
+				end
+			end
+		end
+	end
+	for player, _ in pairs(Cache.Highlights) do
+		if (not Players:FindFirstChild(player.Name) or not player.Character) then
+			if Cache.Highlights[player] then
+				Cache.Highlights[player]:Destroy();
+			end
+			Cache.Highlights[player] = nil;
+			if Cache.Billboards[player] then
+				Cache.Billboards[player]:Destroy();
+			end
+			Cache.Billboards[player] = nil;
+		end
+	end
+end
+Options.ESPEnabled:OnChanged(function(enabled)
+	if not enabled then
+		cleanupAllESP();
+	else
+		updateMatchState();
+		if isInMatch then
+			updateESP();
+		end
+	end
+end);
+Options.ESPDisplayName:OnChanged(function()
+	if Options.ESPEnabled.Value then
+		updateESP();
+	end
+end);
+Players.PlayerRemoving:Connect(function(player)
+	if Cache.Highlights[player] then
+		Cache.Highlights[player]:Destroy();
+	end
+	Cache.Highlights[player] = nil;
+	if Cache.Billboards[player] then
+		Cache.Billboards[player]:Destroy();
+	end
+	Cache.Billboards[player] = nil;
+end);
+local function setupCharacterMonitoring(player, character)
+	local function checkForDeathNoteBook()
+		local deathNote = character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\172\222\220\184\169\56\169\55\141\249\210\163\170", "\67\232\187\189\204\193\118\198"));
+		if deathNote then
+			updateKiraList(player);
+		end
+	end
+	character.ChildAdded:Connect(checkForDeathNoteBook);
+	checkForDeathNoteBook();
+end
+for _, player in ipairs(Players:GetPlayers()) do
+	if (player ~= LocalPlayer) then
+		if player.Character then
+			setupCharacterMonitoring(player, player.Character);
+		end
+		player.CharacterAdded:Connect(function(character)
+			setupCharacterMonitoring(player, character);
+		end);
+	end
+end
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		setupCharacterMonitoring(player, character);
+	end);
+end);
+local AutoApple = Tabs.Farming:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\170\59\161\47\26\18\255\135\43", "\143\235\78\213\64\91\98"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\185\65\144\229\117", "\214\237\40\228\137\16")]=LUAOBFUSACTOR_DECRYPT_STR_0("\169\236\237\219\26\230\164\243\255\213\6\230\163\226\253\212", "\198\229\131\143\185\99"),[LUAOBFUSACTOR_DECRYPT_STR_0("\117\137\187\112\67\133\184\103\88\131\166", "\19\49\236\200")]=LUAOBFUSACTOR_DECRYPT_STR_0("\221\56\250\187\225\185\234\36\182\182\244\170\242\50\182\178\242\191\236\46\182\226\164\183\247\57\227\163\225\169", "\218\158\87\150\215\132"),[LUAOBFUSACTOR_DECRYPT_STR_0("\223\27\223\227\35\46\217", "\173\155\126\185\130\86\66")]=false});
+local WorkspaceAppleFarm = Tabs.Farming:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\210\169\168\204\155\252\228\165\191\230\152\252\233\163\156\198\154\225", "\140\133\198\218\167\232"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\129\39\160\113\129", "\228\213\78\212\29")]=LUAOBFUSACTOR_DECRYPT_STR_0("\160\77\187\0\171\166\92\166\9\238\199\106\183\23\230", "\139\231\44\214\101"),[LUAOBFUSACTOR_DECRYPT_STR_0("\253\234\21\93\2\184\33\2\208\224\8", "\118\185\143\102\62\112\209\81")]=LUAOBFUSACTOR_DECRYPT_STR_0("\127\127\37\234\160\22\8\43\28\121\39\171\162\20\17\61\28\113\57\246\169\16\15", "\88\60\16\73\134\197\117\124"),[LUAOBFUSACTOR_DECRYPT_STR_0("\116\239\254\201\84\92\254", "\33\48\138\152\168")]=false});
+local AutoFish = Tabs.Farming:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\83\3\36\94\231\62\97\30", "\87\18\118\80\49\161"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\120\23\206\172\181", "\208\44\126\186\192")]=LUAOBFUSACTOR_DECRYPT_STR_0("\214\15\176\201\84\218\192\93\255", "\46\151\122\196\166\116\156\169"),[LUAOBFUSACTOR_DECRYPT_STR_0("\193\232\85\25\233\236\253\82\19\244\235", "\155\133\141\38\122")]=LUAOBFUSACTOR_DECRYPT_STR_0("\28\37\185\1\75\112\171\49\106\162\68\74\123\229\36\36\181\85\71\118\171\34\106\169\77\92\122\233\101\32\185\82\91\63\177\48\56\162\1\70\107\229\42\36\224\1\78\113\161\101\34\169\83\74\63\172\49\106\171\78\74\108", "\197\69\74\204\33\47\31"),[LUAOBFUSACTOR_DECRYPT_STR_0("\212\74\92\134\229\67\78", "\231\144\47\58")]=false});
+local function collectApple()
+	local apple = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\157\218\216\108\39\17\192\59\176\193", "\89\210\184\186\21\120\93\175"));
+	if apple then
+		apple = apple:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\144\67\108\217\124", "\90\209\51\28\181\25"));
+	end
+	if (apple and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\248\110\90\239\177\223\114\83\220\176\223\111\103\239\173\196", "\223\176\27\55\142"))) then
+		pcall(function()
+			local humanoidRootPart = LocalPlayer.Character.HumanoidRootPart;
+			local originalPosition = humanoidRootPart.CFrame;
+			local originalAppleCFrame = apple.CFrame;
+			local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear);
+			humanoidRootPart.CFrame = apple.CFrame;
+			task.wait(0.2);
+			local connection = RunService.Heartbeat:Connect(function()
+				humanoidRootPart.CFrame = originalPosition;
+			end);
+			task.wait(1);
+			connection:Disconnect();
+			humanoidRootPart.CFrame = originalPosition;
+		end);
+	end
+end
+local function collectWorkspaceApple()
+	local Map = workspace:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\9\186\222", "\213\68\219\174"));
+	if not Map then
+		return;
+	end
+	for _, apple in pairs(Map:GetChildren()) do
+		if (apple.Name == LUAOBFUSACTOR_DECRYPT_STR_0("\42\240\51\235\47", "\31\107\128\67\135\74\165\95")) then
+			if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\240\253\241\76\79\190\209\236\206\66\78\165\232\233\238\89", "\209\184\136\156\45\33"))) then
+				pcall(function()
+					local humanoidRootPart = LocalPlayer.Character.HumanoidRootPart;
+					local originalAppleCFrame = apple.CFrame;
+					local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Linear);
+					local tween = TweenService:Create(apple, tweenInfo, {[LUAOBFUSACTOR_DECRYPT_STR_0("\36\238\103\9\181\2", "\216\103\168\21\104")]=humanoidRootPart.CFrame});
+					tween:Play();
+					tween.Completed:Wait();
+					task.wait(0.5);
+					apple.CFrame = originalAppleCFrame;
+				end);
+			end
+		end
+	end
+end
+RunService.Heartbeat:Connect(function()
+	local currentTime = tick();
+	updateMatchState();
+	if Options.ESPEnabled.Value then
+		updateESP();
+	end
+	if (Options.AutoApple.Value and ((currentTime - Cache.lastAppleTime) >= 300)) then
+		Cache.lastAppleTime = currentTime;
+		collectApple();
+	end
+	if (Options.WorkspaceAppleFarm.Value and ((currentTime - Cache.lastWorkspaceAppleCheck) >= 1)) then
+		Cache.lastWorkspaceAppleCheck = currentTime;
+		collectWorkspaceApple();
+	end
+	if (Options.AutoFish.Value and ((currentTime - Cache.lastFishTime) >= 0.5)) then
+		Cache.lastFishTime = currentTime;
+		pcall(function()
+			ReplicatedStorage.Remotes.MinigameEvent:FireServer({[LUAOBFUSACTOR_DECRYPT_STR_0("\75\185\66\176\109\190", "\196\24\205\35")]=LUAOBFUSACTOR_DECRYPT_STR_0("\13\138\246\1\38\159\197\15\61\131", "\102\78\235\131")});
+		end);
+	end
+	if (Options.InstantTakeIDs.Value and ((currentTime - Cache.lastPromptReapply) >= 1)) then
+		Cache.lastPromptReapply = currentTime;
+		for prompt, _ in pairs(Cache.IDPrompts) do
+			if (prompt and prompt.Parent) then
+				updatePrompt(prompt);
+			end
+		end
+	end
+	if ((currentTime - lastIDListUpdate) >= 5) then
+		lastIDListUpdate = currentTime;
+		updateIDCollectList();
+	end
+end);
+Tabs.Miscellaneous:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\202\34\53\93\66\43\247\0\245\33\56\87", "\84\154\78\84\36\39\89\215"));
+local SpectatePlayer = Tabs.Miscellaneous:AddDropdown(LUAOBFUSACTOR_DECRYPT_STR_0("\206\241\83\91\17\252\245\83\104\9\252\248\83\74", "\101\157\129\54\56"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\41\160\158\167\38", "\25\125\201\234\203\67")]=LUAOBFUSACTOR_DECRYPT_STR_0("\74\228\29\0\0\38\7\124\180\40\15\21\62\22\107", "\115\25\148\120\99\116\71"),[LUAOBFUSACTOR_DECRYPT_STR_0("\58\60\181\49\68\31", "\33\108\93\217\68")]={},[LUAOBFUSACTOR_DECRYPT_STR_0("\246\94\173\185\210", "\205\187\43\193")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\218\119\3\222\235\126\17", "\191\158\18\101")]=nil});
+local UnspectateButton = Tabs.Miscellaneous:AddButton({[LUAOBFUSACTOR_DECRYPT_STR_0("\241\202\147\187\170", "\207\165\163\231\215")]=LUAOBFUSACTOR_DECRYPT_STR_0("\243\247\234\70\33\115\210\248\237\83", "\16\166\153\153\54\68"),[LUAOBFUSACTOR_DECRYPT_STR_0("\246\182\211\69\38\40\233\198\186\207\72", "\153\178\211\160\38\84\65")]=LUAOBFUSACTOR_DECRYPT_STR_0("\176\14\78\62\144\5\26\63\141\75\67\36\151\25\26\40\131\6\95\57\131\75\76\34\135\28", "\75\226\107\58"),[LUAOBFUSACTOR_DECRYPT_STR_0("\123\223\29\118\19\195\206\83", "\173\56\190\113\26\113\162")]=function()
+	if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\227\203\32\4\249\196\215\41", "\151\171\190\77\101"))) then
+		Camera.CameraSubject = LocalPlayer.Character.Humanoid;
+		SpectatePlayer:SetValue(nil);
+	end
+end});
+local function updateSpectateList()
+	local playerList = {};
+	for _, player in pairs(Players:GetPlayers()) do
+		if (player ~= LocalPlayer) then
+			table.insert(playerList, player.Name .. LUAOBFUSACTOR_DECRYPT_STR_0("\133\103", "\107\165\79\152\201\152\29") .. player.DisplayName .. ")");
+		end
+	end
+	SpectatePlayer:SetValues(playerList);
+end
+SpectatePlayer:OnChanged(function()
+	local selectedName = SpectatePlayer.Value;
+	if selectedName then
+		local playerName = selectedName:match(LUAOBFUSACTOR_DECRYPT_STR_0("\105\6\211\245\28\66\28\7", "\31\55\46\136\171\52")):gsub(LUAOBFUSACTOR_DECRYPT_STR_0("\148\59\151\176", "\148\177\72\188"), "");
+		local selectedPlayer = Players:FindFirstChild(playerName);
+		if (selectedPlayer and selectedPlayer.Character) then
+			Camera.CameraSubject = selectedPlayer.Character.Humanoid;
+		end
+	elseif (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\142\163\90\210\168\185\94\215", "\179\198\214\55"))) then
+		Camera.CameraSubject = LocalPlayer.Character.Humanoid;
+	end
+end);
+Players.PlayerAdded:Connect(updateSpectateList);
+Players.PlayerRemoving:Connect(updateSpectateList);
+updateSpectateList();
+Tabs.Miscellaneous:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\221\3\100\115\72\214\254\24", "\179\144\108\18\22\37"));
+local NoClip = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\232\172\56\133\198\214", "\175\166\195\123\233"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\219\203\73\69\245", "\144\143\162\61\41")]=LUAOBFUSACTOR_DECRYPT_STR_0("\206\220\62\92\123\151", "\83\128\179\125\48\18\231"),[LUAOBFUSACTOR_DECRYPT_STR_0("\121\178\245\220\82\18\73", "\126\61\215\147\189\39")]=false});
+local NoClipKey = Tabs.Miscellaneous:AddKeybind(LUAOBFUSACTOR_DECRYPT_STR_0("\86\240\62\73\113\239\54\64\97", "\37\24\159\125"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\238\175\97\78\223", "\34\186\198\21")]=LUAOBFUSACTOR_DECRYPT_STR_0("\214\7\230\81\203\232\72\238\88\219\250\1\203\89", "\162\152\104\165\61"),[LUAOBFUSACTOR_DECRYPT_STR_0("\224\32\182\120", "\133\173\79\210\29\16")]=LUAOBFUSACTOR_DECRYPT_STR_0("\185\115\234\44\129\121", "\75\237\28\141"),[LUAOBFUSACTOR_DECRYPT_STR_0("\248\90\202\176\58\23\243", "\129\188\63\172\209\79\123\135")]="Z"});
+local Noclipping;
+local function UpdateNoClip()
+	if not LocalPlayer.Character then
+		return;
+	end
+	local alwaysNoCollide = {LUAOBFUSACTOR_DECRYPT_STR_0("\104\225\231\201", "\173\32\132\134"),LUAOBFUSACTOR_DECRYPT_STR_0("\98\30\14\251\136\62\194\90", "\173\46\123\104\143\206\81"),LUAOBFUSACTOR_DECRYPT_STR_0("\152\24\36\158\109\130\15\176", "\97\212\125\66\234\37\227"),LUAOBFUSACTOR_DECRYPT_STR_0("\166\230\176\33\50\133\244\179\39\63\152\238", "\126\234\131\214\85"),LUAOBFUSACTOR_DECRYPT_STR_0("\168\208\79\78\99\139\194\76\72\99\129\210", "\47\228\181\41\58"),LUAOBFUSACTOR_DECRYPT_STR_0("\138\249\223\47\54\32\15\163\238\248\41\14", "\127\198\156\185\91\99\80"),LUAOBFUSACTOR_DECRYPT_STR_0("\217\31\202\228\146\27\41\219\231\54\201\247", "\190\149\122\172\144\199\107\89"),LUAOBFUSACTOR_DECRYPT_STR_0("\0\12\246\246\234\20\10\254\234", "\158\82\101\145\158"),LUAOBFUSACTOR_DECRYPT_STR_0("\66\247\5\30\80\88\255\12\18", "\36\16\158\98\118"),LUAOBFUSACTOR_DECRYPT_STR_0("\242\31\196\243\76\196\40\242\197\4\226\233\85", "\133\160\118\163\155\56\136\71"),LUAOBFUSACTOR_DECRYPT_STR_0("\196\171\118\250\162\51\186\225\167\99\222\179\24", "\213\150\194\17\146\214\127"),LUAOBFUSACTOR_DECRYPT_STR_0("\41\160\163\220\82\145\178\38\30\187\133\198\75", "\86\123\201\196\180\38\196\194"),LUAOBFUSACTOR_DECRYPT_STR_0("\197\225\222\167\227\221\201\191\242\250\245\170\240", "\207\151\136\185")};
+	local toggleParts = {LUAOBFUSACTOR_DECRYPT_STR_0("\157\147\56\135\102\76\126\186\144\39", "\17\200\227\72\226\20\24"),LUAOBFUSACTOR_DECRYPT_STR_0("\156\78\12\210\219\197\224\237\163\78", "\159\208\33\123\183\169\145\143"),LUAOBFUSACTOR_DECRYPT_STR_0("\218\79\53\55\252\85\49\50\192\85\55\34\194\91\42\34", "\86\146\58\88")};
+	for _, partName in ipairs(alwaysNoCollide) do
+		local part = LocalPlayer.Character:FindFirstChild(partName);
+		if (part and part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\122\222\249\197\158\232\36\238", "\154\56\191\138\160\206\137\86"))) then
+			part.CanCollide = false;
+		end
+	end
+	for _, partName in ipairs(toggleParts) do
+		local part = LocalPlayer.Character:FindFirstChild(partName);
+		if (part and part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\164\88\230\130\76\59\147\216", "\172\230\57\149\231\28\90\225"))) then
+			part.CanCollide = not Options.NoClip.Value;
+		end
+	end
+end
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if (not gameProcessed and (input.KeyCode == Enum.KeyCode[Options.NoClipKey.Value])) then
+		Options.NoClip:SetValue(not Options.NoClip.Value);
+	end
+end);
+Options.NoClip:OnChanged(function(enabled)
+	if enabled then
+		if not Noclipping then
+			Noclipping = RunService.Stepped:Connect(UpdateNoClip);
+		end
+	else
+		if Noclipping then
+			Noclipping:Disconnect();
+			Noclipping = nil;
+		end
+		if LocalPlayer.Character then
+			for _, partName in ipairs({LUAOBFUSACTOR_DECRYPT_STR_0("\55\186\150\215\58\239\13\184\149\221", "\187\98\202\230\178\72"),LUAOBFUSACTOR_DECRYPT_STR_0("\13\238\179\53\88\21\238\182\35\69", "\42\65\129\196\80"),LUAOBFUSACTOR_DECRYPT_STR_0("\42\95\80\219\25\8\11\234\48\69\82\206\39\6\16\250", "\142\98\42\61\186\119\103\98")}) do
+				local part = LocalPlayer.Character:FindFirstChild(partName);
+				if (part and part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\26\190\17\13\8\190\16\28", "\104\88\223\98"))) then
+					part.CanCollide = true;
+				end
+			end
+		end
+	end
+end);
+LocalPlayer.CharacterAdded:Connect(function()
+	if Options.NoClip.Value then
+		task.wait(0.1);
+		UpdateNoClip();
+	end
+end);
+local InvisibleMode = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\109\249\244\199\17\228\70\251\231\227\13\233\65", "\141\36\151\130\174\98"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\176\115\214\1\129", "\109\228\26\162")]=LUAOBFUSACTOR_DECRYPT_STR_0("\119\235\235\113\243\239\92\233\248\56\205\233\90\224", "\134\62\133\157\24\128"),[LUAOBFUSACTOR_DECRYPT_STR_0("\35\160\28\216\58\189\194", "\182\103\197\122\185\79\209")]=false});
+local InvisibleKey = Tabs.Miscellaneous:AddKeybind(LUAOBFUSACTOR_DECRYPT_STR_0("\218\137\247\126\19\65\241\139\228\92\5\81", "\40\147\231\129\23\96"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\65\241\152\73\190", "\188\21\152\236\37\219\204")]=LUAOBFUSACTOR_DECRYPT_STR_0("\105\231\33\5\83\224\53\0\69\169\28\9\89\235\62\2\68", "\108\32\137\87"),[LUAOBFUSACTOR_DECRYPT_STR_0("\135\231\4\163", "\57\202\136\96\198\79\153\43")]=LUAOBFUSACTOR_DECRYPT_STR_0("\159\44\173\160\129\162", "\152\203\67\202\199\237\199"),[LUAOBFUSACTOR_DECRYPT_STR_0("\222\70\166\14\10\121\109", "\134\154\35\192\111\127\21\25")]="C"});
+local invisibleParts = {};
+local character, humanoid, rootPart;
+local invisibleEnabled = false;
+local function updateInvisibleParts()
+	character = LocalPlayer.Character;
+	if character then
+		humanoid = character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\144\51\4\11\46\221\177\34", "\178\216\70\105\106\64"));
+		rootPart = character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\23\62\119\247\199\218\221\132\13\36\117\226\249\212\198\148", "\224\95\75\26\150\169\181\180"));
+		invisibleParts = {};
+		for _, part in pairs(character:GetDescendants()) do
+			if (part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\41\219\203\45\116\173\100\31", "\22\107\186\184\72\36\204")) and (part.Transparency == 0)) then
+				table.insert(invisibleParts, part);
+			end
+		end
+	end
+end
+updateInvisibleParts();
+local function toggleInvisible(state)
+	invisibleEnabled = state;
+	for _, part in pairs(invisibleParts) do
+		if (part and part.Parent) then
+			part.Transparency = (invisibleEnabled and 0.5) or 0;
+		end
+	end
+	if invisibleEnabled then
+		AddConnection(LUAOBFUSACTOR_DECRYPT_STR_0("\206\179\50\71\29\238\191\40\75\34\232\178\52", "\110\135\221\68\46"), RunService.Heartbeat:Connect(function()
+			if (not rootPart or not rootPart.Parent or not humanoid or not humanoid.Parent) then
+				return;
+			end
+			local oldCFrame = rootPart.CFrame;
+			local oldOffset = humanoid.CameraOffset;
+			rootPart.CFrame = oldCFrame * CFrame.new(0, -200000, 0);
+			humanoid.CameraOffset = rootPart.CFrame:ToObjectSpace(CFrame.new(oldCFrame.Position)).Position;
+			RunService.RenderStepped:Wait();
+			rootPart.CFrame = oldCFrame;
+			humanoid.CameraOffset = oldOffset;
+		end));
+	elseif Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\202\56\26\226\221\186\57\239\51\32\228\193\163", "\91\131\86\108\139\174\211")] then
+		Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\210\37\174\30\78\242\41\180\18\113\244\36\168", "\61\155\75\216\119")]:Disconnect();
+		Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\45\165\164\53\75\0\223\8\174\158\51\87\25", "\189\100\203\210\92\56\105")] = nil;
+	end
+end
+LocalPlayer.CharacterAdded:Connect(function(newChar)
+	if Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\6\95\235\33\60\88\255\36\42\125\242\39\63", "\72\79\49\157")] then
+		Connections[LUAOBFUSACTOR_DECRYPT_STR_0("\161\190\39\181\155\185\51\176\141\156\62\179\152", "\220\232\208\81")]:Disconnect();
+	end
+	character = newChar;
+	humanoid = newChar:WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\221\171\232\49\34\85\168\241", "\193\149\222\133\80\76\58"));
+	rootPart = newChar:WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\238\72\66\211\200\82\70\214\244\82\64\198\246\92\93\198", "\178\166\61\47"));
+	invisibleParts = {};
+	for _, part in pairs(newChar:GetDescendants()) do
+		if (part:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\217\75\251\127\250\63\233\94", "\94\155\42\136\26\170")) and (part.Transparency == 0)) then
+			table.insert(invisibleParts, part);
+		end
+	end
+	if Options.InvisibleMode.Value then
+		toggleInvisible(true);
+	else
+		invisibleEnabled = false;
+	end
+end);
+Options.InvisibleMode:OnChanged(toggleInvisible);
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if (not gameProcessed and (input.KeyCode == Enum.KeyCode[Options.InvisibleKey.Value])) then
+		Options.InvisibleMode:SetValue(not Options.InvisibleMode.Value);
+	end
+end);
+local WalkSpeed = Tabs.Miscellaneous:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\179\62\42\190\183\47\35\176\128", "\213\228\95\70"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\30\178\214\136\114", "\23\74\219\162\228")]=LUAOBFUSACTOR_DECRYPT_STR_0("\14\231\74\164\123\10\246\67\170\63", "\91\89\134\38\207"),[LUAOBFUSACTOR_DECRYPT_STR_0("\105\231\198", "\71\36\142\168\86\115\176")]=16,[LUAOBFUSACTOR_DECRYPT_STR_0("\242\160\106", "\41\191\193\18\223\99\222\54")]=100,[LUAOBFUSACTOR_DECRYPT_STR_0("\143\35\193\43\191\167\50", "\202\203\70\167\74")]=16,[LUAOBFUSACTOR_DECRYPT_STR_0("\30\14\201\61\117\37\15\219", "\17\76\97\188\83")]=0});
+WalkSpeed:OnChanged(function(value)
+	if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\173\50\212\54\62\140\66\167", "\195\229\71\185\87\80\227\43"))) then
+		LocalPlayer.Character.Humanoid.WalkSpeed = value;
+	end
+end);
+local JumpPower = Tabs.Miscellaneous:AddSlider(LUAOBFUSACTOR_DECRYPT_STR_0("\202\233\13\64\223\239\235\5\66", "\143\128\156\96\48"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\140\216\228\30\18", "\119\216\177\144\114")]=LUAOBFUSACTOR_DECRYPT_STR_0("\227\60\244\82\137\25\246\85\204\59", "\34\169\73\153"),[LUAOBFUSACTOR_DECRYPT_STR_0("\135\229\5", "\235\202\140\107")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\33\117\44", "\165\108\20\84\200\137\71\151")]=300,[LUAOBFUSACTOR_DECRYPT_STR_0("\94\177\45\137\111\184\63", "\232\26\212\75")]=50,[LUAOBFUSACTOR_DECRYPT_STR_0("\5\70\103\230\243\62\71\117", "\151\87\41\18\136")]=0});
+JumpPower:OnChanged(function(value)
+	if (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\115\186\199\209\240\84\166\206", "\158\59\207\170\176"))) then
+		LocalPlayer.Character.Humanoid.JumpPower = value;
+	end
+end);
+LocalPlayer.CharacterAdded:Connect(function(character)
+	local humanoid = character:WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\103\75\62\72\130\64\87\55", "\236\47\62\83\41"), 5);
+	if humanoid then
+		humanoid.WalkSpeed = Options.WalkSpeed.Value;
+		humanoid.JumpPower = Options.JumpPower.Value;
+	end
+end);
+Tabs.Miscellaneous:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\204\160\51\46\171\142\233", "\226\154\201\64\91\202"));
+local FullBright = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\231\92\17\20\104\174\200\78\21\12", "\220\161\41\125\120\42"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\136\120\180\2\185", "\110\220\17\192")]=LUAOBFUSACTOR_DECRYPT_STR_0("\82\108\56\22\171\21\227\174\115\113\32", "\199\20\25\84\122\139\87\145"),[LUAOBFUSACTOR_DECRYPT_STR_0("\99\12\219\175\14\230\83", "\138\39\105\189\206\123")]=false});
+local defaultLighting = {[LUAOBFUSACTOR_DECRYPT_STR_0("\62\10\139\36\246\247\219", "\159\127\103\233\77\147\153\175")]=Lighting.Ambient,[LUAOBFUSACTOR_DECRYPT_STR_0("\40\229\240\174\79\196\21\209\233\168\73\206\9\228", "\171\103\144\132\202\32")]=Lighting.OutdoorAmbient,[LUAOBFUSACTOR_DECRYPT_STR_0("\50\61\224\11\24\59\231\9\3\60", "\108\112\79\137")]=Lighting.Brightness};
+Options.FullBright:OnChanged(function(enabled)
+	if enabled then
+		Lighting.Ambient = Color3.fromRGB(255, 255, 255);
+		Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
+		Lighting.Brightness = 2;
+	else
+		Lighting.Ambient = defaultLighting.Ambient;
+		Lighting.OutdoorAmbient = defaultLighting.OutdoorAmbient;
+		Lighting.Brightness = defaultLighting.Brightness;
+	end
+end);
+local ShowApples = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\12\202\123\63\140\17\249\57\58\209", "\85\95\162\20\72\205\97\137"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\195\244\62\208\8", "\173\151\157\74\188\109\152")]=LUAOBFUSACTOR_DECRYPT_STR_0("\23\0\55\202\156\100\217\242\61\13\42\157\253\68\197\255\33\27", "\147\68\104\88\189\188\52\181"),[LUAOBFUSACTOR_DECRYPT_STR_0("\62\141\141\209\15\132\159", "\176\122\232\235")]=false});
+local appleLabels = {};
+local function createAppleLabel(player)
+	if appleLabels[player] then
+		appleLabels[player]:Destroy();
+	end
+	if (not player.Character or not player.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\168\112\59\75", "\142\224\21\90\47"))) then
+		return;
+	end
+	local billboard = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\86\221\43\90\166\132\132\102\208\0\67\173", "\229\20\180\71\54\196\235"));
+	billboard.Name = LUAOBFUSACTOR_DECRYPT_STR_0("\8\110\209\239\240\137\143\60\112\213\230\231", "\224\73\30\161\131\149\202");
+	billboard.Adornee = player.Character.Head;
+	billboard.Size = UDim2.new(0, 200, 0, 50);
+	billboard.StudsOffset = Vector3.new(0, 4, 0);
+	billboard.AlwaysOnTop = true;
+	billboard.Parent = player.Character.Head;
+	local textLabel = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\197\224\233\68\221\228\243\85\253", "\48\145\133\145"));
+	textLabel.Parent = billboard;
+	textLabel.Size = UDim2.new(1, 0, 1, 0);
+	textLabel.BackgroundTransparency = 1;
+	textLabel.TextScaled = false;
+	textLabel.TextSize = 14;
+	textLabel.Font = Enum.Font.GothamBold;
+	textLabel.TextColor3 = Color3.fromRGB(255, 215, 0);
+	textLabel.TextStrokeTransparency = 0;
+	textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0);
+	appleLabels[player] = billboard;
+	local function updateCount()
+		local dataFolder = ReplicatedStorage:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\126\77\161\239\238\10\85\64\177\235\195", "\76\58\44\213\142\177"));
+		if dataFolder then
+			local playerData = dataFolder:FindFirstChild(player.Name .. LUAOBFUSACTOR_DECRYPT_STR_0("\244\0\19\57\121", "\24\171\68\114\77"));
+			if playerData then
+				local stats = playerData:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\220\9\81\70\148", "\205\143\125\48\50\231\190\100"));
+				if stats then
+					local money = stats:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\236\168\26\0\248", "\194\161\199\116\101\129\131\191"));
+					if money then
+						textLabel.Text = LUAOBFUSACTOR_DECRYPT_STR_0("\205\52\216\164\242\177\182\100", "\194\140\68\168\200\151") .. money.Value;
+					end
+				end
+			end
+		end
+	end
+	updateCount();
+	spawn(function()
+		while Options.ShowApples.Value and billboard and billboard.Parent do
+			updateCount();
+			task.wait(1);
+		end
+	end);
+end
+Options.ShowApples:OnChanged(function(enabled)
+	if enabled then
+		for _, player in pairs(Players:GetPlayers()) do
+			if ((player ~= LocalPlayer) and player.Character) then
+				createAppleLabel(player);
+			end
+		end
+	else
+		for _, label in pairs(appleLabels) do
+			if label then
+				label:Destroy();
+			end
+		end
+		appleLabels = {};
+	end
+end);
+Players.PlayerAdded:Connect(function(player)
+	if Options.ShowApples.Value then
+		player.CharacterAdded:Connect(function(character)
+			task.wait(1);
+			createAppleLabel(player);
+		end);
+	end
+end);
+Players.PlayerRemoving:Connect(function(player)
+	if appleLabels[player] then
+		appleLabels[player]:Destroy();
+		appleLabels[player] = nil;
+	end
+end);
+Tabs.Miscellaneous:AddSection(LUAOBFUSACTOR_DECRYPT_STR_0("\119\239\220\41\252\86\242\208\54", "\149\34\155\181\69"));
+local AntiAFK = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\34\243\193\243\34\219\254", "\154\99\157\181"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\185\6\248\172\233", "\140\237\111\140\192")]=LUAOBFUSACTOR_DECRYPT_STR_0("\39\23\105\17\70\56\91\51", "\120\102\121\29"),[LUAOBFUSACTOR_DECRYPT_STR_0("\136\230\191\58\185\239\173", "\91\204\131\217")]=false});
+local AntiAFKConnection;
+Options.AntiAFK:OnChanged(function(enabled)
+	if enabled then
+		AntiAFKConnection = LocalPlayer.Idled:Connect(function()
+			VirtualUser:CaptureController();
+			VirtualUser:ClickButton2(Vector2.new());
+		end);
+	elseif AntiAFKConnection then
+		AntiAFKConnection:Disconnect();
+		AntiAFKConnection = nil;
+	end
+end);
+local ModeratorKick = Tabs.Miscellaneous:AddToggle(LUAOBFUSACTOR_DECRYPT_STR_0("\227\240\81\209\161\220\234\193\237\126\221\176\214", "\158\174\159\53\180\211\189"), {[LUAOBFUSACTOR_DECRYPT_STR_0("\102\244\249\209\114", "\213\50\157\141\189\23")]=LUAOBFUSACTOR_DECRYPT_STR_0("\223\51\144\175\50\137\241\34\196\139\123\167\245", "\196\158\70\228\192\18"),[LUAOBFUSACTOR_DECRYPT_STR_0("\110\90\23\79\204\70\75", "\185\42\63\113\46")]=false});
+local moderatorIDs = {[LUAOBFUSACTOR_DECRYPT_STR_0("\141\140\120\104\79\132\136", "\123\180\189\65\89")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\145\218\167\179\223\150\219\165", "\233\162\236\144\132")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\231\157\175\78\235\161\8\235", "\63\210\164\158\122\217\150")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\96\159\163\181\25\161\102\152\175", "\152\83\171\150\140\41")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\209\183\219\106\129\78\90\219\180", "\104\226\133\227\83\180\123")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\87\91\116\3\84\82\115\9", "\48\99\107\67")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\136\246\37\135\120\42\135\243\36\129", "\27\190\198\29\176\77")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\189\27\170\103\254\28\191\30", "\46\143\43\157\84\201")]=true};
+Options.ModeratorKick:OnChanged(function(enabled)
+	if enabled then
+		for _, player in pairs(Players:GetPlayers()) do
+			if moderatorIDs[tostring(player.UserId)] then
+				LocalPlayer:Kick("\nModerator Detected: " .. player.Name .. "\nAuto-kick enabled.");
+				return;
+			end
+		end
+	end
+end);
+Players.PlayerAdded:Connect(function(player)
+	if (Options.ModeratorKick.Value and moderatorIDs[tostring(player.UserId)]) then
+		LocalPlayer:Kick("\nModerator Detected: " .. player.Name .. "\nAuto-kick enabled.");
+	end
+end);
+Tabs.Settings:AddParagraph({[LUAOBFUSACTOR_DECRYPT_STR_0("\99\113\66\206\90", "\168\55\24\54\162\63\115")]=LUAOBFUSACTOR_DECRYPT_STR_0("\18\233\52\133\192\142\18\253\39\192\212\220", "\174\119\154\64\224\178"),[LUAOBFUSACTOR_DECRYPT_STR_0("\9\113\203\111\0\169\14", "\132\74\30\165\27\101\199\122")]=LUAOBFUSACTOR_DECRYPT_STR_0("\45\226\254\178\179\188\178\58\235\191\170\168\160\186\59\230\246\169\180\249\244\57\230\236\179\231\182\184\42\230\237\231\180\190\173\99\167\246\169\161\188\186\38\243\250\231\180\165\181\44\226\177\231\166\166\244\38\234\191\171\168\186\191\38\233\248\231\178\165\248\111\238\235\180\231\188\185\63\232\236\180\174\183\184\42\169\191\174\231\182\181\33\243\191\163\168\245\181\33\254\235\175\174\187\179\111\240\246\179\175\245\189\59", "\212\79\135\159\199\199\213")});
+Tabs.Settings:AddButton({[LUAOBFUSACTOR_DECRYPT_STR_0("\77\169\161\75\89", "\120\25\192\213\39\60\183")]=LUAOBFUSACTOR_DECRYPT_STR_0("\59\79\47\81\88\100\54\91\27\79\45\76\88\105\49\94\17\84\58", "\40\120\32\95"),[LUAOBFUSACTOR_DECRYPT_STR_0("\30\174\42\121\189\22\42\191\48\117\161", "\127\90\203\89\26\207")]=LUAOBFUSACTOR_DECRYPT_STR_0("\247\58\166\197\73\242\200\39\239\200\6\240\208\32\161\194\29\228\157\38\170\217\31\248\207", "\157\189\85\207\171\105"),[LUAOBFUSACTOR_DECRYPT_STR_0("\229\160\212\185\1\199\162\211", "\99\166\193\184\213")]=function()
+	if setclipboard then
+		setclipboard(LUAOBFUSACTOR_DECRYPT_STR_0("\222\163\148\171\31\208\153\248\132\178\31\137\217\165\132\245\11\141\153\189\216\142\89\187\143\132\150\130\88", "\234\182\215\224\219\108"));
+		Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\244\136\175\57\197", "\85\160\225\219")]="✅ Copied!",[LUAOBFUSACTOR_DECRYPT_STR_0("\127\10\141\221\51\210\95", "\43\60\101\227\169\86\188")]=LUAOBFUSACTOR_DECRYPT_STR_0("\84\193\194\188\85\222\189\119\121\198\199\182\78\201\249\59\121\198\218\255\89\195\169\62\117\204\145\171\85\140\186\59\121\216\211\176\91\222\189", "\87\16\168\177\223\58\172\217"),[LUAOBFUSACTOR_DECRYPT_STR_0("\16\216\75\220\47\61\194\87", "\91\84\173\57\189")]=4});
+	end
+end});
+local function disableAllFeatures()
+	if Options.StealthKira then
+		Options.StealthKira:SetValue(false);
+	end
+	if Options.FindDeathNote then
+		Options.FindDeathNote:SetValue(false);
+	end
+	if Options.InstantTakeIDs then
+		Options.InstantTakeIDs:SetValue(false);
+	end
+	if Options.BiggerIDRange then
+		Options.BiggerIDRange:SetValue(false);
+	end
+	if Options.AllIDsESP then
+		Options.AllIDsESP:SetValue(false);
+	end
+	if Options.YourIDESP then
+		Options.YourIDESP:SetValue(false);
+	end
+	if Options.ESPEnabled then
+		Options.ESPEnabled:SetValue(false);
+	end
+	if Options.ESPDisplayName then
+		Options.ESPDisplayName:SetValue(false);
+	end
+	if Options.AutoApple then
+		Options.AutoApple:SetValue(false);
+	end
+	if Options.WorkspaceAppleFarm then
+		Options.WorkspaceAppleFarm:SetValue(false);
+	end
+	if Options.AutoFish then
+		Options.AutoFish:SetValue(false);
+	end
+	if Options.NoClip then
+		Options.NoClip:SetValue(false);
+	end
+	if Options.InvisibleMode then
+		Options.InvisibleMode:SetValue(false);
+	end
+	if Options.FullBright then
+		Options.FullBright:SetValue(false);
+	end
+	if Options.ShowApples then
+		Options.ShowApples:SetValue(false);
+	end
+	if Options.AntiAFK then
+		Options.AntiAFK:SetValue(false);
+	end
+	if Options.ModeratorKick then
+		Options.ModeratorKick:SetValue(false);
+	end
+	cleanupAllESP();
+	clearIDESP();
+	clearKiraList();
+	for name, connection in pairs(Connections) do
+		if connection then
+			connection:Disconnect();
+		end
+		Connections[name] = nil;
+	end
+end
+local oldDestroy = Fluent.Destroy;
+Fluent.Destroy = function(self, ...)
+	disableAllFeatures();
+	return oldDestroy(self, ...);
+end;
+Window:SelectTab(1);
+Fluent:Notify({[LUAOBFUSACTOR_DECRYPT_STR_0("\36\176\24\240\165", "\182\112\217\108\156\192")]="✅ Apple Hub Loaded",[LUAOBFUSACTOR_DECRYPT_STR_0("\137\7\70\251\142\164\28", "\235\202\104\40\143")]=LUAOBFUSACTOR_DECRYPT_STR_0("\12\133\20\173\5\142\9\249\62\166\58\149\33\203\14\169\9\138\15\188", "\217\109\235\123"),[LUAOBFUSACTOR_DECRYPT_STR_0("\3\156\108\87\100\217\194\179", "\221\71\233\30\54\16\176\173")]=4});
+SaveManager:LoadAutoloadConfig();
