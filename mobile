@@ -1,5 +1,3 @@
--- Modified mobile version with instant kill and PC-like whitelist system
-
 local whitelistedUsers = {}
 pcall(function()
     local response = game:HttpGet("https://raw.githubusercontent.com/mitullobruh/apple/refs/heads/main/IDs")
